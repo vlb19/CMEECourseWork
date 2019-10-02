@@ -33,3 +33,39 @@ touch temporary.tmp
 git add * #shows temporary.tmp is ignored
 git status
 
+#do not upload files larger than 100mb
+find . -size +100M | cat >> .gitignore #ignore files larger than 100mb
+
+du -sh .git #see size of repository
+git count-objects -vH #count number of items in repository
+
+#Removing files
+echo "Text in a file to remove" > FileToRem.txt
+git add FileToRem.txt
+git commit -am "added a new file that we'll remove later"
+git rm FileToRem.txt
+git commit -am "removed the file"
+
+git log #see log of activities 
+
+git reset --hard
+git commit -am "returned to previous state" 
+
+git status
+git log
+git checkout 95f7d0 #checkout version number (# = first 6 characters)
+#need to make a new branch with this version to continue working on it
+git checkout master #creates new branch called master 
+git branch anexperiment
+git branch #shows branch pathway
+git checkout anexperiment #switch to branch "anexperiment"
+git branch
+echo "Do I like this better?" >> README.txt
+git commit -am "Testing experimental branch"
+git checkout master
+git merge anexperiment #merge the two branches
+cat README.txt 
+git branch -D anexperiment #delete a branch 
+
+#Running git commands on multiple repositories at once 
+find. -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;
