@@ -1,0 +1,54 @@
+Week one directory contents 
+    commands
+    readme.txt
+    ShellScripts
+code
+    boilerplate.sh 
+    CMEE_Fungus.jpg
+    CMEE_Fungus.tiff
+    ConatenateTwoFiles.sh
+    CountLines.sh
+    File1.txt
+    File2.txt
+    File3.txt
+    MyExampleScript.sh
+    tabtocsv.sh
+    tiff2png.sh
+    variables.sh
+Data 
+    TestFind
+        code
+        Dir1
+            Dir11
+                Dir111
+                    File111.txt
+            File1.csv
+            File1.txt
+            File2.csv
+            File2.txt
+        Dir2
+            File2.csv
+            File2.txt
+            File2.tex
+        Dir3
+            File3.txt
+    spawannxs.txt
+sandbox
+    Sandbox
+        ListRootDir.txt
+        test.txt
+    TextWild
+        Anotherfile.csv
+        Anotherfile.txt
+        File1.csv
+        File1.txt
+        File2.csv
+        File2.txt
+        File3.csv
+        File3.txt 
+        File4.csv
+        File4.txt 
+        spawannxs.txt 
+    spawannxs.txt
+    test.txt
+    test.txt.csv

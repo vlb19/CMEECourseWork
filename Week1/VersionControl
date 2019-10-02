@@ -1,0 +1,11 @@
+#Version Control 
+
+#install and configure git 
+sudo apt-get install git
+git config --global user.name "Victoria Blanchard"
+git config --globl user.email "vlb19@imperial.ac.uk"
+git config --list
+
+#hidden stuff is shown by a dot (.) you can see this using ls -a (show all)
+
+git init #initialise a new repository
