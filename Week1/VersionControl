@@ -3,9 +3,33 @@
 #install and configure git 
 sudo apt-get install git
 git config --global user.name "Victoria Blanchard"
-git config --globl user.email "vlb19@imperial.ac.uk"
+git config --global user.email "vlb19@imperial.ac.uk"
 git config --list
 
 #hidden stuff is shown by a dot (.) you can see this using ls -a (show all)
 
-git init #initialise a new repository
+cd CMEECourseWork
+git init #create a new Git repository 
+echo "My CMEE Coursework Repository" > README.txt
+git config --list #list the configuration of the git repository
+ls -al #list all contents of coursework folder
+git add README.txt #Add README.txt to Git repository
+git status  #what have you done so far in your repository, changes that need committing
+git commit -m "Added README file" #commit this file
+git status
+git add -A #add everything in folder to git repository 
+git status
+git commit -m "Added everything in my Week1 folder to repository" 
+
+git remote add origin git@github.com:vlb19/CMEECourseWork.git #add to my own account
+git remote -
+git push origin master #push to the remote git repository 
+
+#Ignoring Files
+echo -e "*~ \n*.tmp" > .gitignore  #ignore a particular file when adding and pushing
+cat .gitignore #show ignored files
+git add .gitignore
+touch temporary.tmp 
+git add * #shows temporary.tmp is ignored
+git status
+
