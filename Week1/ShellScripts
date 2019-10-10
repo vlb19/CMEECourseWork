@@ -1,0 +1,47 @@
+touch boilerplate.sh
+code boilerplate.sh
+
+bash boilerplate.sh
+
+echo "Remove      excess      spaces." | tr -s "\b" " " #remove excess spaces
+echo "remove all the as" | tr -d "a" #remove all the as
+echo "set to uppercase" | tr [:lower:] [:upper:]
+echo "10.00 only numbers 1.33" | tr -d [:alpha:] | tr -s " " "," #10.00, 1.33
+
+touch tabtocsv.sh
+code tabtocsv.sh
+
+echo -e "test \t\t test" >> ../sandbox/test.txt
+bash tabtocsv.sh ../sandbox/test.txt
+
+-s # remove repeat occurences of characters
+
+#Variables in shell scripts
+#Explicit declaration of variables: MYVAR=myvalue
+#Reading from the user: read MYVAR
+#Command substitution: MYVAR=\$( (ls | wc -l))
+
+cd code
+touch variables.sh
+code variables.sh
+
+touch MyExampleScript.sh
+code MyExampleScript.sh
+
+touch CountLines.sh
+code CountLines.sh
+bash CountLines.sh ../data/spawannxs.txt
+
+touch ConcatenateTwoFiles.sh
+code ConcatenateTwoFiles.sh
+touch File1.txt
+code File1.txt
+touch File2.txt
+code File3.txt
+touch File3.txt
+bash ConcatenateTwoFiles.sh File1.txt File2.txt File3.txt 
+
+touch tiff2png.sh
+code tiff2png.sh
+bash tiff2png.sh CMEE_Fungus.jpg
+
