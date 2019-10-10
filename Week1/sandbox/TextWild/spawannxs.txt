@@ -1,4 +1,0 @@
-wget http://www.raw.githubusercontent.com/mhasoba/TheMulQuaBio/master/data/spawannxs.txt
-head -n 50 spawannxs.txt
-
-
