@@ -1,0 +1,15 @@
+#1 Count how many lines are in each file 
+
+#wc -l ../data/fasta/*.fasta #counts the number of lines in all fasta files in the data folder
+
+
+#2 Print everything starting from the second line for the E. coli genome 
+
+sed 1d ../data/fasta/E.coli.fasta #sed 1d removes the first line of the file
+
+
+#3 Count the matches of ATGC in the genome of E. coli
+sed '1d' ../data/fasta/E.coli.fasta > tmpfile; mv tmpfile ../Data/E.coli.fasta | grep -o "ATGC" ../Data/E.coli.fasta | wc -l #places all instances of ATGC on separate lines in a temporary file then counts the number of lines
+
+#4 Compute the AT/GC ratio (A+T)/(C+G)
+a=`grep 'A\|T' -o ../data/fasta/E.coli.fasta | wc -l` && b=`grep 'G\|C' -o ../Data/E.coli.fasta | wc -l` && echo "scale=3;$a/$b"|bc
