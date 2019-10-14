@@ -1,0 +1,15 @@
+touch FirstExample.tex
+code FirstExample.tex
+
+touch FirstBiblio.bib 
+code FirstBiblio.bib
+
+pdflatex FirstExample.tex
+bibtex FirstExample
+pdflatex FirstExample.tex
+
+touch CompileLaTeX.sh
+code CompileLaTeX.sh
+
+bash CompileLaTeX.sh FirstExample
+
