@@ -1,7 +1,7 @@
 import csv
 import sys
 import doctest
-import pdb
+import re
 
 #Define function
 def is_an_oak(name):
@@ -18,14 +18,19 @@ def is_an_oak(name):
     True
 
     """
-    checkoak = re.findall(r'<p>(.*?)</p>',name)
-    return 
+    if re.match(r'\bquercus\b', name, re.IGNORECASE):
+        return True
+    else:
+        return False
 
 
 def main(argv): 
     f = open('../data/TestOaksData.csv','r')
-    g = open('../data/JustOaksData.csv','w')
-    taxa = csv.reader(f)
+    line1 = f.readline()
+    lines = f.readlines()[0:]
+    g = open('../results/JustOaksData.csv','w')
+    g.write(line1)
+    taxa = csv.reader(lines)
     csvwrite = csv.writer(g)
     oaks = set()
     for row in taxa:
@@ -35,9 +40,9 @@ def main(argv):
         if is_an_oak(row[0]):
             print('FOUND AN OAK!\n')
             csvwrite.writerow([row[0], row[1]])    
-    
     return 0
-    
+
+
 if (__name__ == "__main__"):
     status = main(sys.argv)
     doctest.testmod()

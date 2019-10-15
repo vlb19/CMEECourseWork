@@ -1,3 +1,7 @@
+#TODO
+#Add program information 
+
+
 # Two example sequences to match
 
 exec(open("../data/sequences.csv").read(),globals())
