@@ -18,12 +18,7 @@ def is_an_oak(name):
     True
 
     """
-    if 'quercus' in name.lower():
-            return True
-    elif 'qrcs' in name.lower() and len(name)>6:
-            return True
-    else:
-            return False
+    checkoak = re.findall(r'<p>(.*?)</p>',name)
     return 
 
 
