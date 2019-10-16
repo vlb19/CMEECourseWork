@@ -10,14 +10,15 @@ __version__ = '0.0.1'
 
 import sys #module to interface our program with the operating system
 
-print("Please input a value between 1 and 10 for x:")
-x = int(input())
-print("Please input a value between 1 and 10 for y:")
-y = int(input())
-print("Please input a multiple of three between 1 and 10 for z:")
-z = int(input())
+if len(sys.argv) > 1:
+    x = int(sys.argv[1])
+    y = int(sys.argv[2])
+    z = int(sys.argv[3])
+else:
+    x = 3
+    y = 10
+    z = 6
 
-print("x = ",x,", y = ",y,", z = ",z)
 
 def say_hello(x,y):
     for i in range(x,y):

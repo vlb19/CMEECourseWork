@@ -1,13 +1,10 @@
 # Week 1 readme file 
 
-## Week 1 covered:
-* UNIX directory structures
-* Installing and removing software 
-* Basic UNIX commands 
-* Building the coursework directory
-* Command arguments, pipes, and wildcards
-* Using grep
-* Finding files
+## Directories 
+* code
+* data
+* results
+* sandbox
 
 ### Code Folder 
 

@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+
+"""Description of this program or application.
+    You can use several lines"""
+
+__appname__ = '[application name here]'
+__author__ = 'Your Name (your@email.address)'
+__version__ = '0.0.1'
+__license__ = "License for this code/program"
+
+#Imports
+
 import csv
 import sys
 import doctest

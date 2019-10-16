@@ -3,3 +3,4 @@
 *.bbl
 *.blg
 *.pdf
+__pycache__

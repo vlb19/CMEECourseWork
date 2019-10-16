@@ -40,6 +40,7 @@ for taxas, order in taxa: #identifies the first column as taxa and the second co
     #as order
     taxa_dic[order].append(taxas) #appends taxa values to the corresponding order key
 """
+
 print ("Dictionary of order names and taxa") #tells the user what is happening
 print (taxa_dic) #prints the new dictionary
  
