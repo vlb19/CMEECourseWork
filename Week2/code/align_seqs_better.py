@@ -1,27 +1,37 @@
-# Two example sequences to match
+#!/usr/bin/env python3
+
+"""Description of this program or application.
+    You can use several lines"""
+
+__appname__ = 'align_seqs_better.py'
+__author__ = 'Viki Blanchard (vlb19@ic.ac.uk)'
+__version__ = '0.0.1'
+
+#Imports
 
 import os
 import sys
 import pickle
 
-path = "../data/fasta"
-os.chdir(path)
+path = "../data/fasta" # sets the path to the desired directory
+os.chdir(path) # sets the directory to the path
 
-def parse_fasta(fastafile):
+def parse_fasta(fastafile): # converts any fasta file to a single
+    #string with the header removed
     fastastr = ""
     header = True
     with open(fastafile, "r") as f:
         for row in f:
             if header:
-                header = False
+                header = False #skips first line
             else:
-                fastastr += row.strip("\n")
+                fastastr += row.strip("\n") #strips all new lines
     return fastastr
 
-if len(sys.argv) > 1:
+if len(sys.argv) > 1: #if there are user arguments use them
     seq1 = parse_fasta(sys.argv[1])
     seq2 = parse_fasta(sys.argv[2])
-else: 
+else: #otherwise use the set files
     seq1 = parse_fasta("407228412.fasta")
     seq2 = parse_fasta("407228326.fasta")
 
@@ -60,33 +70,31 @@ def calculate_score(s1, s2, l1, l2, startpoint):
 
 # now try to find the best match (highest score) for the two sequences
 my_best_align = None
-my_best_score = -1
-best_align = []
+my_best_score = {} # Create new empty dictionary for best scores
+
 
 for i in range(l1): # Note that you just take the last alignment with the highest score
     z = calculate_score(s1, s2, l1, l2, i)
-    if z > my_best_score:
-        my_best_align = "." * i + s2 # think about what this is doing!
-        my_best_score = z 
-        closest_align[z:my_best_align:s1]
+    my_best_align = "." * i + s2 # add i number of "." before adding
+    #the sequence which is aligning sequence 2 to seq1 
+    if z in my_best_score.keys(): 
+        my_best_score[z].append(my_best_align) #append aligments to 
+        #dictionary by score
+    else:
+        my_best_score[z] = [my_best_align]
 
-print(closest_align)
+vals = max(my_best_score.keys()) #store the higest score to vals variable
 
+path = "../../code" #set path to original directory
+os.chdir(path) #change to original directory
+
+f = open('../results/best_fasta_alignments.txt','w+') #open new file in 
+#results
+f.write ("Best Alignment: "+"\n") #heading for document 
+for x in my_best_score[vals]:
+    f.write(x) # Write every alignment with the best score 
+f.write ("\n" + seq2 + "\n") # Write the sequence seq1 is aligned to
+f.write ("Best Score: " + "\n" + str(vals)) #write in the best score value
+f.close()
 
 print("Sequences aligned!")
-
-path = "../../code"
-os.chdir(path)
-
-f = open('../results/best_fasta_alignment.txt',"w+")
-my_best_score = str(my_best_score)
-f.write ("Best Alignment: ")
-f.write ("\n")
-f.write (my_best_align)
-f.write ("\n")
-f.write (seq2)
-f.write ("\n")
-f.write ("Best Score: ")
-f.write ("\n")
-f.write (my_best_score)
-f.close()
