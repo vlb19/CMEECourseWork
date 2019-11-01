@@ -11,6 +11,8 @@ p <- ggplot(PPData, aes(x = log(Predator.mass),
 
 
 
-
+pdf("../results/PP_Regress_Results.pdf")
 qplot(x= log(Prey.mass), y = log(Predator.mass), facets = Type.of.feeding.interaction ~., data = PPData, 
       colour = Predator.lifestage, shape = I(3)) + geom_smooth(method = "lm",fullrange = TRUE)
+dev.off()
+

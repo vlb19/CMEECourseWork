@@ -1,3 +1,4 @@
+## Sums all elements of a matrix 
 M <- matrix(runif(1000000),1000,1000)
 
 SumAllElements <- function(M){
