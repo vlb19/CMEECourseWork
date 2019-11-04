@@ -16,7 +16,6 @@
 import math
 import sys
 import csv
-import pandas as pd
 
 
 ####################################################
@@ -44,15 +43,13 @@ csvread = csv.reader(f)
 g = open('../results/treeheightspython.csv','w')
 csvwrite = csv.writer(g)
 
-header = True
-for row in csvread:
-    print(row[1])
+
+for row in f:
+
     """"
-    if header == True:
-        header = False
-    else:
-        Height = Treeheight(row[1], row[2])
-        print(Height)
+
+    Height = Treeheight(row[1], row[2])
+    print(Height)
 
 f.close()
 g.close()
