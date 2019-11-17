@@ -16,7 +16,7 @@
 import math
 import sys
 import csv
-
+import scipy as sc
 
 ####################################################
 # Define functions
@@ -43,8 +43,16 @@ csvread = csv.reader(f)
 g = open('../results/treeheightspython.csv','w')
 csvwrite = csv.writer(g)
 
+import csv
+with open ("../data/trees.csv") as treeheights: 
+    data = csv.reader(treeheights)
+    reader = csv.reader(f)
+    headers = next(reader, None)
 
-for row in f:
+print(data)
+
+for x in reader: 
+    print (x[1])
 
     """"
 
