@@ -22,7 +22,7 @@ text = text.decode('ascii', 'ignore') # Now decode back to string
 # are multiple ways to skin this cat! Your solution could involve multiple
 # regular expression calls (slightly easier!), or a single one (slightly harder!)
 
-Kingdom = re.findall(r'Kingdom\s+\w+', text)
+Kingdom = re.findall(r'Kingdom\s+\w+', text) #Find
 Phylum = re.findall(r'Phylum\s+\w+', text)
 Species = re.findall(r'Species\s+\w+', text)
 

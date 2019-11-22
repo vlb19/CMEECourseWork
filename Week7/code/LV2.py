@@ -54,7 +54,7 @@ infodict['message']
 
 #### Plotting Figures
 
-fig, (ax1, ax2) = p.subplots(1,2)
+fig, (ax1, ax2) = p.subplots(1,2) # creating two 
 
 ax1.plot(t, pops[:,0], 'g-', label='Resource density') 
 ax1.plot(t, pops[:,1], 'b-', label='Consumer density')
@@ -72,8 +72,5 @@ parameterlabels = '\n'.join((labelr,labela,labelz,labele))
 boxproperties = dict(boxstyle='round', facecolor='white', alpha=0.5)
 ax2.text(0.1, 0.95, parameterlabels, transform=ax2.transAxes, fontsize=9, verticalalignment='top', bbox=boxproperties)
 fig.suptitle('Consumer-Resource population dynamics')
-fig.savefig('../results/LV_model.pdf') #Save figure to results folder
+fig.savefig('../results/LV2_model.pdf') #Save figure to results folder
 
-f2 = p.figure()
-
-f2.savefig('../results/LV_model2.pdf')
