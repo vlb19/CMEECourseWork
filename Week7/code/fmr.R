@@ -1,4 +1,4 @@
-#! /usr/bin/Rscript
+#!/usr/bin/env Rscript
 
 # Plots log(field metabolic rate) against log(body mass) for the Nagy et al 
 # 1999 dataset to a file fmr.pdf.
@@ -20,4 +20,4 @@ for(class in unique(nagy$Class)){ #for each different class in the nagy class co
 }
 dev.off() # closes the pdf
 
-cat("Finished in R!\n") # print "Finished in R!" and a new line
+cat("Finished in R!\n Graph saved in results folder \n") 
