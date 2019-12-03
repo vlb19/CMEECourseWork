@@ -3,6 +3,12 @@
 import networkx as nx
 import scipy as sc
 import matplotlib.pylab as p
+import csv
+import pandas
+
+### Import csv files 
+edges = pandas.read_csv('../data/QMEE_Net_Mat_edges.csv', header =0)
+nodes = pandas.read_csv('../data/QMEE_Net_Mat_nodes.csv', header =0)
 
 ### Generate a synthetic food web
 def GenRdmAdjList(N = 2, C = 0.5):
@@ -12,7 +18,7 @@ def GenRdmAdjList(N = 2, C = 0.5):
     ALst = []
     for i in Ids:
         if sc.random.uniform(0,1,1) < C:
-            Lnk = sc.random.choice(Ids,2).tolist()
+             sLnk =c.random.choice(Ids,2).tolist()
             if Lnk[0] != Lnk[1]: #avoid self (e.g., cannibalistic) loops
                 ALst.append(Lnk)
     return ALst
@@ -50,6 +56,7 @@ G = nx.Graph()
 G.add_nodes_from(Sps)
 G.add_edges_from(tuple(AdjL))
 
+tuple(AdjL)
 # Generate node sizes that are proportional to (log) body sizes
 NodSizs= 1000 * (Sizs-min(Sizs))/(max(Sizs)-min(Sizs)) 
 

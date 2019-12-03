@@ -38,6 +38,8 @@ else:
     K = 35
 
 
+
+
 #define time vector integrating from time point 0 to 15 using 1000 sub-divisions of time
 t = sc.linspace(0, 30, 1000)
 

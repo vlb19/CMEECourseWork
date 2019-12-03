@@ -8,5 +8,14 @@
 echo "Creating .csv file with calculated tree heights"
 args <- commandArgs()
 print(args)
-echo "Done!"
+
+echo "Running R script!"
+Rscript get_TreeHeight.R trees
+echo "Done! Results saved in trees.csv"
+
+echo "Running python script!"
+python3 get_TreeHeight.py
+echo "Done! Results saved in pythontrees.csv"
+
+echo "Check results folder"
 exit

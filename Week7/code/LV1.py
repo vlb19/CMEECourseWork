@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 ### Plotting in Python
 ### Numerical integration using scipy
 ## The Lotka-Volterra model

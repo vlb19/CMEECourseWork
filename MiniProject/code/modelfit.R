@@ -1,6 +1,7 @@
 rm(list=ls()) #Clear global environment
 #Set working directory
 #setwd("CMEECourseWork/MiniProject/code")
+## Required packages
 require("minpack.lm")
 
 data <- read.csv('../data/FunResData.csv')
@@ -17,7 +18,8 @@ powMod <- function(a, h, x) { #These are parameters
 
 #This is basically cutting the last points of the graph off
 # Because a needs to fit to just the slope
-a.line <- subset(Data2Fit, ResDensity <= mean(ResDensity))
+h <- max(Data2Fit$N_TraitValue)
+a.line <- subset(Data2Fit, N_TraitValue < h)
 plot(a.line$ResDensity, a.line$N_TraitValue)
 #plot slope/ linear regressopn of cut slope
 lm <- summary(lm(N_TraitValue ~ ResDensity, a.line))
@@ -26,7 +28,7 @@ lm <- summary(lm(N_TraitValue ~ ResDensity, a.line))
 a <- lm$coefficients[2]
 # h parameter is the maximum of the slope so you take the biggest value
 #Not sure this is the best way?
-h <- max(Data2Fit$N_TraitValue)#This is fitting the actual model in the function
+h <- max(Data2Fit$N_TraitValue)
 
 # This was based on the example but values substituted
 PowFit <- nlsLM(N_TraitValue ~ powMod(ResDensity, a, h), data = Data2Fit, start = list(a=a, h=h))# optimising a and h values
