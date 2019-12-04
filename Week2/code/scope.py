@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: sysargv.py
+# Date: 3 December 2019
+
+# Desc: 
+# Demonstrate global and local variables
+
+# OUTPUT
+# Prints global and local variables
+
 #Code block 1
 
 _a_global = 10 # a global variable

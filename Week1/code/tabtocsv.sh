@@ -7,6 +7,6 @@
 # Date: 1 October 2019 
 
 echo "Creating a comma delimited version of $1 ..."
-cat $1 | tr -s "\t" "," >> $1.csv
+cat $1 | tr -s "\t" "," >> $1.csv 
 echo "Done!"
 exit 

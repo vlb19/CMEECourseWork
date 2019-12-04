@@ -1,8 +1,22 @@
 #!/usr/bin/env python3
 
-### Plotting in Python
-### Numerical integration using scipy
-## The Lotka-Volterra model
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: LV1.py
+# Date: 3 December 2019
+
+# Desc: 
+# Plotting in Python
+# Numerical integration using scipy
+# The Lotka-Volterra model
+
+# ARGUMENTS
+# 
+
+# OUTPUT
+# Saves one figure with side-by-side plots of 
+# Consumer-Resource population dynamics
+
+### Imports
 
 import scipy as sc
 import scipy.linalg

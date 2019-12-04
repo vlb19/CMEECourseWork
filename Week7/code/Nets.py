@@ -5,16 +5,15 @@
 # Date: 25 October 2019
 
 # Desc: 
-# This function calculates heights of trees given distance of each tree 
-# from its base and angle to its top, using  the trigonometric formula 
-# height = distance * tan(radians)
+# This program creates a network model of interactions between 
+# university-affiliated institutions
 
 # ARGUMENTS
 # degrees:   The angle of elevation of tree
 # distance:  The distance from base of tree (e.g., meters)
 
 # OUTPUT
-# The heights of the tree, same units as "distance"
+# Network model figure in results folder
 
 
 ### Imports
@@ -31,8 +30,10 @@ links = pandas.read_csv('../data/QMEE_Net_Mat_edges.csv', header =0)
 nodes = pandas.read_csv('../data/QMEE_Net_Mat_nodes.csv', header =0)
 
 ### Generate an adjacency list representing a food web
-#links = links.rename(columns= {"ICL":0,"UoR":1,"CEH":2,"ZSL":3,"CEFAS":4,"NonAc":4})
+
+#create indicies for each row in the links data frame
 links.index = ["ICL", "UoR", "CEH", "ZSL", "CEFAS", "NonAc"]
+#stack the data frame into three columns
 links = links.stack().reset_index()
 links = links[(links != 0).all(1)]
 AdjL = sc.array(links)

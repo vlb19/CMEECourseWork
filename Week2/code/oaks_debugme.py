@@ -1,14 +1,20 @@
 #!/usr/bin/env python3
 
-"""Description of this program or application.
-    You can use several lines"""
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: oaks_debugme.py
+# Date: 3 December 2019
 
-__appname__ = '[application name here]'
-__author__ = 'Your Name (your@email.address)'
-__version__ = '0.0.1'
-__license__ = "License for this code/program"
+# Desc: 
+# Checks whether items in a dictionary are oaks 
 
-#Imports
+# ARGUMENTS
+# Requires csv file
+
+# OUTPUT
+# Prints "Found an Oak", writes a csv file containing
+# only oaks
+
+### Imports ###
 
 import csv
 import sys
@@ -30,6 +36,7 @@ def is_an_oak(name):
     True
 
     """
+    # match "quercus" with the input name
     if re.match(r'\bquercus\b', name, re.IGNORECASE):
         return True
     else:
@@ -37,14 +44,19 @@ def is_an_oak(name):
 
 
 def main(argv): 
+    # open data
     f = open('../data/TestOaksData.csv','r')
     line1 = f.readline()
     lines = f.readlines()[0:]
+
+    # open output document
     g = open('../results/JustOaksData.csv','w')
     g.write(line1)
     taxa = csv.reader(lines)
     csvwrite = csv.writer(g)
     oaks = set()
+
+    # test whether each row in taxa contains an oak
     for row in taxa:
         print(row)
         print ("The genus is: ") 
@@ -52,6 +64,7 @@ def main(argv):
         if is_an_oak(row[0]):
             print('FOUND AN OAK!\n')
             csvwrite.writerow([row[0], row[1]])    
+
     return 0
 
 

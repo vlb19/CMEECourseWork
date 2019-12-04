@@ -1,12 +1,21 @@
 #!/usr/bin/env python3
 
-"""Some functions exemplifying the use of control statements"""
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: tuple.py
+# Date: 3 December 2019
 
-__author__ = 'Your Name (Your.Name@your.email.address)'
-__version__ = '0.0.1'
+# Desc: 
+# Use some functions to exemplify the use of control statements
+
+# OUTPUT
+# Runs doctests within scripts
+
+### Imports ###
 
 import sys
 import doctest # Import the doctest module
+
+### Function definitions ###
 
 def even_or_odd(x=0):
     """Find whether a number x is even or odd.
@@ -31,7 +40,7 @@ def even_or_odd(x=0):
         return "%d is Even!" % x
     return "%d is Odd!" % x
 
-####### I SUPPRESSED THIS BLOCK: WHY? #######
+####### SUPPRESSED BLOCK #######
 
 # def main(argv): 
 #     print even_or_odd(22)

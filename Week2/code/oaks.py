@@ -1,3 +1,16 @@
+#!/usr/bin/env python3
+
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: oaks.py
+# Date: 3 December 2019
+
+# Desc: 
+# Checks whether items in a dictionary are oaks 
+
+# OUTPUT
+# Prints "Found an Oak", writes a csv file containing
+# only oaks
+
 ## Finds just those taxa that are oak trees from a list of species
 
 taxa = [ 'Quercus robur',
