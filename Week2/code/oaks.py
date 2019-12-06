@@ -4,8 +4,7 @@
 # Script: oaks.py
 # Date: 3 December 2019
 
-# Desc: 
-# Checks whether items in a dictionary are oaks 
+""" Checks whether items in a dictionary are oaks """
 
 # OUTPUT
 # Prints "Found an Oak", writes a csv file containing

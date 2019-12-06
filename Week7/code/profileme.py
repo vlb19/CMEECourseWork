@@ -1,4 +1,11 @@
-#
+#!/usr/bin/env python3
+
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: profileme.py
+# Date: 25 November 2019
+
+""" Create a script to use in profiling. 
+Tutorial on profiling in python """
 
 def my_squares(iters):
     out = []

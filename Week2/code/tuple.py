@@ -4,9 +4,8 @@
 # Script: tuple.py
 # Date: 3 December 2019
 
-# Desc: 
-# Birds is a tuple of tuples of length three: latin name, common name, mass.
-# A script to print these on a separate line or output block by species 
+""" Birds is a tuple of tuples of length three: latin name, common name, mass.
+This is a script to print these on a separate line or output block by species """
 
 # OUTPUT
 # Prints latin name, common name, and mass of each individual within the 

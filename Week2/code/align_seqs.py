@@ -1,5 +1,5 @@
-#TODO
-#Add program information 
+#! usr/bin/python3
+'''align two DNA sequences'''
 
 
 # Two example sequences to match

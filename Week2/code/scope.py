@@ -4,8 +4,7 @@
 # Script: sysargv.py
 # Date: 3 December 2019
 
-# Desc: 
-# Demonstrate global and local variables
+""" Demonstrate global and local variables """
 
 # OUTPUT
 # Prints global and local variables

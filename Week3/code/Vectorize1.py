@@ -1,8 +1,18 @@
-## Sum all the elements of a matrix
+#!/usr/bin/env python3
 
+""" Tutorial on vectorizing for 
+summin all the elements of a matrix""" 
+
+__appname__ = '[Vectorize1.py]'
+__author__ = 'Victoria Blanchard (vlb19@ic.ac.uk)'
+__version__ = '0.0.1'
+__license__ = "License for this code/program"
+
+### Imports
 import numpy as np
 import time
 
+### Script
 M = np.random.uniform(1000000, size=(1000,1000)) #create a matrix of 1000000 random uniform numbers with 1000 columns and 1000 rows
 
 #Define function to sum all elements

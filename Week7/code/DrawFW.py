@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+
+""" Create a network plot using data from imported CSV """
+
+__appname__ = '[DrawFW.py]'
+__author__ = 'Victoria Blanchard (vlb19@ic.ac.uk)'
+__version__ = '0.0.1'
+__license__ = "License for this code/program"
 
 ### Imports
 import networkx as nx

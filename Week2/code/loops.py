@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+
+""" Learning how to use for and while loops in python"""
+
 # FOR loops in Python
 for i in range(5):
     print(i)

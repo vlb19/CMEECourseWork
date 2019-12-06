@@ -4,8 +4,7 @@
 # Script: oaks_debugme.py
 # Date: 3 December 2019
 
-# Desc: 
-# Checks whether items in a dictionary are oaks 
+""" Checks whether items in a dictionary are oaks """
 
 # ARGUMENTS
 # Requires csv file

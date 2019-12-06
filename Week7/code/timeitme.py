@@ -1,5 +1,11 @@
+#!/usr/bin/env python3
+
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: timeitme.py
+# Date: 25 November 2019
+
 ##############################################################################
-# loops vs. list comprehensions: which is faster?
+""" loops vs. list comprehensions: which is faster? """
 ##############################################################################
 
 iters = 1000000

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
-"""Description of this program or application.
-    You can use several lines"""
+
+"""Align two user inputted DNA sequences 
+and save the best alignments to a csv file"""
 
 __appname__ = 'align_seqs_better.py'
 __author__ = 'Viki Blanchard (vlb19@ic.ac.uk)'

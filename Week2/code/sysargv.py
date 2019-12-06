@@ -4,8 +4,7 @@
 # Script: sysargv.py
 # Date: 3 December 2019
 
-# Desc: 
-# Demonstrate system arguments
+""" Demonstrate system arguments """
 
 # ARGUMENTS
 # system argument required

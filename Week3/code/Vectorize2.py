@@ -1,7 +1,14 @@
-# Runs the stochastic Ricker equation with gaussian fluctuations
+#!/usr/bin/env python3
+
+""" Runs the stochastic Ricker equation with gaussian fluctuations """
+
+__appname__ = '[Vectorize2.py]'
+__author__ = 'Victoria Blanchard (vlb19@ic.ac.uk)'
+__version__ = '0.0.1'
+__license__ = "License for this code/program"
 
 #####################################################
-# imports
+# Imports
 #####################################################
 
 import numpy as np

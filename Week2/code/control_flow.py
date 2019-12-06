@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 
-"""Description of this program or application. 
-    You can use several lines """ 
+""" Create a lot of functions with the abilty to 
+call them from other programs """ 
 
 __appname__ = '[boilerplate.py]'
 __author__ = 'Victoria Blanchard (vlb19@ic.ac.uk)'
 __version__ = '0.0.1'
 __license__ = "License for this code/program"
 
-## imports ##
+### Imports
 
 import sys #module to interface our program with the operating system 
 
+### Functions
 def even_or_odd(x=0): #if not specified, x should take value 0. 
 
     """Find whether a number x is even or odd."""
@@ -52,9 +53,6 @@ def find_all_primes(x=22):
     print("There are %d primes between 2 and %d" % (len(allprimes), x))
     return allprimes
 
-## constants ##
-
-## functions ## 
 def main(argv):
     """Main entry point of the program """
     print(even_or_odd(22))
@@ -66,9 +64,11 @@ def main(argv):
     print(find_all_primes(100))
     return 0
 
+
+# Makes program able to run from the command line and allows 
+# functions to be called from within script in different programs
 if __name__ == "__main__":
     """Makes sure the "main" function is called from command line"""
     status = main(sys.argv)
     sys.exit(status)
 
-#What is main(argv)?

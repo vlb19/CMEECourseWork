@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 
+""" Print Kingdom, Phylum, and Species from a CSV"""
+
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: blackbirds.py
+# Date: 25 November 2019
+
 ### Imports
 import re
 

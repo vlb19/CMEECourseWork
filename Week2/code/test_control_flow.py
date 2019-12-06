@@ -4,8 +4,7 @@
 # Script: tuple.py
 # Date: 3 December 2019
 
-# Desc: 
-# Use some functions to exemplify the use of control statements
+""" Use some functions to exemplify the use of control statements """
 
 # OUTPUT
 # Runs doctests within scripts

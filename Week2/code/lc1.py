@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+""" Write three separate list comprehensions that create three different
+# lists containing the latin names, common names and mean body masses for
+# each species in birds, respectively. Then do the same using conventional 
+# loops """
+
+# Create a new dictionary with species name, common name, and mass
 birds = ( ('Passerculus sandwichensis','Savannah sparrow',18.7),
           ('Delichon urbica','House martin',19),
           ('Junco phaeonotus','Yellow-eyed junco',19.5),
@@ -5,9 +12,7 @@ birds = ( ('Passerculus sandwichensis','Savannah sparrow',18.7),
           ('Tachycineata bicolor','Tree swallow',20.2),
          )
 
-#(1) Write three separate list comprehensions that create three different
-# lists containing the latin names, common names and mean body masses for
-# each species in birds, respectively. 
+### Using list comprehension 
 
 print ("Latin names of birds") #Tells the user what is happening
 Latin_Names  = [row[0]for row in birds] #stores the first column of birds into a new dictionary
@@ -21,8 +26,7 @@ print ("Mean body mass of each species")
 Body_Mass = [row[2]for row in birds]
 print (Body_Mass)
 
-# (2) Now do the same using conventional loops (you can choose to do this 
-# before 1 !). 
+### Using conventional loops
 
 For_Latin_Names = [] #creates new empty dictionary
 for row in birds: #searches each value in birds

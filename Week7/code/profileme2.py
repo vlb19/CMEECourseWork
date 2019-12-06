@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: profileme2.py
+# Date: 25 November 2019
+
+""" another script to demonstrate profiling in python"""
+
 def my_squares(iters):
     out = [i ** 2 for i in range(iters)]
     return out

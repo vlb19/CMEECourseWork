@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: runLVs.py
+# Date: 25 November 2019
+
+""" A python script that runs the LV python scripts
+using inputs from system arguments"""
+
 import timeit
 import scipy as sc
 import time

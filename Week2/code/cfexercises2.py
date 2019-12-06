@@ -1,15 +1,16 @@
 #!/usr/bin/env python3 
 
-"""Description of this program or application"""
+""" Tutorial on for loops, while, and if statements in python """
 
 __appname__ = '[cfexercises2.py]'
 __author__ = 'Victoria Blanchard (vlb19@ic.ac.uk)'
 __version__ = '0.0.1'
 
-## imports ## 
+### Imports
 
 import sys #module to interface our program with the operating system
 
+# Use system arguments if they are given, otherwise use default values
 if len(sys.argv) > 1:
     x = int(sys.argv[1])
     y = int(sys.argv[2])
@@ -19,7 +20,7 @@ else:
     y = 10
     z = 6
 
-
+### Functions
 def say_hello(x,y):
     for i in range(x,y):
         print('hello')
@@ -50,6 +51,7 @@ def zbelow100(z):
             print ('hello')
         z = z + 1 
 
+# Script
 
 print("Says hello y-x times")
 print (say_hello(x,y))

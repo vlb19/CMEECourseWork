@@ -1,6 +1,15 @@
 #!/usr/bin/env python3
 
-# Imports
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: using_os.py
+# Date: 25 November 2019
+
+""" Tutorial on using the os module in python
+goes through your own directories and returns
+file names starting with "C"
+"""
+
+### Imports
 import os
 import subprocess
 

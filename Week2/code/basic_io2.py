@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+""" print a list into a txt file separated by newline characters"""
+
 ##################
 # FILE OUTPUT
 ##################

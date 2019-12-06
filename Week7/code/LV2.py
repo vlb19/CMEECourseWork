@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 
-### Plotting in Python
-### Numerical integration using scipy
-## The Lotka-Volterra model
+""" Plotting in Python
+Numerical integration using scipy
+The Lotka-Volterra model """
+
+__appname__ = '[LV2.py]'
+__author__ = 'Victoria Blanchard (vlb19@ic.ac.uk)'
+__version__ = '0.0.1'
+__license__ = "License for this code/program"
 
 import scipy as sc
 import scipy.linalg

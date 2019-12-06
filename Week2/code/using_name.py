@@ -4,8 +4,7 @@
 # Script: using_name.py
 # Date: 25 October 2019
 
-# Desc: 
-# Changes output depending on where program is called from
+""" Changes output depending on where program is called from """
 
 # OUTPUT
 # prints output depending on where the program is called from

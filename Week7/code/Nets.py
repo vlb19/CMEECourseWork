@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 
 # Author: Victoria Blanchard vlb19@imperial.ac.uk
-# Script: get_TreeHeight.py
+# Script: Nets.py
 # Date: 25 October 2019
 
-# Desc: 
-# This program creates a network model of interactions between 
-# university-affiliated institutions
+""" This program creates a network model of interactions between 
+university-affiliated institutions """
 
 # ARGUMENTS
 # degrees:   The angle of elevation of tree

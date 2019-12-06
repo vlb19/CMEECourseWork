@@ -1,3 +1,6 @@
+#! usr/bin/python3
+'''explore data sets in python for the first time'''
+
 # Some imports to explore the datasets
 # Import relevant packages for data manipulation
 import pandas as pd

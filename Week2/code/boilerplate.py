@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-"""Description of this program or application. 
-    You can use several lines """ 
+""" A program that prints different statments 
+when called from different programs """ 
 
 __appname__ = '[boilerplate.py]'
 __author__ = 'Victoria Blanchard (vlb19@ic.ac.uk)'

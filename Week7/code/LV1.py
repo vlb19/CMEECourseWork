@@ -4,13 +4,10 @@
 # Script: LV1.py
 # Date: 3 December 2019
 
-# Desc: 
-# Plotting in Python
-# Numerical integration using scipy
-# The Lotka-Volterra model
-
-# ARGUMENTS
-# 
+""" Plotting in Python 
+Numerical integration using scipy
+The Lotka-Volterra model
+"""
 
 # OUTPUT
 # Saves one figure with side-by-side plots of 

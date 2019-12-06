@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+""" Read in a text file and print the contents """
+
 #################
 # FILE INPUT
 #################

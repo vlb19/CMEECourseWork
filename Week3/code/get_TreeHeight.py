@@ -4,10 +4,9 @@
 # Script: get_TreeHeight.py
 # Date: 25 October 2019
 
-# Desc: 
-# This function calculates heights of trees given distance of each tree 
-# from its base and angle to its top, using  the trigonometric formula 
-# height = distance * tan(radians)
+""" This function calculates heights of trees given distance of each tree 
+from its base and angle to its top, using  the trigonometric formula 
+height = distance * tan(radians) """
 
 # ARGUMENTS
 # degrees:   The angle of elevation of tree

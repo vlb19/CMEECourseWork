@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: TestR.py
+# Date: 25 November 2019
+""" Open a Rscript in an R shell within R"""
+
 ## Imports
 import subprocess
 

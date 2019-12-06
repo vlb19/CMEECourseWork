@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+""" Use a list comprehension to create a list of month,
+rainfall tuples where the amount of rain was greater than 100 mm.
+Then use a list comprehension to create a list of just month names where the
+ amount of rain was less than 50 mm. Then do it all again using 
+ conventional loops"""
+
 # Average UK Rainfall (mm) for 1910 by month
 # http://www.metoffice.gov.uk/climate/uk/datasets
 rainfall = (('JAN',111.4),
@@ -15,15 +22,15 @@ rainfall = (('JAN',111.4),
            )
 
 
-# (1) Use a list comprehension to create a list of month,rainfall tuples where
-# the amount of rain was greater than 100 mm.
+# 1) Create list of month, rainfall tuples where 
+# the amount of rain is greater than 100mm
 
 print ("Months where rainfall exceeded 100 mm") #tells the user what to expect
 Months_above_100  = [row[0] for row in rainfall if row[1] > 100]
 Values_above_100  = [row[1] for row in rainfall if row[1] > 100]
 print (Months_above_100 + Values_above_100)
 
-# (2) Use a list comprehension to create a list of just month names where the
+# 2) A a list of just month names where the
 # amount of rain was less than 50 mm. 
 
 print ("Months where rainfall was less than 50 mm") #tells the user what to expect
