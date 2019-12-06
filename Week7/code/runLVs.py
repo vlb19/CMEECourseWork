@@ -9,6 +9,7 @@ import cProfile
 # Import the functions 
 from LV1 import dCR_dt as LV1Script 
 from LV2 import dCR_dt as LV2Script
+from LV3 import LV3_script
 
 # Set parameters
 r = float(sys.argv[1]) 

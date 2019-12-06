@@ -12,6 +12,7 @@
 # OUTPUT
 # The heights of the tree, same units as "distance"
 
+rm(list = ls())
 
 #Define function
 TreeHeight <- function(degrees, distance){
