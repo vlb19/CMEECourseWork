@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 a <- NA
 for (i in 1:10) {
     a <- c(a, i)

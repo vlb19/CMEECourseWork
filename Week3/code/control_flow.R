@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 ## If statement
 a <- TRUE 
 if (a == TRUE){

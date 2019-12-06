@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 ## Build a random matrix
 M <- matrix(rnorm(100),10,10)
 

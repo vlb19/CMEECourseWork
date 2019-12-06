@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+## Packages
 library(igraph) # Load the igraph package
 
 rm(list = ls())

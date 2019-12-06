@@ -1,3 +1,4 @@
+#!/usr/bin/env Rscript
 
 i <- 0 #Initialize i
 	while(i < Inf) {

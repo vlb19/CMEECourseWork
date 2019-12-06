@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 #install the sqlite package
 install.packages('sqldf')
 

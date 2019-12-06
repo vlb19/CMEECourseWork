@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 # Computes the correlation coefficients between successive years in KeyWest Data
 
 rm(list=ls()) # clears the workspace

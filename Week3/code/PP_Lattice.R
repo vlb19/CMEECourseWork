@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 library(lattice)
 require(ggplot2)
 PPData <- as.data.frame(read.csv("../data/EcolArchives-E089-51-D1.csv"))

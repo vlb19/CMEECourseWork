@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 Ricker <- function(N0=1, r=1, K=10, generations=50)
 {
   # Runs a simulation of the Ricker model

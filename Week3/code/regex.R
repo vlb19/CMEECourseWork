@@ -1,5 +1,9 @@
-""" Script that utilisies regex and gives includes example exercises """# Sets a variable 
+#!/usr/bin/env Rscript
 
+#Script that utilisies regex and gives includes example exercises 
+
+rm(list = ls())
+# Sets a variable 
 my_string = "a given string"
 
 # finds a space in the string 

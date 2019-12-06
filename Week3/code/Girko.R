@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 build_ellipse <- function(hradius, vradius){ # function that returns an ellipse
   npoints = 250
   a <- seq(0, 2 * pi, length = npoints + 1)
