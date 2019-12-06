@@ -20,3 +20,12 @@ qplot(x= log(Prey.mass), y = log(Predator.mass), facets = Type.of.feeding.intera
 # Close graph and save file
 dev.off()
 
+# Running linear models for each graph within the plot 
+LinearModelResults <- c()
+
+for (lifestage in unique(PPData$Predator.lifestage)){
+  M1 <- (lm(Predator.mass ~ Prey.mass, PPData, unique(Type.of.feeding.interaction)))
+  LinearModelResults <- cbind(lifestage, M1$coefficients1, M1$residuals)
+}
+
+View(LinearModelResults)
