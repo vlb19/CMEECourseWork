@@ -3,4 +3,7 @@
 *.bbl
 *.blg
 *.pdf
+results
+Week6/genomics_and_bioinformatics
+Project
 __pycache__
