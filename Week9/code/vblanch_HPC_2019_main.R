@@ -9,6 +9,8 @@ email <- "vlb19@ic.ac.uk"
 username <- "vlb19"
 personal_speciation_rate <- 0.002 # will be assigned to each person individually in class and should be between 0.002 and 0.007
 
+rm(list = ls())
+
 # Question 1 - Calculate species richness
 species_richness <- function(community){
   
@@ -148,11 +150,16 @@ question_12 <- function()  {
   # clear any existing graphs and plot your graph within the R window
   graphics.off()
 
+  #set initial conditions
   speciation_rate = 0.1
   duration = 200
+  
+  # run a neutral theory simulation
   richnessmax <- neutral_time_series_speciation(init_community_max(100), speciation_rate, duration)
   richnessmin <- neutral_time_series_speciation(init_community_min(100), speciation_rate, duration)
-  x <- c(0:200)
+  
+  # plot two time series on the same axis
+  x <- c(0:duration) #set generation on x axis
   plot(x,xlab = "Generation", richnessmax, ylab = "Species Richness", col = "magenta4", bg = "magenta2", pch = 22, type = 'l')
   lines(richnessmin, col="blue")
 }
@@ -175,14 +182,15 @@ octaves <- function(abundance_vector) {
 
 # Question 15
 sum_vect <- function(x, y) {
-
-  if (length(x) < length(y)){
-    x <- c(x, rep(0,length(y)-length(x)))
-  } else if (length(x) > length(y)){
-    y <- c(x, rep(0,length(x)-length(y)))
-  }
-  sum <- x + y
-  return(sum)
+  # sum two vectors (x and y) after making both vectors
+  # the same length
+  diff <- length(x)-length(y)
+  if (diff > 0) {
+    y <- c(y, rep(0, abs(diff))) }
+  if (diff < 0) {
+    x <- c(x, rep(0, abs(diff))) }
+  vector_sum <- x + y
+  return(vector_sum)
 }
 
 # Question 16 
@@ -190,8 +198,44 @@ question_16 <- function()  {
   # clear any existing graphs and plot your graph within the R window
   graphics.off()
 
+  #Set starting values for temporary variables
+  richnessmax <- init_community_max(100)
+  richnessmin <- init_community_min(100)
+  speciation_rate = 0.1
+  duration = 200
+  generations = 2000
+  averagenumber = 0
+  
+      # Run neutral model for a 'burn in' period of 200 generations
+      for (i in 1:duration) {
+        richnessmax <- neutral_generation_speciation(richnessmax, speciation_rate)
+        richnessmin <- neutral_generation_speciation(richnessmin, speciation_rate)
+      }
 
-  return("type your written answer here")
+      #Record species abundance octave vectors
+      octavesmin <- octaves(species_abundance(richnessmin))
+      octavesmax <- octaves(species_abundance(richnessmax))
+      
+      #Continue simulation for a further 2000 generations
+      for (x in 1:generations) {
+        richnessmax <- neutral_generation_speciation(richnessmax, speciation_rate)
+        richnessmin <- neutral_generation_speciation(richnessmin, speciation_rate)
+        if (x%%20 == 0) {
+          averagenumber = averagenumber+1 #set a counter for each iteration
+          octavesmin <- sum_vect(octavesmin, octaves(species_abundance(richnessmin)))
+          octavesmax <- sum_vect(octavesmax, octaves(species_abundance(richnessmax)))
+          }
+      }
+      # Calculate average octaves
+      averagemaxoctaves <- octavesmax/averagenumber
+      averageminoctaves <- octavesmin/averagenumber
+
+      # Plot bar charts of average 
+      par(mfrow=c(1,2))
+      barplot(averagemaxoctaves,generations)
+      barplot(averageminoctaves,generations)
+      
+  return ("The initial condition does not matter for the final outcome because after the initial burn-in period (excluded here) both populations tend towards the same octave number. We could summise this would happen from the results of question 12")
 }
 
 # Question 17
@@ -221,6 +265,12 @@ question_22 <- function()  {
 # Question 23
 chaos_game <- function()  {
   # clear any existing graphs and plot your graph within the R window
+  dev.off
+  A = c(0,0)
+  B = c(3,4)
+  C = c(4,1)
+  X = c(0,0)
+  plot(50,50, points(A,B,C))
   return("type your written answer here")
 }
 
