@@ -1,8 +1,5 @@
 #!/usr/bin/env Rscript
 
-# CMEE 2019 HPC excercises R code main proforma
-# you don't HAVE to use this but it will be very helpful.  If you opt to write everything yourself from scratch please ensure you use EXACTLY the same function and parameter names and beware that you may loose marks if it doesn't work properly because of not using the proforma.
-
 name <- "Victoria Blanchard"
 preferred_name <- "Viki"
 email <- "vlb19@ic.ac.uk"
@@ -10,7 +7,9 @@ username <- "vlb19"
 personal_speciation_rate <- 0.002 # will be assigned to each person individually in class and should be between 0.002 and 0.007
 
 rm(list = ls())
+graphics.off()
 
+##########################################
 # Question 1 - Calculate species richness
 species_richness <- function(community){
   
@@ -18,23 +17,24 @@ species_richness <- function(community){
   length(unique(community)) 
 }
 
-
+##########################################
 # Question 2 - Generate initial state for your simulation community
 init_community_max <- function(size){
+  
   # Create vector sequence of length 'size'
   seq(size) 
 }
 
-
+##########################################
 # Question 3 - Generate alternative initial state for simulation
 init_community_min <- function(size){
   
-  # Create a vector of ones of size 'size'
+  # Create a vector of length 'size' containing all 1s
   vec <- c(rep(1, size)) 
   return(vec)
 }
 
-
+##########################################
 # Question 4 - Choose two random numbers between 1 and max_value
 choose_two <- function(max_value){
   
@@ -42,7 +42,7 @@ choose_two <- function(max_value){
   sample(1:max_value, 2) 
 }
 
-
+##########################################
 # Question 5 - Perform a single step of a simple neutral model
 neutral_step <- function(community){
 
@@ -54,7 +54,7 @@ neutral_step <- function(community){
   return(community)
 }
 
-
+##########################################
 # Question 6 - Simulate several neutral_steps on a community so that a generation has passed 
 neutral_generation <- function(community){
   #randomly round halved odd community sizes up or down
@@ -66,6 +66,7 @@ neutral_generation <- function(community){
   return(community)
 }
 
+##########################################
 # Question 7 - run neutral theory simulation for duration number of generations
 neutral_time_series <- function(community,duration)  {
   # Set empty richness vector
@@ -82,6 +83,7 @@ neutral_time_series <- function(community,duration)  {
   return(richness)
 }
 
+##########################################
 # Question 8 Run the species model under certain conditions
 question_8 <- function() {
   graphics.off() # clear any existing graphs and plot your graph within the R window
@@ -98,6 +100,7 @@ question_8 <- function() {
   return("The system will always converge to 1 if you wait long enough. This is because impenetrable groups form and these spread across all connected groups until every individual is replaced by a single species.")
 }
 
+##########################################
 # Question 9 - Perform a step of a neutral model with speciation
 neutral_step_speciation <- function(community,speciation_rate)  {
   newspecies <- runif(1) # generate a random number between 0 and 1
@@ -116,6 +119,7 @@ neutral_step_speciation <- function(community,speciation_rate)  {
   return(community)                                                      
 }
 
+##########################################
 # Question 10
 neutral_generation_speciation <- function(community,speciation_rate)  {
   #randomly round halved odd community sizes up or down
@@ -128,7 +132,7 @@ neutral_generation_speciation <- function(community,speciation_rate)  {
   return(community)
 }
   
-
+##########################################
 # Question 11
 neutral_time_series_speciation <- function(community,speciation_rate,duration)  {
   # Set empty richness vector
@@ -145,6 +149,7 @@ neutral_time_series_speciation <- function(community,speciation_rate,duration)  
   return(richness)
 }
 
+##########################################
 # Question 12
 question_12 <- function()  {
   # clear any existing graphs and plot your graph within the R window
@@ -164,6 +169,7 @@ question_12 <- function()  {
   lines(richnessmin, col="blue")
 }
 
+##########################################
 # Question 13 - tell you what the species abundances are
 species_abundance <- function(community)  {
   table <- table(community) # store unique identities in first row and counts in second row
@@ -171,6 +177,7 @@ species_abundance <- function(community)  {
   
 }
 
+##########################################
 # Question 14
 octaves <- function(abundance_vector) {
   # Take a log2 value of the abundance vector
@@ -180,6 +187,7 @@ octaves <- function(abundance_vector) {
   tabulate(floor(log2(abundance_vector))+1)
 }
 
+##########################################
 # Question 15
 sum_vect <- function(x, y) {
   # sum two vectors (x and y) after making both vectors
@@ -193,6 +201,7 @@ sum_vect <- function(x, y) {
   return(vector_sum)
 }
 
+##########################################
 # Question 16 
 question_16 <- function()  {
   # clear any existing graphs and plot your graph within the R window
@@ -204,7 +213,7 @@ question_16 <- function()  {
   speciation_rate = 0.1
   duration = 200
   generations = 2000
-  averagenumber = 0
+  counter = 0
   
       # Run neutral model for a 'burn in' period of 200 generations
       for (i in 1:duration) {
@@ -220,17 +229,19 @@ question_16 <- function()  {
       for (x in 1:generations) {
         richnessmax <- neutral_generation_speciation(richnessmax, speciation_rate)
         richnessmin <- neutral_generation_speciation(richnessmin, speciation_rate)
+        # store octave values every 20 generations
         if (x%%20 == 0) {
-          averagenumber = averagenumber+1 #set a counter for each iteration
+          counter = counter+1 #set a counter for each iteration
           octavesmin <- sum_vect(octavesmin, octaves(species_abundance(richnessmin)))
           octavesmax <- sum_vect(octavesmax, octaves(species_abundance(richnessmax)))
           }
       }
       # Calculate average octaves
-      averagemaxoctaves <- octavesmax/averagenumber
-      averageminoctaves <- octavesmin/averagenumber
+      averagemaxoctaves <- octavesmax/counter
+      averageminoctaves <- octavesmin/counter
 
-      # Plot bar charts of average 
+      # Plot bar charts of average octaves for communities initialised with
+      # maximum and minimal diverstiy
       par(mfrow=c(1,2))
       barplot(averagemaxoctaves,generations)
       barplot(averageminoctaves,generations)
@@ -238,121 +249,349 @@ question_16 <- function()  {
   return ("The initial condition does not matter for the final outcome because after the initial burn-in period (excluded here) both populations tend towards the same octave number. We could summise this would happen from the results of question 12")
 }
 
+##########################################
 # Question 17
 cluster_run <- function(speciation_rate, size, wall_time, interval_rich, interval_oct, burn_in_generations, output_file_name)  {
+  # Initialise community with size given by the input 'size' and minimal diversity
+  community <- init_community_min(size)
+  # Set counter to zero 
+  counter = 0
   
-}
+  #save start time and current times as vectors in minutes
+  start_time <- proc.time()[3]/60
+  current_time <- proc.time()[3]/60
+  
+  #Apply neutral generations for a predefined amount of time (wall_time)
+  while ((current_time-start_time) < wall_time) {
+    
+    #Apply neutral generations to community
+    richness <- neutral_generation_speciation(community, speciation_rate)
+    #Record species abundance at the first time step
+    SpeciesAbundance <- list(octaves(species_abundance(richness)))
+    
+    #Run neutral model over the burn-period (burn_in_generations)
+    for (generation in 1:burn_in_generations){
+      #Record number of generations in the burn in
+      counter = counter+1
+      
+      #Store the species richness at intervals of interval_rich
+      if (generation %% interval_rich == 0){
+        richness <- neutral_generation_speciation(richness, speciation_rate)
+      }
+      # Store speices abundances during the burn-in period as octaves 
+      # Every interval_oct generations
+      if (generation %% interval_oct == 0){
+        SpeciesAbundance[length(SpeciesAbundance)+1] <- list(octaves(species_abundance(richness)))
+      }
+        
+    #Record the species abundances as octaves every interval_oct generations
+    #outside of the burn-in period
+   if (generation %% interval_oct == 0){
+    richness <- neutral_generation_speciation(community, speciation_rate)
+    SpeciesAbundance[length(SpeciesAbundance)+1] <- list(octaves(species_abundance(richness)))
+   }
+    current_time <- proc.time()[3]/60
+    }
+  }
+  #Save data to rda file 
+  save(counter, SpeciesAbundance,richness,speciation_rate, size, wall_time, interval_rich, interval_oct, burn_in_generations, file = output_file_name)
+    
+  }
 
+##########################################
 # Questions 18 and 19 involve writing code elsewhere to run your simulations on the cluster
 
+##########################################
 # Question 20 
 process_cluster_results <- function()  {
   # clear any existing graphs and plot your graph within the R window
+  dev.off()
+  
   combined_results <- list() #create your list output here to return
   return(combined_results)
 }
 
+##########################################
 # Question 21
 question_21 <- function()  {
   return("type your written answer here")
 }
 
+##########################################
 # Question 22
 question_22 <- function()  {
   return("type your written answer here")
 }
 
+##########################################
 # Question 23
 chaos_game <- function()  {
   # clear any existing graphs and plot your graph within the R window
   dev.off
+  
+  # Store point vectors for points A, B, and C
   A = c(0,0)
   B = c(3,4)
   C = c(4,1)
+  
+  # Initialise the point vector "X" at (0,0)
   X = c(0,0)
-  plot(50,50, points(A,B,C))
-  return("type your written answer here")
+  
+  # Plot x on an empty graph with the axis limits at 4
+  plot(1, type = "n", xlab="", ylab="", xlim = c(0,4), ylim= c(0,4), main = "The Sierpinski Triangle")
+  
+  # Change the value of X and re-plot it 10,000 times
+  for (i in 1:100000){
+    # Plot a very small point at X's coordinates
+    points(X[1],X[2], cex=0.01)
+    
+    # Save A, B, and C to a list
+    PointsVariable <- list(A, B, C)
+    
+    # Choose eiher A, B, or C
+    plotpoint <- sample(1:3, size = 1)
+    
+    # Retrieve the value of the selected point, add it to X and divide the result
+    # by two to get a coordinate halfway between X and the point,
+    # then overwrite the value of X to this result
+    X <-(PointsVariable[[plotpoint]]+X)/2
+  }
+  return("This plots the Sierpinski Triangle")
 }
 
+##########################################
 # Question 24
 turtle <- function(start_position, direction, length)  {
-
-  return() # you should return your endpoint here.
+  # Start_position is a coordinate, direction is an angle in radians, and length is 
+  # length of line between start and end position
+  
+  # Initialise empty vector to store endpoint coordinates
+  endposition <- c()
+  
+  # Calculate endpoint coordinates:
+    # Method: start_position -> endposition (XY) is the hypotenuse of a right angled triangle.
+    # The length of XY multiplied by cos (direction) will give the length of the adjacent side
+    # Adding this length to the x value of X will give you the x value of Y
+    # Length of XY * sin (direction) will give you the length of the opposite line
+    # Adding this length to the y value of X will give you the y value of Y
+  endposition[1] = as.numeric(start_position[1]) + (length * cos(direction))
+  endposition[2] = as.numeric(start_position[2]) + (length * sin(direction))
+  
+  # save coordinates of start and end position to a new vector
+  line <- cbind(start_position, endposition)
+  
+  # Plot line segments between coordinate pairs
+  # segments(start_position[1], endposition[1], start_position[2], endposition[2])
+  lines(line[1,], line[2,])
+  
+  return(endposition)
 }
 
+##########################################
 # Question 25
 elbow <- function(start_position, direction, length)  {
   
+  #Call turtle once to plot the first line, then store the end position coordinates
+  endposition <- turtle(start_position, direction, length)
+  
+  #Call turtle again to plot the second line using the end position coordinates from 
+  # the first plot as the new start coordinates, changing the angle of the line by 45
+  # degrees and reducing the length of the second line to 95% of the first line
+  turtle(endposition, direction - (pi / 4), 0.95*length)
+
 }
 
+##########################################
 # Question 26
 spiral <- function(start_position, direction, length)  {
-  return("type your written answer here")
+  
+  #Call turtle once to plot the first line, then store the end position coordinates
+  endposition <- turtle(start_position, direction, length)
+  
+  #Set a limit to the line length
+  if (length > 0.01){
+    # call this function within itself to plot subsequent lines, adjusting the 
+    # angle by 45 degrees with each plot and reducing the line length by 5% each time
+    spiral(endposition, direction - (pi / 4), length <- 0.95*length)
+  }
+  
+  return("You get a spiral but it comes back with an error message saying 7970404 is too close to the limit. This is because the graph is trying to plot a line whose length is too small for R to plot (i.e. the line length is too close to the lower limit that R is able to plot)")
 }
 
+##########################################
 # Question 27
 draw_spiral <- function()  {
   # clear any existing graphs and plot your graph within the R window
+  graphics.off()
   
+  # Create an empty plot with axis limits set at 5 
+  plot(1, type = "n", xlab="", ylab="", xlim = c(0,5), ylim= c(0,5))
+  
+  # Call the spiral function with starting values to plot the spiral 
+  spiral(start_position = c(1,1), direction = pi / 2, length = 1.5)
 }
 
+##########################################
 # Question 28
 tree <- function(start_position, direction, length)  {
   
-}
-draw_tree <- function()  {
-  # clear any existing graphs and plot your graph within the R window
+  #Call turtle once to plot the first line, then store the end position coordinates
+  endposition1 <- turtle(start_position, direction, length)
+  
+  #Set the limit of the line length
+  if (length > 0.05){
+    
+    # Plot the first spiral rotating clockwise, reducing the length by 35% for each 
+    # subsequent line
+    tree(endposition1, direction - (pi / 4), 0.65*length)
+    
+    # For each point, plot the same thing mirrored giving double the number of 
+    # end positions
+    tree(endposition1, direction + (pi / 4), 0.65*length)
+    
+    # Repeat the loop up to the limit of the line length 
+  }
 }
 
+draw_tree <- function()  {
+  
+  # clear any existing graphs and plot your graph within the R window
+  graphics.off()
+  
+  # Create an empty plot with axis limits set to 50
+  plot(1, type = "n", xlab="", ylab="", xlim = c(0,50), ylim= c(0,50))
+  
+  # Call the tree function with starting values
+  tree(start_position = c(25,0), direction = (pi / 2), length = 15)
+}
+
+##########################################
 # Question 29
 fern <- function(start_position, direction, length)  {
   
+  #Call turtle once to plot the first line, then store the end position coordinates
+  endposition1 <- turtle(start_position, direction, length)
+  
+  #Set the limit of the line length
+  if (length > 0.08){
+    # Plot the fractal curving to the right, reducing the line length by 62% each plot
+    fern(endposition1, direction - (pi / 4), 0.38*length)
+    # For each point draw a vertical line, reducing the line length by 13% each plot
+    fern(endposition1, direction, 0.87*length)
+  }
 }
+
 draw_fern <- function()  {
   # clear any existing graphs and plot your graph within the R window
-}
-
-# Question 30
-fern2 <- function(start_position, direction, length)  {
+  graphics.off()
   
+  # Create an empty plot with the y axis limit set to 120, and the x axis
+  # limit set to 50. The plot will be taller than it is wide. 
+  plot(1, type = "n", xlab="", ylab="", xlim = c(0,50), ylim= c(0,120))
+  
+  # Call the fern function with starting values 
+  fern(start_position = c(0,0), direction = (pi / 2), length = 15)
 }
+
+##########################################
+# Question 30
+fern2 <- function(start_position, direction, length, dir)  {
+
+  #Call turtle once to plot the first line, then store the end position coordinates
+  endposition1 <- turtle(start_position, direction, length)
+  
+  #Set the limit of the line length
+  if (length > 0.05){
+    
+    # Plot the fractal to the right or left depending on the direction
+    fern2(endposition1, direction = direction - (pi / 4) *dir, 0.38*length, dir)
+    
+    # Plot a straight line following the direction from which the fractal branches
+    fern2(endposition1, direction, 0.87*length, dir = dir * -1)
+  }
+}
+
 draw_fern2 <- function()  {
-  # clear any existing graphs and plot your graph within the R window
+  # Clear any existing graphs and plot your graph within the R window
+  graphics.off()
+  
+  # Create an empty plot with the x axis limit set to 60 and the y axis limit set to 120
+  plot(1, type = "n", xlab="", ylab="", xlim = c(0,60), ylim= c(0,120))
+  
+  # Call the fern function with starting values
+  fern2(start_position = c(25,0), direction = (pi / 2), length = 15, dir=1)
 }
 
-# Challenge questions - these are optional, substantially harder, and a maximum of 16% is available for doing them.  
-
+##########################################
 # Challenge question A
 Challenge_A <- function() {
   # clear any existing graphs and plot your graph within the R window
 }
 
+##########################################
 # Challenge question B
 Challenge_B <- function() {
   # clear any existing graphs and plot your graph within the R window
 }
 
+##########################################
 # Challenge question C
 Challenge_C <- function() {
   # clear any existing graphs and plot your graph within the R window
 }
 
+##########################################
 # Challenge question D
 Challenge_D <- function() {
   # clear any existing graphs and plot your graph within the R window
   return("type your written answer here")
 }
 
+##########################################
 # Challenge question E
 Challenge_E <- function() {
   # clear any existing graphs and plot your graph within the R window
   return("type your written answer here")
 }
 
+##########################################
 # Challenge question F
 Challenge_F <- function() {
   # clear any existing graphs and plot your graph within the R window
+  graphics.off()
+  
+  start_position = c(25,0) 
+  direction = (pi / 2) 
+  length = 15 
+  dir=1
+  
+  par(mfrow=c(2,2))
+  # Create an empty plot with the x axis limit set to 60 and the y axis limit set to 120
+  plot(1, type = "n", xlab="", ylab="", xlim = c(0,60), ylim= c(0,120))
+  #Call turtle once to plot the first line, then store the end position coordinates
+  endposition1 <- turtle(start_position, direction, length)
+    
+  if (length > 15){
+    # Plot the fractal to the right or left depending on the direction
+    fern2(endposition1, direction = direction - (pi / 4) *dir, 0.38*length, dir)
+    # Plot a straight line following the direction from which the fractal branches
+    fern2(endposition1, direction, 0.87*length, dir = dir * -1)
+  }
+  
+  # Create an empty plot with the x axis limit set to 60 and the y axis limit set to 120
+  plot(2, type = "n", xlab="", ylab="", xlim = c(0,60), ylim= c(0,120))
+  #Call turtle once to plot the first line, then store the end position coordinates
+  endposition1 <- turtle(start_position, direction, length)
+  
+  else if (length > 5) {
+    # Plot the fractal to the right or left depending on the direction
+    fern2(endposition1, direction = direction - (pi / 4) *dir, 0.38*length, dir)
+    # Plot a straight line following the direction from which the fractal branches
+    fern2(endposition1, direction, 0.87*length, dir = dir * -1)
+  }
   return("type your written answer here")
 }
 
+##########################################
 # Challenge question G should be written in a separate file that has no dependencies on any functions here.
+
