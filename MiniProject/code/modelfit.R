@@ -1,18 +1,42 @@
+#!/usr/bin/env Rscript
 rm(list=ls()) #Clear global environment
 #Set working directory
 #setwd("CMEECourseWork/MiniProject/code")
+
 ## Required packages
 require("minpack.lm")
 
+###############################################
+### Load in data ### 
+###############################################
+
+#Load in modified data
 data <- read.csv('../data/FunResData.csv')
+# Visualise data as a reminder
 head(data)
+
+###############################################
+### Run NLLS on single ID ###
+###############################################
+
+# Make a subset of the data for one ID as a test
 Data2Fit <- subset(data, ID == 39982) #One curve
 
-plot(Data2Fit$ResDensity, Data2Fit$N_TraitValue)
+# Plot data points on scatter plot to visualise data
+plot(Data2Fit$ResDensity, Data2Fit$N_TraitValue, xlab = "Resource Density", ylab = "Consumer Biomass Consumption Rate")
 
-dim(Data2Fit) # Get dimensions of curve#Holling type II functional response
-#This is making a function of the second model we looked at
-powMod <- function(a, h, x) { #These are parameters
+# Get dimensions of curve
+dim(Data2Fit) 
+
+###############################################
+### Holling type II functional response
+###############################################
+
+#Transform the Holling type II fuctional response into a function
+  # x = resource density
+  # h = handling time 
+  # a = search rate 
+powMod <- function(a, h, x) {
   return( (a*x ) / (1+ (h*a*x)))
 }
 

@@ -20,11 +20,11 @@ turtle <- function(start_position, direction, length)  {
 fern2 <- function(start_position, direction, length, dir)  {
   endposition1 <- turtle(start_position, direction, length)
   if (length > 0.05){
-    fern2(endposition1, direction = direction - (pi / 4) *dir, 0.38*length, dir)
+    fern2(endposition1, direction - (pi / 4) *dir, 0.38*length, dir)
     fern2(endposition1, direction, 0.87*length, dir = dir * -1)
   }
 }
-plot.new()
+plot(1, type = "n", xlab="", ylab="", xlim = c(0,50), ylim= c(0,120), axes=FALSE)
 fern2(c(25,0), (pi / 2), 15, 1)
 
 

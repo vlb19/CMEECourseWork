@@ -165,8 +165,10 @@ question_12 <- function()  {
   
   # plot two time series on the same axis
   x <- c(0:duration) #set generation on x axis
-  plot(x,xlab = "Generation", richnessmax, ylab = "Species Richness", col = "magenta4", bg = "magenta2", pch = 22, type = 'l')
+  plot(x,xlab = "Generation", richnessmax, ylab = "Species Richness", ylim=c(0,100), col = "magenta4", bg = "magenta2", pch = 22, type = 'l')
   lines(richnessmin, col="blue")
+  
+  return("Highly diverse communities lose richness over time as speciation replaces unique existing species with new species. Communities with low diversity gain species richness over time as common species are replaced by unique species. Over many generations the richness tends towards the same equilibrium in both as both are gaining or loosing species richness as a function of speciation rate. Eventually all of the species in the origninal commnunities will have been replaced with new species and so the richness will tend towards the same equilibrium dictated by the probability of speciation. A high probability of speciation  will give a high value of equilibrated species richness. ")
 }
 
 ##########################################
@@ -305,22 +307,106 @@ cluster_run <- function(speciation_rate, size, wall_time, interval_rich, interva
 # Question 20 
 process_cluster_results <- function()  {
   # clear any existing graphs and plot your graph within the R window
-  dev.off()
+  graphics.off()
   
-  combined_results <- list() #create your list output here to return
+  # Initialise global variables to store running totals for each community size
+  VectorTotal500 <- 0
+  VectorTotal1000 <- 0
+  VectorTotal1500 <- 0
+  VectorTotal2000 <- 0 
+  
+  #Initialise generation counters for each community size
+  TotalTime500 <- 0
+  TotalTime1000 <- 0
+  TotalTime1500 <- 0
+  TotalTime2000 <- 0
+  
+  # Create a list of all the iter file names within the directory
+  file_list <- list.files(pattern = "NR\\_[[:digit:]][[:digit:]][[:digit:]].rda$")
+  # load each file 
+  for (each_file in 1:length(file_list)){
+    load(file = file_list[each_file])
+    
+    #Find the correct row index for the first generation after the burn-in period
+    cutpoint <- ceiling(burn_in_generations/interval_oct) 
+    #Create a new dataframe excluding the burn-in time
+    afterburnspeciesabundance <- SpeciesAbundance[c(cutpoint:length(SpeciesAbundance))]
+    
+    if (size == 500){
+      # Sum all the rows in the new vector
+      for (row in afterburnspeciesabundance){
+        VectorTotal500 <- sum_vect(VectorTotal500,row)
+      }
+      # Save total time for this file into the global variable
+      TotalTime500 <- TotalTime500 + length(afterburnspeciesabundance)
+    }
+    
+    else if (size == 1000){
+      # Sum all the rows in the new vector
+      for (row in afterburnspeciesabundance){
+        VectorTotal1000 <- sum_vect(VectorTotal500,row)
+      }
+      # Save total time for this file into the global variable
+      TotalTime1000 <- TotalTime1000 + length(afterburnspeciesabundance)
+    }
+    
+    else if (size == 1500){
+      # Sum all the rows in the new vector
+      for (row in afterburnspeciesabundance){
+        VectorTotal1500 <- sum_vect(VectorTotal500,row)
+      }
+      # Save total time for this file into the global variable
+      TotalTime1500 <- TotalTime1500 + length(afterburnspeciesabundance)
+    }
+    
+    else if (size == 2000){
+      # Sum all the rows in the new vector
+      for (row in afterburnspeciesabundance){
+        VectorTotal2000 <- sum_vect(VectorTotal2000,row)
+      }
+      # Save total time for this file into the global variable
+      TotalTime2000 <- TotalTime2000 + length(afterburnspeciesabundance)
+    }
+    
+    else {print("Something has gone wrong somewhere")}
+    
+    # Calculate average octave vectors for each community size
+    averageoctaves500 <- VectorTotal500/TotalTime500
+    averageoctaves1000 <- VectorTotal1000/TotalTime1000
+    averageoctaves1500 <- VectorTotal1500/TotalTime1500
+    averageoctaves2000 <- VectorTotal2000/TotalTime2000
+  }
+  
+  # Plot four bar graphs in a multi-panel graph 
+  par(mfrow=c(2,2))
+  barplot(averageoctaves500, main = "Community Size = 500", names.arg=1:length(averageoctaves500), ylab= "Octave Abundance", xlab = "Octave bins")
+  barplot(averageoctaves1000, main = "Community Size = 1000", names.arg=1:length(averageoctaves1000), ylab= "Octave Abundance", xlab = "Octave bins")
+  barplot(averageoctaves1500, main = "Community Size = 1500", names.arg=1:length(averageoctaves1500), ylab= "Octave Abundance", xlab = "Octave bins")
+  barplot(averageoctaves2000, main = "Community Size = 2000", names.arg=1:length(averageoctaves2000), ylab= "Octave Abundance", xlab = "Octave bins")
+  
+  # Create a list of the four octave outputs plotted on the graphs in order of increasing community size
+  combined_results <- list(averageoctaves500, averageoctaves1000, averageoctaves1500, averageoctaves2000) 
   return(combined_results)
 }
 
 ##########################################
 # Question 21
 question_21 <- function()  {
-  return("type your written answer here")
+  
+  # Dimension = log of the number of pieces divided by the magnification
+  FractalDimension2D <- log(8)/log(3)
+  
+  return("There are 8 repeats of the core pattern shown in this fractal, meaning N = 8. If we were to zoom out of the picture, you would need to repeat this fractal three times to make a single line. The length of one side goes from one to three meaning that M = 3. If we put those numbers into the fractal dimension equation we get the answer 1.893")
 }
 
 ##########################################
 # Question 22
 question_22 <- function()  {
-  return("type your written answer here")
+  
+  # Dimension = log of the number of pieces divided by the magnification
+  FractalDimension3D <- log(20)/log(3)
+
+  return("20 cubes make up this 3D shape, making the number of pieces equal to 20. The length increases by three the same as before so M = 3. If we put these into the fractal dimension equation we get an answer of 2.727")
 }
 
 ##########################################
@@ -338,7 +424,7 @@ chaos_game <- function()  {
   X = c(0,0)
   
   # Plot x on an empty graph with the axis limits at 4
-  plot(1, type = "n", xlab="", ylab="", xlim = c(0,4), ylim= c(0,4), main = "The Sierpinski Triangle")
+  plot(1, type = "n", xlab="", ylab="", xlim = c(0,4), ylim= c(0,4), main = "The Sierpinski Triangle", axes=FALSE)
   
   # Change the value of X and re-plot it 10,000 times
   for (i in 1:100000){
@@ -409,7 +495,7 @@ spiral <- function(start_position, direction, length)  {
   endposition <- turtle(start_position, direction, length)
   
   #Set a limit to the line length
-  if (length > 0.01){
+  if (length > 0.05){
     # call this function within itself to plot subsequent lines, adjusting the 
     # angle by 45 degrees with each plot and reducing the line length by 5% each time
     spiral(endposition, direction - (pi / 4), length <- 0.95*length)
@@ -425,7 +511,7 @@ draw_spiral <- function()  {
   graphics.off()
   
   # Create an empty plot with axis limits set at 5 
-  plot(1, type = "n", xlab="", ylab="", xlim = c(0,5), ylim= c(0,5))
+  plot(1, type = "n", xlab="", ylab="", xlim = c(0,5), ylim= c(0,5), axes=FALSE)
   
   # Call the spiral function with starting values to plot the spiral 
   spiral(start_position = c(1,1), direction = pi / 2, length = 1.5)
@@ -459,7 +545,7 @@ draw_tree <- function()  {
   graphics.off()
   
   # Create an empty plot with axis limits set to 50
-  plot(1, type = "n", xlab="", ylab="", xlim = c(0,50), ylim= c(0,50))
+  plot(1, type = "n", xlab="", ylab="", xlim = c(0,50), ylim= c(0,50), axes=FALSE)
   
   # Call the tree function with starting values
   tree(start_position = c(25,0), direction = (pi / 2), length = 15)
@@ -487,7 +573,7 @@ draw_fern <- function()  {
   
   # Create an empty plot with the y axis limit set to 120, and the x axis
   # limit set to 50. The plot will be taller than it is wide. 
-  plot(1, type = "n", xlab="", ylab="", xlim = c(0,50), ylim= c(0,120))
+  plot(1, type = "n", xlab="", ylab="", xlim = c(0,50), ylim= c(0,120), axes=FALSE)
   
   # Call the fern function with starting values 
   fern(start_position = c(0,0), direction = (pi / 2), length = 15)
@@ -501,7 +587,7 @@ fern2 <- function(start_position, direction, length, dir)  {
   endposition1 <- turtle(start_position, direction, length)
   
   #Set the limit of the line length
-  if (length > 0.05){
+  if (length > 0.5){
     
     # Plot the fractal to the right or left depending on the direction
     fern2(endposition1, direction = direction - (pi / 4) *dir, 0.38*length, dir)
@@ -516,7 +602,7 @@ draw_fern2 <- function()  {
   graphics.off()
   
   # Create an empty plot with the x axis limit set to 60 and the y axis limit set to 120
-  plot(1, type = "n", xlab="", ylab="", xlim = c(0,60), ylim= c(0,120))
+  plot(1, type = "n", xlab="", ylab="", xlim = c(0,60), ylim= c(0,120), axes=FALSE)
   
   # Call the fern function with starting values
   fern2(start_position = c(25,0), direction = (pi / 2), length = 15, dir=1)
@@ -555,41 +641,72 @@ Challenge_E <- function() {
 }
 
 ##########################################
-# Challenge question F
+# Challenge question F - This plot takes less than a minute to run
 Challenge_F <- function() {
   # clear any existing graphs and plot your graph within the R window
   graphics.off()
   
-  start_position = c(25,0) 
+  # Set starting parameters
+  start_position = c(5,0) 
   direction = (pi / 2) 
-  length = 15 
+  length = 3
   dir=1
   
-  par(mfrow=c(2,2))
-  # Create an empty plot with the x axis limit set to 60 and the y axis limit set to 120
-  plot(1, type = "n", xlab="", ylab="", xlim = c(0,60), ylim= c(0,120))
-  #Call turtle once to plot the first line, then store the end position coordinates
-  endposition1 <- turtle(start_position, direction, length)
+  # Set the line length limits we want to iterate through 
+  maxlengths = c(rev(seq(0.01, 2, by=0.05)))
+  
+  # Define new fern function with a changeable length limit
+  fern3 <- function(start_position, direction, length, dir, lengthlimit)  {
     
-  if (length > 15){
-    # Plot the fractal to the right or left depending on the direction
-    fern2(endposition1, direction = direction - (pi / 4) *dir, 0.38*length, dir)
-    # Plot a straight line following the direction from which the fractal branches
-    fern2(endposition1, direction, 0.87*length, dir = dir * -1)
+    #Call turtle once to plot the first line, then store the end position coordinates
+    endposition1 <- turtle(start_position, direction, length)
+    
+    #Set the limit of the line length
+    if (length > lengthlimit){
+      
+      # Plot the fractal to the right or left depending on the direction
+      fern3(endposition1, direction = direction - (pi / 4) *dir, 0.38*length, dir, lengthlimit)
+      
+      # Plot a straight line following the direction from which the fractal branches
+      fern3(endposition1, direction, 0.87*length, dir = dir * -1, lengthlimit)
+    }
   }
   
-  # Create an empty plot with the x axis limit set to 60 and the y axis limit set to 120
-  plot(2, type = "n", xlab="", ylab="", xlim = c(0,60), ylim= c(0,120))
-  #Call turtle once to plot the first line, then store the end position coordinates
-  endposition1 <- turtle(start_position, direction, length)
+  # Initialise the plot
+  plot(1, type = "n", xlab="", ylab="", xlim = c(0,12), ylim= c(0,23), axes=FALSE)
   
-  else if (length > 5) {
-    # Plot the fractal to the right or left depending on the direction
-    fern2(endposition1, direction = direction - (pi / 4) *dir, 0.38*length, dir)
-    # Plot a straight line following the direction from which the fractal branches
-    fern2(endposition1, direction, 0.87*length, dir = dir * -1)
+  # Define new function to plot a single iteration of the length limit variable
+  Singleframe <- function(maxlength, length){
+    #for (x in maxlengths){
+    # Call the new fern function with some starting values
+    fern3(start_position,direction, length, 1, maxlength)
   }
-  return("type your written answer here")
+
+  # Create an animated plot to show the effect of changing line length on the plot
+  for (x in maxlengths) {
+    if (x > 0.1){
+      # create a lag between one plot an the next to make an animation
+      Sys.sleep(0.5)
+      # plot the fern 
+      Singleframe(x, length)
+      
+    # To allow the system time to plot the new fractal we need to increase the lag 
+    # between frames. When the line limit is above 0.05 the lag is increased to 5 seconds
+    } else if (x > 0.05) { 
+      Sys.sleep(5)
+      Singleframe(x, length)
+    
+    # For the last plot the lag is increased to 10 seconds
+    } else {
+      Sys.sleep(10)
+      Singleframe(x, length)
+    }
+      
+  }
+
+
+  
+  return("Generally, the complexity of the fractal (or the bushyness of the fern) decreases the higher the value of the length limit although small changes do not have a great impact when the length limit is very large (shown by the gradual thickening of the line in the first stages of the tree). The time taken to plot also increases with the decreasing size of the line limit (shown by the slowing of the plot towards the end of the animation). This is because the dimensions of the fractal are increasing with decreasing size of line limit, R is plotting more lines and therefore takes longer to generate the graph.")
 }
 
 ##########################################
