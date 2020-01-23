@@ -36,6 +36,59 @@ GenMod <- function(x, a, h, q) {
     # q is a shape paramater that allows the shape 
     # of the response to be more flexible/variable
 
+###############################################
+### Write NLLS as functions ###
+###############################################
+
+### Phenomenological quadratic model
+QuaFit <- function(data) {lm(N_TraitValue ~ poly(ResDensity,2), data = data)}
+
+### Cubic polynomial model 
+CubFit <- function(data) {lm(N_TraitValue ~ poly(ResDensity,3), data = data)}
+
+### Holling II model
+HolFit <- function(data, a, h) {nlsLM(N_TraitValue ~ HollingII(ResDensity, a, h), data = data, start = list(a=a, h=h))}
+
+### Generalised Holling model
+# Set a value for q
+q = 0.25
+GenFit <- function(data, a, h, q) {nlsLM(N_TraitValue ~ GenMod(ResDensity, a, h, q), data = data, start = list(a=a, h=h))}
+
+
+###############################################
+### Get starting values for h and a ###
+###############################################
+
+StartingValues <- function(data2fit) {
+  
+  ### Store the peak handling time in a variable (h)
+  # Create empty variable 
+  h <- list()
+  # Store maximum y value
+  h <- max(data2fit$N_TraitValue)
+  
+  ### Remove points after this value in order to fit models to the growth period
+  # Store x value for corresponding peak y value
+  removeddata <- data2fit$ResDensity[which.max(data2fit$N_TraitValue)]
+  
+  # Subset the data to contain only x values lower than this point
+  CurveData <- subset(data2fit, ResDensity < removeddata)
+  
+  ### Calculate the linear regression of the cut slope
+  lm <- summary(lm(N_TraitValue ~ ResDensity, CurveData))
+  
+  ### Store the search rate
+  # Create empty variable 
+  a <- list()
+  # Store the value for the gradient
+  a <- lm$coefficients[2]
+  
+  ### Store a and h values
+  ah <- list(a, h)
+  
+  return(ah)
+}
+
 
 ###############################################
 ### Load in data ### 
@@ -51,54 +104,8 @@ data <- data[,-1]
 NestedData <- data %>% nest(data = -ID)
 
 ###############################################
-### Get starting values for h and a ###
-###############################################
-
-StartingValues <- function(data2fit) {
-  
-### Store the peak handling time in a variable (h)
-  # Create empty variable 
-  h <- list()
-  # Store maximum y value
-  h <- max(data2fit$N_TraitValue)
-
-### Remove points after this value in order to fit models to the growth period
-  # Store x value for corresponding peak y value
-  removeddata <- data2fit$ResDensity[which.max(data2fit$N_TraitValue)]
-  
-  # Subset the data to contain only x values lower than this point
-  CurveData <- subset(data2fit, ResDensity < removeddata)
-
-### Calculate the linear regression of the cut slope
-lm <- summary(lm(N_TraitValue ~ ResDensity, CurveData))
-
-### Store the search rate
-  # Create empty variable 
-  a <- list()
-  # Store the value for the gradient
-  a <- lm$coefficients[2]
-
-### Store a and h values
-  ah <- list(a, h)
-
-return(ah)
-}
-
-###############################################
 ### Obtain Starting Values ###
 ###############################################
-
-"""
-### Test Starting values
-NestedData$ID[[99]]
-
-TestData <- NestedData$data[[99]]
-
-AHStart <- StartingValues(NestedData$data[[99]])
-
-a = AHStart[1]
-h = AHStart[2]
-"""
 
 # Create new data frame to store values
 StartValueTable <- data.frame("ID" = NestedData$ID, "a_value" = rep(NA, length(NestedData$ID)), "h_value"= rep(NA, length(NestedData$ID)))
@@ -108,23 +115,49 @@ for (id in 1: length(NestedData[[1]])){
   StartValueTable[id, "a_value"] <- StartingValues(NestedData$data[[id]])[1]
   StartValueTable[id, "h_value"] <- StartingValues(NestedData$data[[id]])[2]
 }
+
 ###############################################
 ### Run NLLS Fitting ###
 ###############################################
 
-### Phenomenological quadratic model
-QuaFit <- lm(N_TraitValue ~ poly(ResDensity,2), data = data)
+# Create new data frame to store values
+FitValues <- data.frame("Model" = c("QuaFit", "CubFit", "HolFit", "GenFit"), "AIC" = rep(NA,4), "BIC" =rep(NA,4), stringsAsFactors = FALSE)
 
-### Cubic polynomial model 
-CubFit <- lm(N_TraitValue ~ poly(ResDensity,3), data = data)
+ModelFits <- data.frame("ID" = StartValueTable[1], "a_value" = StartValueTable[2], "h_value" = StartValueTable[3], "Best_Model" = rep(NA, length(NestedData$ID)), "AIC"= rep(NA, length(NestedData$ID)), "BIC" = rep(NA, length(NestedData$ID)))
 
-### Holling II model
-HolFit <- nlsLM(N_TraitValue ~ HollingII(ResDensity, a, h), data = data, start = list(a=a, h=h))
 
-### Generalised Holling model
-  # Set a value for q
+# Run models for each ID
+for (id in 1: length(StartValueTable[, 1])){
+  a <- StartValueTable[id,2]
+  h <- StartValueTable[id, 3]
   q = 0.25
-GenFit <- nlsLM(N_TraitValue ~ GenMod(ResDensity, a, h, q), data = data, start = list(a=a, h=h))
+  FinalQuaFit <- try(QuaFit(NestedData$data[[id]]), silent = T)
+  FinalCubFit <- try(CubFit(NestedData$data[[id]]), silent = T)
+  FinalHolFit <- try(HolFit(NestedData$data[[id]], a, h), silent = T)
+  FinalGenFit <- try(GenFitAIC(NestedData$data[[id]], a, h, q), silent = T)
+  
+  FitValues[1, 2] <- ifelse(class(FinalQuaFit) == "try-error", rep(NA,1), AIC(FinalQuaFit))
+  FitValues[1, 3] <- ifelse(class(FinalQuaFit) == "try-error", rep(NA,1), BIC(FinalQuaFit))
+  
+  FitValues[2, 2] <- ifelse(class(FinalCubFit) == "try-error", rep(NA,1), AIC(FinalCubFit))
+  FitValues[2, 3] <- ifelse(class(FinalCubFit) == "try-error", rep(NA,1), BIC(FinalCubFit))
+  
+  FitValues[3, 2] <- ifelse(class(FinalHolFit) == "try-error", rep(NA,1), AIC(FinalHolFit))
+  FitValues[3, 3] <- ifelse(class(FinalHolFit) == "try-error", rep(NA,1), BIC(FinalHolFit))
+  
+  FitValues[4, 2] <- ifelse(class(FinalGenFit) == "try-error", rep(NA,1), AIC(FinalGenFit))
+  FitValues[4, 3] <- ifelse(class(FinalGenFit) == "try-error", rep(NA,1), BIC(FinalGenFit))
+  
+  MinimumAICorBIC <- min(FitValues[2:3], na.rm = TRUE)
+  ModelFits[id, 4:6] <- FitValues[which(FitValues[2:3] == MinimumAICorBIC),]
+  }
+
+
+
+###############################################
+### Calculate statistical measures of the models ###
+###############################################
+
 
 ###################################################
 ### Plot fitted models
@@ -178,13 +211,6 @@ ResDensities <- seq(min(data$ResDensity), max(data$ResDensity), len = 200)
   polygon(c(rev(ResDensities), ResDensities), c(rev(preds[ ,3]), preds[ ,2]), col = 'grey80', border = NA)
   
   
-  
-###############################################
-### Calculate statistical measures of the models ###
-###############################################
-
-# Subtract AICs 
-AIC(PowFit) - AIC(QuaFit)
 
 
 ###############################################
