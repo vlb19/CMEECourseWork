@@ -3,7 +3,10 @@
 *.bbl
 *.blg
 *.pdf
+*.gz
 results
 Week6/genomics_and_bioinformatics
-Project
+Project/ProjectProposal
+Project/Practice_Genetics
+.png
 __pycache__

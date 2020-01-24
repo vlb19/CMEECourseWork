@@ -84,8 +84,7 @@ StartingValues <- function(data2fit) {
   a <- lm$coefficients[2]
   
   ### Store a and h values
-  ah <- list(a, h)
-  
+  ah <- c(a, h)
   return(ah)
 }
 
@@ -112,9 +111,21 @@ StartValueTable <- data.frame("ID" = NestedData$ID, "a_value" = rep(NA, length(N
 
 # For each ID obtain starting values and store in data frame
 for (id in 1: length(NestedData[[1]])){
-  StartValueTable[id, "a_value"] <- StartingValues(NestedData$data[[id]])[1]
-  StartValueTable[id, "h_value"] <- StartingValues(NestedData$data[[id]])[2]
+  avalue = StartingValues(NestedData$data[[id]])[1]
+  if (is.nan(avalue)){}
+  else {
+    StartValueTable[id, "a_value"] <- StartingValues(NestedData$data[[id]])[1]
+    StartValueTable[id, "h_value"] <- StartingValues(NestedData$data[[id]])[2]
+  }
 }
+
+# Remove IDs where a could not be calculated from start value table
+is.na(StartValueTable)
+StartValueTable <- na.omit(StartValueTable)
+
+# Remove IDs with no a value from data frame
+#compare start value table id
+#remove unique values from nested data
 
 ###############################################
 ### Run NLLS Fitting ###
@@ -123,18 +134,21 @@ for (id in 1: length(NestedData[[1]])){
 # Create new data frame to store values
 FitValues <- data.frame("Model" = c("QuaFit", "CubFit", "HolFit", "GenFit"), "AIC" = rep(NA,4), "BIC" =rep(NA,4), stringsAsFactors = FALSE)
 
-ModelFits <- data.frame("ID" = StartValueTable[1], "a_value" = StartValueTable[2], "h_value" = StartValueTable[3], "Best_Model" = rep(NA, length(NestedData$ID)), "AIC"= rep(NA, length(NestedData$ID)), "BIC" = rep(NA, length(NestedData$ID)))
+ModelFits <- data.frame("ID" = StartValueTable[1], "a_value" = StartValueTable[2], "h_value" = StartValueTable[3], "Best_Model" = rep(NA, length(StartValueTable[1])), "AIC"= rep(NA, length(StartValueTable[1])), "BIC" = rep(NA, length(StartValueTable[1])))
 
+# Create counter to run through with 
+counter = 0
 
 # Run models for each ID
-for (id in 1: length(StartValueTable[, 1])){
-  a <- StartValueTable[id,2]
-  h <- StartValueTable[id, 3]
+for (id in StartValueTable[, 1]){
+  counter = counter+1
+  a <- StartValueTable[counter,2]
+  h <- StartValueTable[counter, 3]
   q = 0.25
-  FinalQuaFit <- try(QuaFit(NestedData$data[[id]]), silent = T)
-  FinalCubFit <- try(CubFit(NestedData$data[[id]]), silent = T)
-  FinalHolFit <- try(HolFit(NestedData$data[[id]], a, h), silent = T)
-  FinalGenFit <- try(GenFitAIC(NestedData$data[[id]], a, h, q), silent = T)
+  FinalQuaFit <- try(QuaFit(NestedData$data[[counter]]), silent = T)
+  FinalCubFit <- try(CubFit(NestedData$data[[counter]]), silent = T)
+  FinalHolFit <- try(HolFit(NestedData$data[[counter]], a, h), silent = T)
+  FinalGenFit <- try(GenFitAIC(NestedData$data[[counter]], a, h, q), silent = T)
   
   FitValues[1, 2] <- ifelse(class(FinalQuaFit) == "try-error", rep(NA,1), AIC(FinalQuaFit))
   FitValues[1, 3] <- ifelse(class(FinalQuaFit) == "try-error", rep(NA,1), BIC(FinalQuaFit))
@@ -148,7 +162,15 @@ for (id in 1: length(StartValueTable[, 1])){
   FitValues[4, 2] <- ifelse(class(FinalGenFit) == "try-error", rep(NA,1), AIC(FinalGenFit))
   FitValues[4, 3] <- ifelse(class(FinalGenFit) == "try-error", rep(NA,1), BIC(FinalGenFit))
   
+  # Store the smallest value for AIC or BIC as a variable
   MinimumAICorBIC <- min(FitValues[2:3], na.rm = TRUE)
+
+  
+  tryCatch( ModelFits[counter, 4:6] <- FitValues[which(FitValues[2:3] == MinimumAICorBIC),],
+            warning=function(c) print(paste("warning on id", ModelFits[counter, 1]))
+  ) 
+  
+  # Copy th
   ModelFits[id, 4:6] <- FitValues[which(FitValues[2:3] == MinimumAICorBIC),]
   }
 
@@ -163,10 +185,10 @@ for (id in 1: length(StartValueTable[, 1])){
 ### Plot fitted models
 ###################################################
 # Generate a vector of resource densities for plotting
-ResDensities <- seq(min(TestData$ResDensity), max(TestData$ResDensity), len = 200)
+ResDensities <- seq(min(data$ResDensity), max(data$ResDensity), len = 200)
 
 # Plot data points  
-plot(data$ResDensity, TestData$N_TraitValue, xlab = "Resource Density", ylab = "Consumption rate (units of mass/time)")
+plot(data$ResDensity, data$N_TraitValue, xlab = "Resource Density", ylab = "Consumption rate (units of mass/time)")
 
 ## Calculate the predicted lines using coefficients extracted from the model fit
 
