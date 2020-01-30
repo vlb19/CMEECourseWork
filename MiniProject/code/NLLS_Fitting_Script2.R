@@ -17,6 +17,19 @@ library("dplyr")
 library("tidyr")
 
 ###############################################
+### Load in modified data ### 
+###############################################
+
+#Load in modified data
+data <- read.csv('../data/FunResData.csv')
+
+# Remove additional X column added in the transformation
+data <- data[,-1]
+
+# Nest data by ID
+NestedData <- data %>% nest(data = -ID)
+
+###############################################
 ### Write models as functions ###
 ###############################################
 
@@ -51,7 +64,6 @@ HolFit <- function(data, a, h) {nlsLM(N_TraitValue ~ HollingII(ResDensity, a, h)
 
 ### Generalised Holling model
 # Set a value for q
-q = 0.25
 GenFit <- function(data, a, h, q) {nlsLM(N_TraitValue ~ GenMod(ResDensity, a, h, q), data = data, start = list(a=a, h=h))}
 
 
@@ -62,8 +74,6 @@ GenFit <- function(data, a, h, q) {nlsLM(N_TraitValue ~ GenMod(ResDensity, a, h,
 StartingValues <- function(data2fit) {
   
   ### Store the peak handling time in a variable (h)
-  # Create empty variable 
-  h <- list()
   # Store maximum y value
   h <- max(data2fit$N_TraitValue)
   
@@ -78,8 +88,6 @@ StartingValues <- function(data2fit) {
   lm <- summary(lm(N_TraitValue ~ ResDensity, CurveData))
   
   ### Store the search rate
-  # Create empty variable 
-  a <- list()
   # Store the value for the gradient
   a <- lm$coefficients[2]
   
@@ -90,96 +98,116 @@ StartingValues <- function(data2fit) {
 
 
 ###############################################
-### Load in data ### 
-###############################################
-
-#Load in modified data
-data <- read.csv('../data/FunResData.csv')
-
-# Remove additional X column added in the transformation
-data <- data[,-1]
-
-# Nest data by ID
-NestedData <- data %>% nest(data = -ID)
-
-###############################################
 ### Obtain Starting Values ###
 ###############################################
 
 # Create new data frame to store values
-StartValueTable <- data.frame("ID" = NestedData$ID, "a_value" = rep(NA, length(NestedData$ID)), "h_value"= rep(NA, length(NestedData$ID)))
+StartValueTable <- data.frame("ID" = NestedData$ID, 
+                              "a_value" = rep(NA, length(NestedData$ID)), 
+                              "h_value"= rep(NA, length(NestedData$ID)))
 
 # For each ID obtain starting values and store in data frame
 for (id in 1: length(NestedData[[1]])){
-  avalue = StartingValues(NestedData$data[[id]])[1]
-  if (is.nan(avalue)){}
-  else {
     StartValueTable[id, "a_value"] <- StartingValues(NestedData$data[[id]])[1]
     StartValueTable[id, "h_value"] <- StartingValues(NestedData$data[[id]])[2]
-  }
 }
 
 # Remove IDs where a could not be calculated from start value table
-is.na(StartValueTable)
-StartValueTable <- na.omit(StartValueTable)
+#StartValueTable <- na.omit(StartValueTable)
 
-# Remove IDs with no a value from data frame
-#compare start value table id
-#remove unique values from nested data
 
-###############################################
-### Run NLLS Fitting ###
-###############################################
+####################################################
+### Run NLLS Fitting and measure goodness of fit ###
+####################################################
 
-# Create new data frame to store values
-FitValues <- data.frame("Model" = c("QuaFit", "CubFit", "HolFit", "GenFit"), "AIC" = rep(NA,4), "BIC" =rep(NA,4), stringsAsFactors = FALSE)
+# Create new data frame to store AIC and BIC values for each model
+FitValues <- data.frame("Model" = c("QuaFit", "CubFit", "HolFit", "GenFit"), 
+                        "AIC" = rep(NA,4), 
+                        "BIC" =rep(NA,4), 
+                        stringsAsFactors = FALSE)
 
-ModelFits <- data.frame("ID" = StartValueTable[1], "a_value" = StartValueTable[2], "h_value" = StartValueTable[3], "Best_Model" = rep(NA, length(StartValueTable[1])), "AIC"= rep(NA, length(StartValueTable[1])), "BIC" = rep(NA, length(StartValueTable[1])))
-
-# Create counter to run through with 
-counter = 0
+# Create a new data frame to store best models, starting values
+# and model fits for each ID
+ModelFits <- data.frame("ID" = StartValueTable[1], 
+                        "a_value" = StartValueTable[2], 
+                        "h_value" = StartValueTable[3], 
+                        "Best_Model" = rep(NA, length(StartValueTable[1])), 
+                        "AIC"= rep(NA, length(StartValueTable[1])), 
+                        "BIC" = rep(NA, length(StartValueTable[1])), 
+                        stringsAsFactors = FALSE)
 
 # Run models for each ID
-for (id in StartValueTable[, 1]){
-  counter = counter+1
-  a <- StartValueTable[counter,2]
-  h <- StartValueTable[counter, 3]
-  q = 0.25
-  FinalQuaFit <- try(QuaFit(NestedData$data[[counter]]), silent = T)
-  FinalCubFit <- try(CubFit(NestedData$data[[counter]]), silent = T)
-  FinalHolFit <- try(HolFit(NestedData$data[[counter]], a, h), silent = T)
-  FinalGenFit <- try(GenFitAIC(NestedData$data[[counter]], a, h, q), silent = T)
+for (i in 1:length(StartValueTable[, 1])){
   
-  FitValues[1, 2] <- ifelse(class(FinalQuaFit) == "try-error", rep(NA,1), AIC(FinalQuaFit))
-  FitValues[1, 3] <- ifelse(class(FinalQuaFit) == "try-error", rep(NA,1), BIC(FinalQuaFit))
+  # Generate starting values for the Holling models
+  a <- StartValueTable[i,2]
+  h <- StartValueTable[i, 3]
+  q = -1
   
-  FitValues[2, 2] <- ifelse(class(FinalCubFit) == "try-error", rep(NA,1), AIC(FinalCubFit))
-  FitValues[2, 3] <- ifelse(class(FinalCubFit) == "try-error", rep(NA,1), BIC(FinalCubFit))
+  # Subset the data for a single ID
+  datatry <- NestedData$data[[i]]
   
-  FitValues[3, 2] <- ifelse(class(FinalHolFit) == "try-error", rep(NA,1), AIC(FinalHolFit))
-  FitValues[3, 3] <- ifelse(class(FinalHolFit) == "try-error", rep(NA,1), BIC(FinalHolFit))
+  ### Fit models 
+  # Phenomenological quadratic model
+  QuaFit <- try(lm(N_TraitValue  ~ poly(ResDensity,2), 
+                  data = datatry), silent = T)
   
-  FitValues[4, 2] <- ifelse(class(FinalGenFit) == "try-error", rep(NA,1), AIC(FinalGenFit))
-  FitValues[4, 3] <- ifelse(class(FinalGenFit) == "try-error", rep(NA,1), BIC(FinalGenFit))
+  # Cubic polynomial model 
+  CubFit <- try(lm(N_TraitValue ~ poly(ResDensity,3), 
+                   data = datatry), silent = T)
   
-  # Store the smallest value for AIC or BIC as a variable
-  MinimumAICorBIC <- min(FitValues[2:3], na.rm = TRUE)
+  # Holling II model
+  HolFit <- try(nlsLM(N_TraitValue ~ HollingII(ResDensity, a, h), 
+                  data = datatry, start = list(a=a, h=h)), 
+                  silent = T)
 
+  # Generalised Holling model
+  GenFit <- try(nlsLM(N_TraitValue ~ GenMod(ResDensity, a, h, q), 
+                  data = datatry, start = list(a=a, h=h)), 
+                  silent = T)
+
+  ### Store AICs into a table for each model
   
-  tryCatch( ModelFits[counter, 4:6] <- FitValues[which(FitValues[2:3] == MinimumAICorBIC),],
-            warning=function(c) print(paste("warning on id", ModelFits[counter, 1]))
+    # Phenomenological quadratic model
+      FitValues[1, 2] <- ifelse(class(QuaFit) == "try-error", rep(NA,1), AIC(QuaFit))
+    # Cubic polynomial model 
+      FitValues[2, 2] <- ifelse(class(CubFit) == "try-error", rep(NA,1), AIC(CubFit))
+    # Holling II model
+      FitValues[3, 2] <- ifelse(class(HolFit) == "try-error", rep(NA,1), AIC(HolFit))
+    # Generalised Holling model
+      FitValues[4, 2] <- ifelse(class(GenFit) == "try-error", rep(NA,1), AIC(GenFit))
+      
+      
+  # Store the smallest value for AIC as a variable
+  MinimumAIC <- min(FitValues[2], na.rm = TRUE)
+  
+  
+  ### Store BICs into a table for each model
+      
+    # Phenomenological quadratic model
+      FitValues[1, 3] <- ifelse(class(QuaFit) == "try-error", rep(NA,1), BIC(QuaFit))
+    # Cubic polynomial model 
+      FitValues[2, 3] <- ifelse(class(CubFit) == "try-error", rep(NA,1), BIC(CubFit))
+    # Holling II model
+      FitValues[3, 3] <- ifelse(class(HolFit) == "try-error", rep(NA,1), BIC(HolFit))
+    # Generalised Holling model
+      FitValues[4, 3] <- ifelse(class(GenFit) == "try-error", rep(NA,1), BIC(GenFit))
+  
+  # Store the smallest value for BIC as a variable
+  MinimumAIC <- min(FitValues[3], na.rm = TRUE)
+  
+  # 
+  tryCatch( ModelFits[i, 4:6] <- FitValues[which(FitValues[2:3] == MinimumAICorBIC),],
+            warning=function(c) print(paste("warning on id", ModelFits[i, 1]))
   ) 
   
+}
+
+ 
   # Copy th
-  ModelFits[id, 4:6] <- FitValues[which(FitValues[2:3] == MinimumAICorBIC),]
-  }
-
-
-
-###############################################
-### Calculate statistical measures of the models ###
-###############################################
-
+  #ModelFits[id, 4:6] <- FitValues[which(FitValues[2:3] == MinimumAICorBIC),] 
+ # ad <- c(ID, AIC, BIC, MODEL , kdjs)
+#  nameofdataframe <- rbind(nameofdataframe, ad)
 
 ###################################################
 ### Plot fitted models
