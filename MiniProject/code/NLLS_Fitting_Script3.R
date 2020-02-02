@@ -1,9 +1,23 @@
 #!/usr/bin/env Rscript
 
-rm(list=ls()) #Clear global environment
+# Author: Victoria Blanchard vlb19@ic.ac.uk
+# Script: NLLS_Fitting_Script.R
+# Desc: Fit different NLLS models to functional response data
+# Input: 'FunResData.csv'
+# Output: csv file with best model fits for each ID
+# Arguments: 0
+# Date: January 2020
+
+##############################################
+### Prepare R environment ###
+##############################################
+
+#Clear global environment
+rm(list=ls()) 
 
 #Set working directory
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
 
 ###############################################
 ### Import Packages ###
@@ -15,6 +29,7 @@ require("minpack.lm")
 # For data wrangling
 library("dplyr") 
 library("tidyr")
+
 
 ###############################################
 ### Load in modified data ### 
@@ -29,43 +44,26 @@ data <- data[,-1]
 # Nest data by ID
 NestedData <- data %>% nest(data = -ID)
 
+
 ###############################################
 ### Write models as functions ###
 ###############################################
 
-# x = resource density
+# xr = resource density
 # h = handling time 
 # a = search rate 
 # q is a shape paramater that allows the shape 
 # of the response to be more flexible/variable
 
 ### Mechanistic Holling Type II model
-HollingII <- function(x, a, h) {
-  return( (a * x) / (1 + (h*a*x)))
+HollingII <- function(xr, a, h) {
+  return( (a * xr) / (1 + (h * a * xr)) )
 } 
 
 ### Generalised functional response model
-GenMod <- function(x, a, h, q) {
-  return((a*x^(q+1)) / (1 + (h*a*x^(q+1))))
-  } 
-
-###############################################
-### Write NLLS as functions ###
-###############################################
-
-### Phenomenological quadratic model
-QuaFit <- function(data) {lm(N_TraitValue ~ poly(ResDensity,2), data = data)}
-
-### Cubic polynomial model 
-CubFit <- function(data) {lm(N_TraitValue ~ poly(ResDensity,3), data = data)}
-
-### Holling II model
-HolFit <- function(data, a, h) {nlsLM(N_TraitValue ~ HollingII(ResDensity, a, h), data = data, start = list(a=a, h=h))}
-
-### Generalised Holling model
-# Set a value for q
-GenFit <- function(data, a, h, q) {nlsLM(N_TraitValue ~ GenMod(ResDensity, a, h, q), data = data, start = list(a=a, h=h))}
-
+GenMod <- function(xr, a, h, q) {
+  return( (a * xr ^ (q+1)) / (1 + (h * a * xr ^ (q+1))) )
+} 
 
 ###############################################
 ### Get starting values for h and a ###
@@ -78,21 +76,30 @@ StartingValues <- function(data2fit) {
   h <- max(data2fit$N_TraitValue)
   
   ### Remove points after this value in order to fit models to the growth period
-  # Store x value for corresponding peak y value
-  removeddata <- data2fit$ResDensity[which.max(data2fit$N_TraitValue)]
+  # Find mean y value
+  meanTraitValue <- mean(data2fit$N_TraitValue)
+  # Find max y value
+  maxTraitValue <- max(data2fit$N_TraitValue)
   
-  # Subset the data to contain only x values lower than this point
-  CurveData <- subset(data2fit, ResDensity < removeddata)
+  # Subset the data to contain only x values lower than these point
+  DataBelowMean <- subset(data2fit, N_TraitValue < meanTraitValue)
+  DataBelowMax <- subset(data2fit, N_TraitValue < maxTraitValue)
   
-  ### Calculate the linear regression of the cut slope
-  lm <- summary(lm(N_TraitValue ~ ResDensity, CurveData))
+  ### Calculate the linear regression of the cut slopes 
+  lmMean <- summary(lm(N_TraitValue ~ ResDensity, DataBelowMean))
+  lmMax <- summary(lm(N_TraitValue ~ ResDensity, DataBelowMax))
+  
   
   ### Store the search rate
-  # Store the value for the gradient
-  a <- lm$coefficients[2]
+  # Store the best value for the gradient
+  if (lmMean$r.squared >= lmMax$r.squared){
+    a <- lmMean$coefficients[2]
+  } else {a <- lmMax$coefficients[2]}
   
-  ### Store a and h values
+  ### Store a and h values in a list to return 
   ah <- c(a, h)
+  
+  ### Return the a and h values
   return(ah)
 }
 
@@ -108,18 +115,14 @@ StartValueTable <- data.frame("ID" = NestedData$ID,
 
 # For each ID obtain starting values and store in data frame
 for (id in 1:nrow(NestedData)){
-    StartValueTable[id, "a_value"] <- StartingValues(NestedData$data[[id]])[1]
-    StartValueTable[id, "h_value"] <- StartingValues(NestedData$data[[id]])[2]
+  StartValueTable[id, "a_value"] <- StartingValues(NestedData$data[[id]])[1]
+  StartValueTable[id, "h_value"] <- StartingValues(NestedData$data[[id]])[2]
 }
 
-# Remove IDs where a could not be calculated from start value table
-#StartValueTable <- na.omit(StartValueTable)
-
 
 ####################################################
-### Run NLLS Fitting and measure goodness of fit ###
+### Run NLLS Fitting ###
 ####################################################
-
 # Create new data frame to store AIC and BIC values for each model
 FitValues <- data.frame("Model" = c("QuaFit", "CubFit", "HolFit", "GenFit"), 
                         "AIC" = rep(NA,4), 
@@ -136,44 +139,38 @@ ModelFits <- data.frame("ID" = StartValueTable[1],
                         "Best_BIC_Model" = rep(NA, nrow(StartValueTable[1])), 
                         "BIC" = rep(NA, nrow(StartValueTable[1])), 
                         stringsAsFactors = FALSE)
-
-# Create new data frame for optimising a and h values
-OptStartValueTable <- data.frame("ID" = NestedData$ID, 
-                              "a_value" = rep(NA, length(NestedData$ID)), 
-                              "h_value"= rep(NA, length(NestedData$ID)))
-### Run models for each ID
-
+                        
 for (i in 1:length(StartValueTable[, 1])){
   
   # Generate starting values for the Holling models
   a <- StartValueTable[i,2]
   h <- StartValueTable[i, 3]
-  q = -1
+  q = 0.78
   
+  # Subset data for a particular ID
+  datatry <- NestedData$data[[i]]
   
   ### Fit models 
   # Phenomenological quadratic model
   QuaFit <- try(lm(N_TraitValue  ~ poly(ResDensity,2), 
-                  data = datatry), silent = T)
+                   data = datatry), silent = T)
   
   # Cubic polynomial model 
   CubFit <- try(lm(N_TraitValue ~ poly(ResDensity,3), 
                    data = datatry), silent = T)
   
   # Holling II model
-  HolFit <- try(nlsLM(N_TraitValue ~ HollingII(ResDensity, a, h), 
-                  data = datatry, start = list(a=a, h=h)), 
-                  silent = T)
-
-  # Generalised Holling model
-  GenFit <- try(nlsLM(N_TraitValue ~ GenMod(ResDensity, a, h, q), 
-                  data = datatry, start = list(a=a, h=h)), 
-                  silent = T)
+  HolFit <- try(nlsLM(N_TraitValue ~ HollingII(datatry$ResDensity, a, h), 
+                      data = datatry, start = list(a=a, h=h)), 
+                silent = T)
   
+  # Generalised Holling model
+  GenFit <- try(nlsLM(N_TraitValue ~ GenMod(datatry$ResDensity, a, h, q), 
+                      data = datatry, start = list(a=a, h=h)), 
+                silent = T)
   
   
   ### Store AICs into a table for each model
-  
   # Phenomenological quadratic model
   FitValues[1, 2] <- ifelse(class(QuaFit) == "try-error", rep(NA,1), AIC(QuaFit))
   # Cubic polynomial model 
@@ -209,21 +206,10 @@ for (i in 1:length(StartValueTable[, 1])){
   ModelFits[i, 6:7] <- FitValues[which(FitValues[3] == MinimumBIC),c(1,3)]
 }
 
-# Remove NA values from table 
-ModelFits <- na.omit(ModelFits)# Plot data points  
+##########################################
+### Summarise different statistics ### 
+##########################################
 
+ModelFits %>% group_by(ModelFits$Best_AIC_Model) %>% summarise(count=n())
 
-###################################################
-### Export results to csv file ###
-###################################################
-
-write.csv(ModelFits, file = "../data/ModelsToPlot.csv")
-
-#########################################
-### Optimise Start Values ### 
-#########################################
-
-TempTable <- data.frame("avalue", "hvalue", "AIC_Hol_values" = rep(NA, length(avalues)))    
-
-
-    
+ModelFits %>% group_by(ModelFits$Best_BIC_Model) %>% summarise(count=n())
