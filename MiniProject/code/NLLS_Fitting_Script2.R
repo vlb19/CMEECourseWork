@@ -34,7 +34,7 @@ NestedData <- data %>% nest(data = -ID)
 ###############################################
 
 ### Mechanistic Holling Type II model
-HollingII <- function(a, h, x) {
+HollingII <- function(x, a, h) {
   return( (a * x) / (1 + (h*a*x)))
 }   # x = resource density
     # h = handling time 
@@ -107,7 +107,7 @@ StartValueTable <- data.frame("ID" = NestedData$ID,
                               "h_value"= rep(NA, length(NestedData$ID)))
 
 # For each ID obtain starting values and store in data frame
-for (id in 1: length(NestedData[[1]])){
+for (id in 1:nrow(NestedData)){
     StartValueTable[id, "a_value"] <- StartingValues(NestedData$data[[id]])[1]
     StartValueTable[id, "h_value"] <- StartingValues(NestedData$data[[id]])[2]
 }
@@ -131,12 +131,18 @@ FitValues <- data.frame("Model" = c("QuaFit", "CubFit", "HolFit", "GenFit"),
 ModelFits <- data.frame("ID" = StartValueTable[1], 
                         "a_value" = StartValueTable[2], 
                         "h_value" = StartValueTable[3], 
-                        "Best_Model" = rep(NA, length(StartValueTable[1])), 
-                        "AIC"= rep(NA, length(StartValueTable[1])), 
-                        "BIC" = rep(NA, length(StartValueTable[1])), 
+                        "Best_AIC_Model" = rep(NA, nrow(StartValueTable[1])), 
+                        "AIC"= rep(NA, nrow(StartValueTable[1])), 
+                        "Best_BIC_Model" = rep(NA, nrow(StartValueTable[1])), 
+                        "BIC" = rep(NA, nrow(StartValueTable[1])), 
                         stringsAsFactors = FALSE)
 
-# Run models for each ID
+# Create new data frame for optimising a and h values
+OptStartValueTable <- data.frame("ID" = NestedData$ID, 
+                              "a_value" = rep(NA, length(NestedData$ID)), 
+                              "h_value"= rep(NA, length(NestedData$ID)))
+### Run models for each ID
+
 for (i in 1:length(StartValueTable[, 1])){
   
   # Generate starting values for the Holling models
@@ -144,8 +150,6 @@ for (i in 1:length(StartValueTable[, 1])){
   h <- StartValueTable[i, 3]
   q = -1
   
-  # Subset the data for a single ID
-  datatry <- NestedData$data[[i]]
   
   ### Fit models 
   # Phenomenological quadratic model
@@ -165,111 +169,61 @@ for (i in 1:length(StartValueTable[, 1])){
   GenFit <- try(nlsLM(N_TraitValue ~ GenMod(ResDensity, a, h, q), 
                   data = datatry, start = list(a=a, h=h)), 
                   silent = T)
-
+  
+  
+  
   ### Store AICs into a table for each model
   
-    # Phenomenological quadratic model
-      FitValues[1, 2] <- ifelse(class(QuaFit) == "try-error", rep(NA,1), AIC(QuaFit))
-    # Cubic polynomial model 
-      FitValues[2, 2] <- ifelse(class(CubFit) == "try-error", rep(NA,1), AIC(CubFit))
-    # Holling II model
-      FitValues[3, 2] <- ifelse(class(HolFit) == "try-error", rep(NA,1), AIC(HolFit))
-    # Generalised Holling model
-      FitValues[4, 2] <- ifelse(class(GenFit) == "try-error", rep(NA,1), AIC(GenFit))
-      
-      
+  # Phenomenological quadratic model
+  FitValues[1, 2] <- ifelse(class(QuaFit) == "try-error", rep(NA,1), AIC(QuaFit))
+  # Cubic polynomial model 
+  FitValues[2, 2] <- ifelse(class(CubFit) == "try-error", rep(NA,1), AIC(CubFit))
+  # Holling II model
+  FitValues[3, 2] <- ifelse(class(HolFit) == "try-error", rep(NA,1), AIC(HolFit))
+  # Generalised Holling model
+  FitValues[4, 2] <- ifelse(class(GenFit) == "try-error", rep(NA,1), AIC(GenFit))
+  
+  
   # Store the smallest value for AIC as a variable
   MinimumAIC <- min(FitValues[2], na.rm = TRUE)
   
   
   ### Store BICs into a table for each model
-      
-    # Phenomenological quadratic model
-      FitValues[1, 3] <- ifelse(class(QuaFit) == "try-error", rep(NA,1), BIC(QuaFit))
-    # Cubic polynomial model 
-      FitValues[2, 3] <- ifelse(class(CubFit) == "try-error", rep(NA,1), BIC(CubFit))
-    # Holling II model
-      FitValues[3, 3] <- ifelse(class(HolFit) == "try-error", rep(NA,1), BIC(HolFit))
-    # Generalised Holling model
-      FitValues[4, 3] <- ifelse(class(GenFit) == "try-error", rep(NA,1), BIC(GenFit))
+  
+  # Phenomenological quadratic model
+  FitValues[1, 3] <- ifelse(class(QuaFit) == "try-error", rep(NA,1), BIC(QuaFit))
+  # Cubic polynomial model 
+  FitValues[2, 3] <- ifelse(class(CubFit) == "try-error", rep(NA,1), BIC(CubFit))
+  # Holling II model
+  FitValues[3, 3] <- ifelse(class(HolFit) == "try-error", rep(NA,1), BIC(HolFit))
+  # Generalised Holling model
+  FitValues[4, 3] <- ifelse(class(GenFit) == "try-error", rep(NA,1), BIC(GenFit))
   
   # Store the smallest value for BIC as a variable
-  MinimumAIC <- min(FitValues[3], na.rm = TRUE)
+  MinimumBIC <- min(FitValues[3], na.rm = TRUE)
   
-  # 
-  tryCatch( ModelFits[i, 4:6] <- FitValues[which(FitValues[2:3] == MinimumAICorBIC),],
-            warning=function(c) print(paste("warning on id", ModelFits[i, 1]))
-  ) 
+  # Store the model with the best AIC in the final table 
+  ModelFits[i, 4:5] <- FitValues[which(FitValues[2] == MinimumAIC),1:2]
   
+  # Store the model with the best BIC in the final table
+  ModelFits[i, 6:7] <- FitValues[which(FitValues[3] == MinimumBIC),c(1,3)]
 }
 
- 
-  # Copy th
-  #ModelFits[id, 4:6] <- FitValues[which(FitValues[2:3] == MinimumAICorBIC),] 
- # ad <- c(ID, AIC, BIC, MODEL , kdjs)
-#  nameofdataframe <- rbind(nameofdataframe, ad)
+# Remove NA values from table 
+ModelFits <- na.omit(ModelFits)# Plot data points  
+
 
 ###################################################
-### Plot fitted models
+### Export results to csv file ###
 ###################################################
-# Generate a vector of resource densities for plotting
-ResDensities <- seq(min(data$ResDensity), max(data$ResDensity), len = 200)
 
-# Plot data points  
-plot(data$ResDensity, data$N_TraitValue, xlab = "Resource Density", ylab = "Consumption rate (units of mass/time)")
+write.csv(ModelFits, file = "../data/ModelsToPlot.csv")
 
-## Calculate the predicted lines using coefficients extracted from the model fit
+#########################################
+### Optimise Start Values ### 
+#########################################
 
-# Quadratic model 
-Predic2PlotQua <- predict.lm(QuaFit, data.frame(ResDensity = ResDensities ))
-
-# Cubic model
-Predic2PlotCub <- predict.lm(CubFit, data.frame(ResDensity = ResDensities ))
-
-# Holling II model 
-Predic2PlotHolling <- HollingII(ResDensities, coef(HolFit)["a"], coef(HolFit)["h"])
-
-# Generalised model
-Predic2PlotGen <- GenMod(ResDensities, coef(GenFit)["a"], coef(GenFit)["h"],q)
-
-## Plot the lines
-## Fit Quadratic model line 
-lines(ResDensities, Predic2PlotQua, col = 'red', lwd = 2.5)
-
-## Fit Cubic model line
-lines(ResDensities, Predic2PlotCub, col = 'blue', lwd = 2.5)
-
-## Plot the data and the fitted Holling II model line
-lines(ResDensities, Predic2PlotHolling, col = "green", lwd = 2.5)
-
-## Fit General model line
-lines(ResDensities, Predic2PlotGen, col = 'magenta', lwd = 2.5)
-
-## Add legend to graph
-legend("topleft", legend = c("Quadratic model", "Cubic Model", "Holling II", "General model"), lty = 1, col = c("red", "blue", "green", "pink"))
-#text(300, 0.025, labels = LineEquation )
-
-## Add equation of line to graph
-LineEquation = paste("Consumption Rate = ", coef(HolFit)["a"], 'x Resource Density ^', coef(HolFit["h"]))
-# Generate a vector of resource densities for plotting
-ResDensities <- seq(min(data$ResDensity), max(data$ResDensity), len = 200)
-
-  ## Calculate confidence intervals on the estimated parameters
-  
-  preds <- predict(QuaFit, newdata = data.frame(ResDensity = ResDensities), 
-                   interval = 'confidence')
-  polygon(c(rev(ResDensities), ResDensities), c(rev(preds[ ,3]), preds[ ,2]), col = 'grey80', border = NA)
-  
-  
+TempTable <- data.frame("avalue", "hvalue", "AIC_Hol_values" = rep(NA, length(avalues)))    
 
 
-###############################################
-### Optimise values for a and h ###
-###############################################
-
-# Generate random numbers following normal distribution around "a"
-avalues <- sort(rnorm(10, a, sd=1))
-
-# Generate random numbers following normal distribution around "h"
-hvalues <- sort(rnorm(10, h, sd=1))
-
+    
