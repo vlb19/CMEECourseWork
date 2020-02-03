@@ -173,7 +173,6 @@ for (i in 1:length(StartValueTable[, 1])){
   
   
   ### Store AICs into a table for each model
-  
   # Phenomenological quadratic model
   FitValues[1, 2] <- ifelse(class(QuaFit) == "try-error", rep(NA,1), AIC(QuaFit))
   # Cubic polynomial model 

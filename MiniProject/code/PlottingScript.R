@@ -30,12 +30,13 @@ require("ggplot2")
 ###################################################
 
 for (i in 1:length(ModelFits$ID)){
+  datatry <- NestedData$data[[i]]
   
   # Generate a vector of resource densities for plotting
-  ResDensities <- seq(min(data$ResDensity), max(data$ResDensity), len = 200)
+  ResDensities <- sort(seq(min(data$ResDensity), max(data$ResDensity), len = 200))
 
   # Plot data points  
-  plot(data$ResDensity, data$N_TraitValue, xlab = "Resource Density", ylab = "Consumption rate (units of mass/time)")
+  plot(datatry$ResDensity, datatry$N_TraitValue, xlab = "Resource Density", ylab = "Consumption rate (units of mass/time)")
 
   ## Calculate the predicted lines using coefficients extracted from the model fit
 
@@ -81,4 +82,45 @@ preds <- predict(QuaFit, newdata = data.frame(ResDensity = ResDensities),
                  interval = 'confidence')
 polygon(c(rev(ResDensities), ResDensities), c(rev(preds[ ,3]), preds[ ,2]), col = 'grey80', border = NA)
 
+########################################
+### Edited
+########################################
+
+# Generate a vector of resource densities for plotting
+ResDensities <- sort(seq(min(data$ResDensity), max(data$ResDensity), len = 200))
+
+# Plot data points  
+plot(datatry$ResDensity, datatry$N_TraitValue, xlab = "Resource Density", ylab = "Consumption rate (units of mass/time)")
+
+## Calculate the predicted lines using coefficients extracted from the model fit
+
+# Quadratic model 
+Predic2PlotQua <- ifelse(class(QuaFit) == "try-error", "", predict.lm(QuaFit, data.frame(ResDensity = ResDensities )))
+
+# Cubic model
+Predic2PlotCub <- ifelse(class(CubFit) == "try-error", "", predict.lm(CubFit, data.frame(ResDensity = ResDensities )))
+
+# Holling II model 
+Predic2PlotHolling <- ifelse(class(HolFit) == "try-error", "", HollingII(ResDensities, coef(HolFit)["a"], coef(HolFit)["h"]))
+
+# Generalised model
+Predic2PlotGen <- ifelse(class(HolFit) == "try-error", "", GenMod(ResDensities, coef(GenFit)["a"], coef(GenFit)["h"], q))
+
+### Plot the lines
+# Quadratic model 
+lines(ResDensities, Predic2PlotQua, col = 'red', lwd = 2.5)
+
+# Cubic model
+lines(ResDensities, Predic2PlotCub, col = 'blue', lwd = 2.5)
+
+# Plot the data and the fitted Holling II model line
+lines(ResDensities, Predic2PlotHolling, col = "green", lwd = 2.5)
+
+# Fit General model line
+lines(ResDensities, Predic2PlotGen, col = 'magenta', lwd = 2.5)
+
+## Add legend to graph
+legend("topleft", legend = c("Quadratic model", "Cubic Model", "Holling II", "General model"), lty = 1, col = c("red", "blue", "green", "pink"))
+#text(300, 0.025, labels = LineEquation )
+}
 
