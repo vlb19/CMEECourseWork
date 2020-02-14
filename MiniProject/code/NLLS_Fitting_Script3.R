@@ -43,6 +43,11 @@ data <- data[,-1]
 # Nest data by ID
 NestedData <- data %>% nest(data = -ID)
 
+###############################################
+### Save covariates in separate table by ID ###
+###############################################
+
+Covariates <- data[!duplicated(data$ID),]
 
 ###############################################
 ### Write models as functions ###
@@ -363,9 +368,16 @@ ModelFits %>% group_by(ModelFits$Best_AIC_Model) %>% summarise(count=n())
 
 OptModelFits %>% group_by(OptModelFits$Best_AIC_Model) %>% summarise(count=n())
 
+
+###################################################
+### Add in covariate data for analysis ### 
+###################################################
+
+MergedOptTable <- merge(OptModelFits,Covariates)
+
 ###################################################
 ### Export results to csv file ###
 ###################################################
 
-write.csv(OptModelFits, file = "../data/ModelsToPlot.csv")
+write.csv(MergedOptTable, file = "../data/MergedOptTable.csv")
 
