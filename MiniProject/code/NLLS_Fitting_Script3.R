@@ -40,8 +40,10 @@ data <- read.csv('../data/FunResData.csv')
 # Remove additional X column added in the transformation
 data <- data[,-1]
 
+data2nest <- data[1:3]
+
 # Nest data by ID
-NestedData <- data %>% nest(data = -ID)
+NestedData <- data2nest %>% nest(data = -ID)
 
 ###############################################
 ### Save covariates in separate table by ID ###

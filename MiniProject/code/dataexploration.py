@@ -10,6 +10,16 @@ import matplotlib.pylab as pl
 import seaborn as sns
 import numpy as np
 import csv
+import os
+
+#########################################################
+### Set working directory ###
+#########################################################
+
+abspath = os.path.abspath("dataexploration.py")
+dname = os.path.dirname(os.path.realpath("dataexploration.py"))
+dname = os.path.dirname(abspath)
+os.chdir(dname)
 
 #########################################################
 ### Initial data visualisation ###
@@ -29,8 +39,15 @@ print(data.columns.values)
 ##########################################################
 
 ### Create new data frame with only columns of interest for initial plots
-newdata = data[['ID','ResDensity','N_TraitValue','Habitat','Res_MovementDimensionality', 'Con_MovementDimensionality']].copy()
+newdata = data[['ID','ResDensity','N_TraitValue','Habitat','Res_MovementDimensionality', 'Con_MovementDimensionality', 'ConTaxa','ResTaxa']].copy()
 print(newdata)
+
+### Modify the taxa to include only genus 
+#newdata['ConTaxa'] = newdata['ConTaxa'].str.split().str[0]
+#newdata['ResTaxa'] = newdata['ResTaxa'].str.split().str[0]
+
+#newdata = newdata.astype(str)
+#newdata = newdata.apply(lambda x: x.str.split().str[0])
 
 ### Remove any IDs containing NA values
 newdata2 = newdata.dropna()
