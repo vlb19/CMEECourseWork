@@ -143,7 +143,6 @@ NestedData <- merge(NestedData, StartValueTable, by = "ID")
 
                         
 for (i in 1:length(StartValueTable[, 1])){
-  # Optimise the starting values
   
   # Generate starting values for the Holling models
   a <- StartValueTable[i,2]
@@ -212,10 +211,18 @@ for (i in 1:length(StartValueTable[, 1])){
 ##########################################
 ### Optimise Starting Values ###
 ##########################################
+
 iters = 10
 maxiters = 21
 
-for (i in 1:length(StartValueTable[, 1]) {
+OptStartValueTable <- data.frame("ID" = NestedData$ID, 
+                                 "a_value" = rep(NA), 
+                                 "h_value"= rep(NA))
+
+for (i in 1:length(OptStartValueTable$ID)){
+  
+  # Subset data for a single ID
+  data2fit <- NestedData[i,]
   
   # Retrieve initial start value estimates 
   a = data2fit[,3]
@@ -243,14 +250,109 @@ for (i in 1:length(StartValueTable[, 1]) {
     # try to fit the general functional response model to every
     # starting value in the list 
     
-    GenFit <- try(nlsLM(N_TraitValue ~ GenMod(data2try$ResDensity, a, h, q), 
-                        data = data2try, start = list(a = GenStarta, h = GenStarth)), silent = T)
+    GenFit <- suppressWarnings(try(nlsLM(N_TraitValue ~ GenMod(data2try$ResDensity, a, h, q), 
+                                         data = data2try, start = list(a = GenStarta, h = GenStarth)), silent = T))
     
     
     # add test values to table
     TestOptimum[k,1:3] <- c(GenStarta, GenStarth, ifelse(class(GenFit) == "try-error", rep(NA,1), AIC(GenFit)))
   }
   
+  # Find the minimum AIC for the table
+  minAIC <- min(TestOptimum[,3], na.rm = T)
+  
+  # Append a and h values to the table of optimised starting values
+  OptStartValueTable[i,1:3] <- c(data2fit$ID[1], TestOptimum[which(TestOptimum[3] == minAIC),1], TestOptimum[which(TestOptimum[3] == minAIC),2])
+  #OptStartValues[i,] <- c(data2fit$ID[1], TestOptimum[which(TestOptimum[3] == minAIC),1], TestOptimum[which(TestOptimum[3] == minAIC),2])
+  
+}
+
+#######################################################
+### Re-run NLLS Fitting with optimised start values ###
+#######################################################
+# Create new data frame to store AIC and BIC values for each model
+OptFitValues <- data.frame("Model" = c("QuaFit", "CubFit", "HolFit", "GenFit"), 
+                        "AIC" = rep(NA,4), 
+                        "BIC" =rep(NA,4), 
+                        stringsAsFactors = FALSE)
+
+# Create a new data frame to store best models, starting values
+# and model fits for each ID
+OptModelFits <- data.frame("ID" = StartValueTable[1], 
+                        "a_value" = StartValueTable[2], 
+                        "h_value" = StartValueTable[3], 
+                        "Best_AIC_Model" = rep(NA, nrow(StartValueTable[1])), 
+                        "AIC"= rep(NA, nrow(StartValueTable[1])), 
+                        "Best_BIC_Model" = rep(NA, nrow(StartValueTable[1])), 
+                        "BIC" = rep(NA, nrow(StartValueTable[1])), 
+                        stringsAsFactors = FALSE)
+
+for (i in 1:length(OptStartValueTable[, 1])){
+  # Optimise the starting values
+  
+  # Generate starting values for the Holling models
+  a <- OptStartValueTable[i,2]
+  h <- OptStartValueTable[i, 3]
+  q = 0.78
+  
+  # Subset data for a particular ID
+  datatry <- NestedData$data[[i]]
+  
+  ### Fit models 
+  # Phenomenological quadratic model
+  QuaFit <- try(lm(N_TraitValue  ~ poly(ResDensity,2), 
+                   data = datatry), silent = T)
+  
+  # Cubic polynomial model 
+  CubFit <- try(lm(N_TraitValue ~ poly(ResDensity,3), 
+                   data = datatry), silent = T)
+  
+  # Holling II model
+  HolFit <- try(nlsLM(N_TraitValue ~ HollingII(datatry$ResDensity, a, h), 
+                      data = datatry, start = list(a=a, h=h)), 
+                silent = T)
+  
+  # Generalised Holling model
+  GenFit <- try(nlsLM(N_TraitValue ~ GenMod(datatry$ResDensity, a, h, q), 
+                      data = datatry, start = list(a=a, h=h)), 
+                silent = T)
+  
+  
+  ### Store AICs into a table for each model
+  # Phenomenological quadratic model
+  OptFitValues[1, 2] <- ifelse(class(QuaFit) == "try-error", rep(NA,1), AIC(QuaFit))
+  # Cubic polynomial model 
+  OptFitValues[2, 2] <- ifelse(class(CubFit) == "try-error", rep(NA,1), AIC(CubFit))
+  # Holling II model
+  OptFitValues[3, 2] <- ifelse(class(HolFit) == "try-error", rep(NA,1), AIC(HolFit))
+  # Generalised Holling model
+  OptFitValues[4, 2] <- ifelse(class(GenFit) == "try-error", rep(NA,1), AIC(GenFit))
+  
+  
+  # Store the smallest value for AIC as a variable
+  MinimumAIC <- min(OptFitValues[2], na.rm = TRUE)
+  
+  
+  ### Store BICs into a table for each model
+  
+  # Phenomenological quadratic model
+  OptFitValues[1, 3] <- ifelse(class(QuaFit) == "try-error", rep(NA,1), BIC(QuaFit))
+  # Cubic polynomial model 
+  OptFitValues[2, 3] <- ifelse(class(CubFit) == "try-error", rep(NA,1), BIC(CubFit))
+  # Holling II model
+  OptFitValues[3, 3] <- ifelse(class(HolFit) == "try-error", rep(NA,1), BIC(HolFit))
+  # Generalised Holling model
+  OptFitValues[4, 3] <- ifelse(class(GenFit) == "try-error", rep(NA,1), BIC(GenFit))
+  
+  # Store the smallest value for BIC as a variable
+  MinimumBIC <- min(OptFitValues[3], na.rm = TRUE)
+  
+  # Store the model with the best AIC in the final table 
+  OptModelFits[i, 4:5] <- OptFitValues[which(OptFitValues[2] == MinimumAIC),1:2]
+  
+  # Store the model with the best BIC in the final table
+  OptModelFits[i, 6:7] <- OptFitValues[which(OptFitValues[3] == MinimumBIC),c(1,3)]
+}
 
 
 ##########################################
@@ -259,11 +361,11 @@ for (i in 1:length(StartValueTable[, 1]) {
 
 ModelFits %>% group_by(ModelFits$Best_AIC_Model) %>% summarise(count=n())
 
-ModelFits %>% group_by(ModelFits$Best_BIC_Model) %>% summarise(count=n())
+OptModelFits %>% group_by(OptModelFits$Best_AIC_Model) %>% summarise(count=n())
 
 ###################################################
 ### Export results to csv file ###
 ###################################################
 
-write.csv(ModelFits, file = "../data/ModelsToPlot.csv")
+write.csv(OptModelFits, file = "../data/ModelsToPlot.csv")
 

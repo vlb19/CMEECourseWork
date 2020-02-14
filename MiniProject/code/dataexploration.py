@@ -29,7 +29,7 @@ print(data.columns.values)
 ##########################################################
 
 ### Create new data frame with only columns of interest for initial plots
-newdata = data[['ID','ResDensity','N_TraitValue']].copy()
+newdata = data[['ID','ResDensity','N_TraitValue','Habitat','Res_MovementDimensionality', 'Con_MovementDimensionality']].copy()
 print(newdata)
 
 ### Remove any IDs containing NA values
