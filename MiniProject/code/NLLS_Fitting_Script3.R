@@ -238,6 +238,8 @@ for (i in 1:length(OptStartValueTable$ID)){
   # Save data for particular ID into a variable
   data2try <- data2fit$data[[1]]
   
+  
+  
   # Generate a potential starting values from initial estimates
   avalues <- c(a, rnorm(iters, a, 10), runif(iters, min = -1, max = 1))
   hvalues <- c(h, rnorm(iters, h, 10), runif(iters, min = -1, max = 1))
@@ -247,7 +249,12 @@ for (i in 1:length(OptStartValueTable$ID)){
                             "hvalues" = rep(NA), 
                             "AIC" = rep(NA))
   
-  
+  #
+  modelvec<-c("PowFit","QuaFit","GenFit", "CubFit")
+  modelvec<-data.frame("Model"=modelvec,
+                       "AIC"=rep(NA),
+                       "BIC"=rep(NA),
+                       "ID "=rep(NA))
   
   # Sample initial start parameters to find best starting values
   for (k in 1:(maxiters)){
@@ -277,22 +284,29 @@ for (i in 1:length(OptStartValueTable$ID)){
 #######################################################
 ### Re-run NLLS Fitting with optimised start values ###
 #######################################################
-# Create new data frame to store AIC and BIC values for each model
-OptFitValues <- data.frame("Model" = c("QuaFit", "CubFit", "HolFit", "GenFit"), 
-                        "AIC" = rep(NA,4), 
-                        "BIC" =rep(NA,4), 
-                        stringsAsFactors = FALSE)
+
+MergedData <- merge(NestedData,Covariates, by = "ID")
+
+modelvec2<-c("PowFit","QuaFit","GenFit", "CubFit")
+modelvec2<-data.frame("Model"=modelvec2,
+                      "AIC"=rep(NA),
+                      "BIC"=rep(NA),
+                      "ID "=rep(NA))
 
 # Create a new data frame to store best models, starting values
 # and model fits for each ID
 OptModelFits <- data.frame("ID" = StartValueTable[1], 
                         "a_value" = StartValueTable[2], 
                         "h_value" = StartValueTable[3], 
-                        "Best_AIC_Model" = rep(NA, nrow(StartValueTable[1])), 
-                        "AIC"= rep(NA, nrow(StartValueTable[1])), 
-                        "Best_BIC_Model" = rep(NA, nrow(StartValueTable[1])), 
-                        "BIC" = rep(NA, nrow(StartValueTable[1])), 
+                        "AIC_Qua_Model" = rep(NA), 
+                        "AIC_Cub_Model"= rep(NA), 
+                        "AIC_Hol_Model"= rep(NA),
+                        "AIC_Gen_Model"= rep(NA),
                         stringsAsFactors = FALSE)
+
+                        #"Best_BIC_Model" = rep(NA, nrow(StartValueTable[1])), 
+                        #"BIC" = rep(NA, nrow(StartValueTable[1])), 
+                        
 
 for (i in 1:length(OptStartValueTable[, 1])){
   # Optimise the starting values
@@ -303,7 +317,12 @@ for (i in 1:length(OptStartValueTable[, 1])){
   q = 0.78
   
   # Subset data for a particular ID
-  datatry <- NestedData$data[[i]]
+  datatry <- MergedData$data[[i]]
+  
+  habitat <- MergedData$Habitat[[i]]
+  ResDimensionality <- MergedData$Res_MovementDimensionality[[i]]
+  ConDimensionality <- MergedData$Con_MovementDimensionality[[i]]
+  
   
   ### Fit models 
   # Phenomenological quadratic model
@@ -327,48 +346,72 @@ for (i in 1:length(OptStartValueTable[, 1])){
   
   ### Store AICs into a table for each model
   # Phenomenological quadratic model
-  OptFitValues[1, 2] <- ifelse(class(QuaFit) == "try-error", rep(NA,1), AIC(QuaFit))
+  OptModelFits[i, 4] <- ifelse(class(QuaFit) == "try-error", rep(NA,1), AIC(QuaFit))
   # Cubic polynomial model 
-  OptFitValues[2, 2] <- ifelse(class(CubFit) == "try-error", rep(NA,1), AIC(CubFit))
+  OptModelFits[i, 5] <- ifelse(class(CubFit) == "try-error", rep(NA,1), AIC(CubFit))
   # Holling II model
-  OptFitValues[3, 2] <- ifelse(class(HolFit) == "try-error", rep(NA,1), AIC(HolFit))
+  OptModelFits[i, 6] <- ifelse(class(HolFit) == "try-error", rep(NA,1), AIC(HolFit))
   # Generalised Holling model
-  OptFitValues[4, 2] <- ifelse(class(GenFit) == "try-error", rep(NA,1), AIC(GenFit))
+  OptModelFits[i, 7] <- ifelse(class(GenFit) == "try-error", rep(NA,1), AIC(GenFit))
   
   
+  
+  # Phenomenological quadratic model
+  modelvec[1, 2] <- ifelse(class(QuaFit) == "try-error", rep(NA,1), AIC(QuaFit))
+  # Cubic polynomial model 
+  modelvec[2, 2] <- ifelse(class(CubFit) == "try-error", rep(NA,1), AIC(CubFit))
+  # Holling II model
+  modelvec[3, 2] <- ifelse(class(HolFit) == "try-error", rep(NA,1), AIC(HolFit))
+  # Generalised Holling model
+  modelvec[4, 2] <- ifelse(class(GenFit) == "try-error", rep(NA,1), AIC(GenFit))
+  
+  
+  modelvec[1, 3] <- ifelse(class(QuaFit) == "try-error", rep(NA,1), BIC(QuaFit))
+  # Cubic polynomial model 
+  modelvec[2, 3] <- ifelse(class(CubFit) == "try-error", rep(NA,1), BIC(CubFit))
+  # Holling II model
+  modelvec[3, 3] <- ifelse(class(HolFit) == "try-error", rep(NA,1), BIC(HolFit))
+  # Generalised Holling model
+  modelvec[4, 3] <- ifelse(class(GenFit) == "try-error", rep(NA,1), BIC(GenFit))
+  
+  modelvec[1:4,4] <- OptStartValueTable[i,1]
+  
+  
+  modelvec2 <- bind_rows(modelvec2, modelvec)
   # Store the smallest value for AIC as a variable
-  MinimumAIC <- min(OptFitValues[2], na.rm = TRUE)
+  #MinimumAIC <- min(OptFitValues[2], na.rm = TRUE)
   
   
   ### Store BICs into a table for each model
   
   # Phenomenological quadratic model
-  OptFitValues[1, 3] <- ifelse(class(QuaFit) == "try-error", rep(NA,1), BIC(QuaFit))
+ # OptFitValues[1, 3] <- ifelse(class(QuaFit) == "try-error", rep(NA,1), BIC(QuaFit))
   # Cubic polynomial model 
-  OptFitValues[2, 3] <- ifelse(class(CubFit) == "try-error", rep(NA,1), BIC(CubFit))
+#  OptFitValues[2, 3] <- ifelse(class(CubFit) == "try-error", rep(NA,1), BIC(CubFit))
   # Holling II model
-  OptFitValues[3, 3] <- ifelse(class(HolFit) == "try-error", rep(NA,1), BIC(HolFit))
+ # OptFitValues[3, 3] <- ifelse(class(HolFit) == "try-error", rep(NA,1), BIC(HolFit))
   # Generalised Holling model
-  OptFitValues[4, 3] <- ifelse(class(GenFit) == "try-error", rep(NA,1), BIC(GenFit))
+  #OptFitValues[4, 3] <- ifelse(class(GenFit) == "try-error", rep(NA,1), BIC(GenFit))
   
   # Store the smallest value for BIC as a variable
-  MinimumBIC <- min(OptFitValues[3], na.rm = TRUE)
+ # MinimumBIC <- min(OptFitValues[3], na.rm = TRUE)
   
   # Store the model with the best AIC in the final table 
-  OptModelFits[i, 4:5] <- OptFitValues[which(OptFitValues[2] == MinimumAIC),1:2]
+#  OptModelFits[i, 4:5] <- OptFitValues[which(OptFitValues[2] == MinimumAIC),1:2]
   
   # Store the model with the best BIC in the final table
-  OptModelFits[i, 6:7] <- OptFitValues[which(OptFitValues[3] == MinimumBIC),c(1,3)]
+ # OptModelFits[i, 6:7] <- OptFitValues[which(OptFitValues[3] == MinimumBIC),c(1,3)]
 }
 
+modelvec2 <- modelvec2[-(1:4), ,drop = FALSE]
 
 ##########################################
 ### Summarise different statistics ### 
 ##########################################
 
-ModelFits %>% group_by(ModelFits$Best_AIC_Model) %>% summarise(count=n())
+#ModelFits %>% group_by(ModelFits$Best_AIC_Model) %>% summarise(count=n())
 
-OptModelFits %>% group_by(OptModelFits$Best_AIC_Model) %>% summarise(count=n())
+#OptModelFits %>% group_by(OptModelFits$Best_AIC_Model) %>% summarise(count=n())
 
 
 ###################################################
@@ -383,3 +426,17 @@ MergedOptTable <- merge(OptModelFits,Covariates)
 
 write.csv(MergedOptTable, file = "../data/MergedOptTable.csv")
 
+###################################################
+
+# Create new data frame to store AIC and BIC values for each model
+OptFitValues <- data.frame('ID' = rep(NA),
+                            "Model" = rep(NA), 
+                           "Habitat" = rep(NA),
+                            "AIC" = rep(NA), 
+                           stringsAsFactors = FALSE)
+
+
+}
+
+
+#c("QuaFit", "CubFit", "HolFit", "GenFit")

@@ -34,6 +34,7 @@ print("Loaded {} columns.".format(len(data.columns.values)))
 # Print column headings
 print(data.columns.values)
 
+
 ##########################################################
 ### Data preparation ###
 ##########################################################
@@ -43,11 +44,8 @@ newdata = data[['ID','ResDensity','N_TraitValue','Habitat','Res_MovementDimensio
 print(newdata)
 
 ### Modify the taxa to include only genus 
-#newdata['ConTaxa'] = newdata['ConTaxa'].str.split().str[0]
-#newdata['ResTaxa'] = newdata['ResTaxa'].str.split().str[0]
-
-#newdata = newdata.astype(str)
-#newdata = newdata.apply(lambda x: x.str.split().str[0])
+newdata['ConTaxa'] = newdata['ConTaxa'].str.split().str[0]
+newdata['ResTaxa'] = newdata['ResTaxa'].str.split().str[0]
 
 ### Remove any IDs containing NA values
 newdata2 = newdata.dropna()
@@ -73,7 +71,7 @@ newdata2.replace(toremove, np.nan, inplace=True)
 newdata2['ID'].value_counts()
 
 # Remove all rows with NA data
-newdata_no_missing = newdata.dropna()
+newdata_no_missing = newdata2.dropna()
 
 # Count number of NAs in the data set to be sure all have been removed
 newdata_no_missing.isnull().sum()
