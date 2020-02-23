@@ -151,13 +151,16 @@ ModelFits <- data.frame("ID" = StartValueTable[1],
 # Merge the nested data with the start value table by matching IDs 
 NestedData <- merge(NestedData, StartValueTable, by = "ID")
 
+# Suppress the warnings for the very bad fits 
+suppressWarnings(
+  
 ### Run each model on every ID                        
 for (i in 1:length(StartValueTable[, 1])){
   
   # Generate starting values for the Holling models
   a <- StartValueTable[i,2]
   h <- StartValueTable[i, 3]
-  q = 0.78
+  q = 0.78 # from the literature
   
   # Subset data for a particular ID
   datatry <- NestedData$data[[i]]
@@ -165,21 +168,19 @@ for (i in 1:length(StartValueTable[, 1])){
   ### Fit models 
   # Phenomenological quadratic model
   QuaFit <- try(lm(N_TraitValue  ~ poly(ResDensity,2), 
-                   data = datatry), silent = T)
+                   data = datatry), silent=T)
   
   # Cubic polynomial model 
   CubFit <- try(lm(N_TraitValue ~ poly(ResDensity,3), 
-                   data = datatry), silent = T)
+                   data = datatry), silent=T)
   
   # Holling II model
   HolFit <- try(nlsLM(N_TraitValue ~ HollingII(datatry$ResDensity, a, h), 
-                      data = datatry, start = list(a=a, h=h)), 
-                silent = T)
+                      data = datatry, start = list(a=a, h=h)), silent=T)
   
   # Generalised Holling model
   GenFit <- try(nlsLM(N_TraitValue ~ GenMod(datatry$ResDensity, a, h, q), 
-                data = datatry, start = list(a=a, h=h)), 
-                silent = T)
+                data = datatry, start = list(a=a, h=h)), silent=T)
   
   
   ### Store AICs into a table for each model
@@ -217,6 +218,7 @@ for (i in 1:length(StartValueTable[, 1])){
   # Store the model with the best BIC in the final table
   ModelFits[i, 6:7] <- FitValues[which(FitValues[3] == MinimumBIC),c(1,3)]
 }
+)
 
 ##########################################
 ### Optimise Starting Values ###
@@ -229,6 +231,7 @@ OptStartValueTable <- data.frame("ID" = NestedData$ID,
                                  "a_value" = rep(NA), 
                                  "h_value"= rep(NA))
 
+suppressWarnings(
 for (i in 1:length(OptStartValueTable$ID)){
   
   # Subset data for a single ID
@@ -260,8 +263,8 @@ for (i in 1:length(OptStartValueTable$ID)){
     # try to fit the general functional response model to every
     # starting value in the list 
     
-    GenFit <- suppressWarnings(try(nlsLM(N_TraitValue ~ GenMod(data2try$ResDensity, a, h, q), 
-                                         data = data2try, start = list(a = GenStarta, h = GenStarth)), silent = T))
+    GenFit <- try(nlsLM(N_TraitValue ~ GenMod(data2try$ResDensity, a, h, q), 
+                                         data = data2try, start = list(a = GenStarta, h = GenStarth)), silent = T)
     
     
     # add test values to table
@@ -276,7 +279,7 @@ for (i in 1:length(OptStartValueTable$ID)){
   #OptStartValues[i,] <- c(data2fit$ID[1], TestOptimum[which(TestOptimum[3] == minAIC),1], TestOptimum[which(TestOptimum[3] == minAIC),2])
   
 }
-
+)
 #######################################################
 ### Re-run NLLS Fitting with optimised start values ###
 #######################################################
@@ -294,17 +297,21 @@ modelvec2<-data.frame("ID "=rep(NA),
 # Create a new data frame to store best models, starting values
 # and model fits for each ID
 OptModelFits <- data.frame("ID" = StartValueTable[1], 
-                        "a_value" = StartValueTable[2], 
-                        "h_value" = StartValueTable[3], 
                         "AIC_Qua_Model" = rep(NA), 
                         "AIC_Cub_Model"= rep(NA), 
                         "AIC_Hol_Model"= rep(NA),
                         "AIC_Gen_Model"= rep(NA),
                         stringsAsFactors = FALSE)
-
-                        #"Best_BIC_Model" = rep(NA, nrow(StartValueTable[1])), 
-                        #"BIC" = rep(NA, nrow(StartValueTable[1])), 
                         
+OptFitsSummary <- data.frame("ID" = StartValueTable[1], 
+                       "a_value" = StartValueTable[2], 
+                       "h_value" = StartValueTable[3], 
+                        "BestModelAIC" = rep(NA),
+                        "BestAIC" = rep(NA),
+                        "BestModelBIC" = rep(NA),
+                        "BestBIC" = rep(NA),
+                        stringsAsFactors = FALSE)
+
 
 for (i in 1:length(OptStartValueTable[, 1])){
   # Optimise the starting values
@@ -354,14 +361,13 @@ for (i in 1:length(OptStartValueTable[, 1])){
   
   ### Store AICs into a table for each model
   # Phenomenological quadratic model
-  OptModelFits[i, 4] <- ifelse(class(QuaFit) == "try-error", rep(NA,1), AIC(QuaFit))
+  OptModelFits[i, 2] <- ifelse(class(QuaFit) == "try-error", rep(NA,1), AIC(QuaFit))
   # Cubic polynomial model 
-  OptModelFits[i, 5] <- ifelse(class(CubFit) == "try-error", rep(NA,1), AIC(CubFit))
+  OptModelFits[i, 3] <- ifelse(class(CubFit) == "try-error", rep(NA,1), AIC(CubFit))
   # Holling II model
-  OptModelFits[i, 6] <- ifelse(class(HolFit) == "try-error", rep(NA,1), AIC(HolFit))
+  OptModelFits[i, 4] <- ifelse(class(HolFit) == "try-error", rep(NA,1), AIC(HolFit))
   # Generalised Holling model
-  OptModelFits[i, 7] <- ifelse(class(GenFit) == "try-error", rep(NA,1), AIC(GenFit))
-  
+  OptModelFits[i, 5] <- ifelse(class(GenFit) == "try-error", rep(NA,1), AIC(GenFit))
   
   
   # Phenomenological quadratic model
@@ -382,32 +388,19 @@ for (i in 1:length(OptStartValueTable[, 1])){
   # Generalised Holling model
   modelvec[4, 7] <- ifelse(class(GenFit) == "try-error", rep(NA,1), BIC(GenFit))
   
-
   modelvec2 <- bind_rows(modelvec2, modelvec)
   
   # Store the smallest value for AIC as a variable
   MinimumAIC <- min(modelvec[6], na.rm = TRUE)
   
-  
-  ### Store BICs into a table for each model
-  
-  # Phenomenological quadratic model
- # OptFitValues[1, 3] <- ifelse(class(QuaFit) == "try-error", rep(NA,1), BIC(QuaFit))
-  # Cubic polynomial model 
-#  OptFitValues[2, 3] <- ifelse(class(CubFit) == "try-error", rep(NA,1), BIC(CubFit))
-  # Holling II model
- # OptFitValues[3, 3] <- ifelse(class(HolFit) == "try-error", rep(NA,1), BIC(HolFit))
-  # Generalised Holling model
-  #OptFitValues[4, 3] <- ifelse(class(GenFit) == "try-error", rep(NA,1), BIC(GenFit))
+  # Store the model with the best AIC in the summary table 
+  OptFitsSummary[i,4:5] <- modelvec[which(modelvec[6] == MinimumAIC), 5:6]
   
   # Store the smallest value for BIC as a variable
- # MinimumBIC <- min(OptFitValues[3], na.rm = TRUE)
-  
-  # Store the model with the best AIC in the final table 
-#  OptModelFits[i, 4:5] <- OptFitValues[which(OptFitValues[2] == MinimumAIC),1:2]
+  MinimumBIC <- min(modelvec[7], na.rm = TRUE)
   
   # Store the model with the best BIC in the final table
- # OptModelFits[i, 6:7] <- OptFitValues[which(OptFitValues[3] == MinimumBIC),c(1,3)]
+  OptFitsSummary[i, 6:7] <- modelvec[which(modelvec[7] == MinimumBIC),c(1,3)]
 }
 
 modelvec2 <- modelvec2[-1,]
@@ -416,22 +409,45 @@ modelvec2 <- modelvec2[-1,]
 ### Summarise different statistics ### 
 ##########################################
 
-#ModelFits %>% group_by(ModelFits$Best_AIC_Model) %>% summarise(count=n())
+ModelFits %>% group_by(ModelFits$Best_AIC_Model) %>% summarise(count=n())
 
-#OptModelFits %>% group_by(OptModelFits$Best_AIC_Model) %>% summarise(count=n())
+OptFitsSummary %>% group_by(OptFitsSummary$BestModelAIC) %>% summarise(count=n())
+
+##########################################
+### Plot the data ###
+##########################################
+
+# Make a subset of the data for one ID as a test
+data2fit <- subset(NestedData, ID == 39982) #One curve
+data2fit <- data2fit$data[[1]]
+# Plot data points on scatter plot to visualise data
+plot(data2fit$ResDensity, data2fit$N_TraitValue, xlab = "Resource Density", ylab = "Consumption rate (units of mass/time)")
+
+# Generate a vector of resource densities for plotting
+ResDensities <- seq(min(data$ResDensity), max(data$ResDensity), len = 200)
+
+## Calculate the predicted line using coefficients extracted from the model fit
+Predic2PlotHol <- HollingII(ResDensities, coef(HolFit)["a"], coef(HolFit)["h"])
+Predic2PlotGen <- GenMod(ResDensities, coef(GenFit)["a"], coef(GenFit)["h"],q)
+
+## Plot the data and the fitted model line
+plot(data2fit$ResDensity, data2fit$N_TraitValue, xlab = "Resource Density", ylab = "Consumption rate (units of mass/time)")
+lines(ResDensities, Predic2PlotHol, col = "blue", lwd = 2.5)
+lines(ResDensities, Predic2PlotGen, col = "blue", lwd = 2.5)
+
+Predic2PlotQua <- predict.lm(QuaFit, data.frame(ResDensity = Lengths))
+lines(Lengths, Predic2PlotQua, col = 'red', lwd = 2.5)
 
 
 ###################################################
 ### Add in covariate data for analysis ### 
 ###################################################
 
-MergedOptTable <- merge(OptModelFits,Covariates)
+MergedOptTable <- merge(OptFitsSummary,Covariates)
 
 ###################################################
 ### Export results to csv file ###
 ###################################################
 
-write.csv(MergedOptTable, file = "../data/MergedOptTable.csv")
+write.csv(MergedOptTable, file = "../data/OptimisedFitSummary.csv")
 write.csv(modelvec2, file = "../data/AnalysisTable.csv")
-
-#c("QuaFit", "CubFit", "HolFit", "GenFit")
