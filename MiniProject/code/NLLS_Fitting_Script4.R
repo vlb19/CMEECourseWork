@@ -225,7 +225,7 @@ for (i in 1:length(StartValueTable[, 1])){
 ##########################################
 
 iters = 10
-maxiters = 21
+maxiters = 50
 
 OptStartValueTable <- data.frame("ID" = NestedData$ID, 
                                  "a_value" = rep(NA), 
@@ -280,6 +280,42 @@ for (i in 1:length(OptStartValueTable$ID)){
   
 }
 )
+
+#######################################################
+### Write function to plot models on raw data ###
+#######################################################
+
+Plotting <- function(i, datatry) {
+  
+  png(paste('Models_for_ID#', OptStartValueTable[i,1], sep = ""))
+  
+  # Save x values into a variable
+  Lengths <- seq(min(datatry$ResDensity),max(datatry$ResDensity))
+
+  # Predict curves from data 
+  Predic2PlotQua <- predict.lm(QuaFit, data.frame(ResDensity = Lengths))
+  Predic2PlotCub <- predict.lm(CubFit, data.frame(ResDensity = Lengths))
+  Predic2PlotHol <- HollingII(Lengths,coef(HolFit)["a"],coef(HolFit)["h"])
+  Predic2PlotGen <- GenMod(Lengths,coef(GenFit)["a"],coef(GenFit)["h"], coef(GenFit)["q"])
+
+  # Plot raw data points
+  plot(datatry$ResDensity, datatry$N_TraitValue,
+  xlab = "Resource Density", ylab = "Consumption rate")
+  title(main = c("Model curves for ID number: ", OptStartValueTable[i,1]))
+  legend("bottomright", "models", c("Quadratic \n", "Cubic \n", "Holling II \n", "Generalised \nHolling Model"), border = "o",
+         col = colours, cex = 0.8)
+  
+  # Create vector of colour options
+  colours = c('red', 'orange', 'green', 'blue')
+  lines(Lengths, Predic2PlotQua, col = colours[1], lwd = 1.5)
+  lines(Lengths, Predic2PlotCub, col = colours[2], lwd = 1.5)
+  lines(Lengths, Predic2PlotGen, col = colours[3], lwd = 1.5)
+  lines(Lengths, Predic2PlotHol, col = colours[4], lwd = 1.5)
+  
+  dev.off()
+  
+}
+
 #######################################################
 ### Re-run NLLS Fitting with optimised start values ###
 #######################################################
@@ -301,7 +337,7 @@ OptModelFits <- data.frame("ID" = StartValueTable[1],
                         "AIC_Cub_Model"= rep(NA), 
                         "AIC_Hol_Model"= rep(NA),
                         "AIC_Gen_Model"= rep(NA),
-                        stringsAsFactors = FALSE)
+                        stringsAsFactors = TRUE)
                         
 OptFitsSummary <- data.frame("ID" = StartValueTable[1], 
                        "a_value" = StartValueTable[2], 
@@ -310,7 +346,7 @@ OptFitsSummary <- data.frame("ID" = StartValueTable[1],
                         "BestAIC" = rep(NA),
                         "BestModelBIC" = rep(NA),
                         "BestBIC" = rep(NA),
-                        stringsAsFactors = FALSE)
+                        stringsAsFactors = TRUE)
 
 
 for (i in 1:length(OptStartValueTable[, 1])){
@@ -401,6 +437,9 @@ for (i in 1:length(OptStartValueTable[, 1])){
   
   # Store the model with the best BIC in the final table
   OptFitsSummary[i, 6:7] <- modelvec[which(modelvec[7] == MinimumBIC),c(1,3)]
+  
+  # Generate plots for each model for each ID
+  #ifelse(is.na(modelvec), print("NA values present for this ID. No plot generated"),Plotting(i, datatry))
 }
 
 modelvec2 <- modelvec2[-1,]
@@ -413,37 +452,19 @@ ModelFits %>% group_by(ModelFits$Best_AIC_Model) %>% summarise(count=n())
 
 OptFitsSummary %>% group_by(OptFitsSummary$BestModelAIC) %>% summarise(count=n())
 
-##########################################
-### Plot the data ###
-##########################################
-
-# Make a subset of the data for one ID as a test
-data2fit <- subset(NestedData, ID == 39982) #One curve
-data2fit <- data2fit$data[[1]]
-# Plot data points on scatter plot to visualise data
-plot(data2fit$ResDensity, data2fit$N_TraitValue, xlab = "Resource Density", ylab = "Consumption rate (units of mass/time)")
-
-# Generate a vector of resource densities for plotting
-ResDensities <- seq(min(data$ResDensity), max(data$ResDensity), len = 200)
-
-## Calculate the predicted line using coefficients extracted from the model fit
-Predic2PlotHol <- HollingII(ResDensities, coef(HolFit)["a"], coef(HolFit)["h"])
-Predic2PlotGen <- GenMod(ResDensities, coef(GenFit)["a"], coef(GenFit)["h"],q)
-
-## Plot the data and the fitted model line
-plot(data2fit$ResDensity, data2fit$N_TraitValue, xlab = "Resource Density", ylab = "Consumption rate (units of mass/time)")
-lines(ResDensities, Predic2PlotHol, col = "blue", lwd = 2.5)
-lines(ResDensities, Predic2PlotGen, col = "blue", lwd = 2.5)
-
-Predic2PlotQua <- predict.lm(QuaFit, data.frame(ResDensity = Lengths))
-lines(Lengths, Predic2PlotQua, col = 'red', lwd = 2.5)
-
 
 ###################################################
-### Add in covariate data for analysis ### 
+### Prepare tables for exporting ### 
 ###################################################
 
+# Add in covariate data for analysis
 MergedOptTable <- merge(OptFitsSummary,Covariates)
+
+# Add in a column describing if the model is mechanistic or phenomenological
+MergedOptTable$MecOrPhen <- ifelse(grepl("3|4", MergedOptTable$BestModelAIC), "Mechanistic", "Phenomenological")
+
+# Remove NA values from modelvec2
+modelvec2 <- na.omit(modelvec2)
 
 ###################################################
 ### Export results to csv file ###
@@ -451,3 +472,4 @@ MergedOptTable <- merge(OptFitsSummary,Covariates)
 
 write.csv(MergedOptTable, file = "../data/OptimisedFitSummary.csv")
 write.csv(modelvec2, file = "../data/AnalysisTable.csv")
+
