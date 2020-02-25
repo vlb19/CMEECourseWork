@@ -150,6 +150,8 @@ for (i in 1:length(StartValueTable[, 1])){
   h <- StartValueTable[i, 3]
   q = -1
   
+  data2try <- NestedData$data[[i]]
+  datatry <- data2try[1:2]
   
   ### Fit models 
   # Phenomenological quadratic model

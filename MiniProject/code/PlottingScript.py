@@ -17,20 +17,20 @@ import pingouin as pg
 import matplotlib.pyplot as plt
 
 ### Importing data ### 
-data = pd.read_csv('../data/AnalysisTable.csv')
+analysisdata = pd.read_csv('../data/AnalysisTable.csv')
 
 # Print number of columns loaded
-print("Loaded {} columns.".format(len(data.columns.values)))
+print("Loaded {} columns.".format(len(analysisdata.columns.values)))
 
 # Print column headings
-print(data.columns.values)
+print(analysisdata.columns.values)
 
 ### HABITAT ANALYSIS ###
 # Summarise AIC by model and habitat
-rp.summary_cont(data.groupby(['Habitat','Model']))['AIC']
+rp.summary_cont(analysisdata.groupby(['Habitat','Model']))['AIC']
 
 # Run a two-way ANOVA on the AIC values by Habitat and Model
-model = ols('AIC ~ C(Model)*C(Habitat)', data).fit()
+model = ols('AIC ~ C(Model)*C(Habitat)', analysisdata).fit()
 
 
 # Check if the overall model is significant
@@ -51,6 +51,23 @@ res
 # Since assumptions of two-way ANOVA are not met we need to do 
 # a non-parametric Friedman Test
 
-stats.kruskal(data['AIC', data['Model'], data['Habitat']])
+stats.kruskal(analysisdata['AIC', analysisdata['Model'], analysisdata['Habitat']])
 
 
+graphdata = pd.read_csv("../data/OptimisedFitSummary.csv")
+
+# Print number of columns loaded
+print("Loaded {} columns.".format(len(graphdata.columns.values)))
+
+# Print column headings
+print(graphdata.columns.values)
+
+
+HabitatCrosstab = pd.crosstab(graphdata['BestModelAIC'], graphdata['Habitat'], margins = False)
+print(HabitatCrosstab)
+
+ConTaxacrosstab = pd.crosstab(graphdata['BestModelAIC'], graphdata['ConTaxa'], margins = False)
+print(ConTaxacrosstab)
+
+ConDimcrosstab = pd.crosstab(graphdata['BestModelAIC'], graphdata['Con_MovementDimensionality'], margins = False)
+print(ConDimcrosstab) 
