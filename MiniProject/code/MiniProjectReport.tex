@@ -1,0 +1,157 @@
+\documentclass[11pt]{article}
+\title {MiniProject: Fitting mechanistic and phenomenological models to functional response curves}
+\author{Victoria Blanchard vlb19@ic.ac.uk}
+\date{26 February}
+\usepackage[margin=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{setspace}
+\usepackage[]{lineno}
+\usepackage{booktabs}
+\usepackage[backend=biber,style=authoryear,bibencoding=utf8]{biblatex}
+\setlength{\parindent}{0em}
+
+% Word Count %
+\newcommand\wordcount{\input{MiniProjectReport.sum}}
+
+
+% bibliography secion %
+
+\addbibresource{MResReferences.bib}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+
+\begin{document}
+	
+	\begin{titlepage}
+		
+		
+		\centering % this centers everything on the page
+		
+		%\vspace  % Whitespace at the top of the page 
+		
+		
+		% --------------------------
+		%% TITLE
+		
+		\vspace*{5\baselineskip}
+		
+		\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal rule
+		\rule{\textwidth}{0.4pt} % Thin horizontal rule
+		
+		\vspace{0.75\baselineskip} % Whitespace above the title
+		
+		{\LARGE Mini Project: \\ Fitting mechanistic and phenomenological \\ models to functional response data} 
+		
+		\vspace{0.75\baselineskip} % Whitespace below the title
+		
+		\rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} 
+		\rule{\textwidth}{1.6pt} 
+		
+		\vspace{2\baselineskip} 
+		
+		% ---------------------------------
+		%% SUPERVISORS & CONTACT EMAIL
+		
+		Author: \\
+		Victoria Blanchard \\
+		Imperial College London
+		
+		\vspace{1.5 \baselineskip} % Whitespace between text
+		
+		Contact: \\
+		vlb19@imperial.ac.uk
+		\mbox{}
+		\vfill
+		\wordcount words
+		
+	\end{titlepage}
+	
+	\linenumbers
+	\doublespacing
+	
+	\section{Introduction}
+	
+	Bumblebees provide an important pollination service globally (Cameron et al.). European bumblebees are often infected with a microsporidian parasite (Nosema bombi) (Brown 2017) which has been suggested to have been introduced to North America in the 1990s, and be the causal factor behind massive rapid declines in North American bumblebees (Thorp et al 2008 , Cameron et al. 2011, Cameron  et al. 2016). All North American declining bumblebee populations are infected with nosema – with prevalances between 15 and 37\% within a single species (Cameron  et al. 2016). However, the most recent study into genetic differences between North American and European Nosema bombi populations failed to detect variation between the two regions (Cameron et al. 2010). The absence of a complete genome may lie behind these results, as previous studies have used less complete genetic resources which may lack power to identify relevant variation (Cameron et al. 2016). Here we propose to assemble a genome for N. bombi that enables high-powered spatial and temporal population genomics. To test its efficacy, we will assess how land-use patterns link to population genomics structure in this pathogen.	
+	
+	\section{Questions and project goals}
+	
+	\begin{itemize}
+		\item Create a de novo genome for \textit{N. bombi}
+		\item Create a barcoded library of a set of samples
+		\item Investigate spatial variation in population genomics of \textit{N. bombi} throughout the mainland UK
+		\item Compare UK samples with US MLST data
+		\item Assess the impact of land use on genomic variability in UK samples
+	\end{itemize}
+	
+	\section{Methods}
+	
+		\item \textit{Sample collection} \\
+		
+		Retrieve samples from storage at -80oC. Transfer 15ul of inoculum onto a haemocytometer and count number of nosema spores using established lab protocol (Folly and Brown DATE). Extract genomic DNA using the appropriate kit – selected closer to the time. Amplify DNA using custom primers with a negative water control. Repeat each PCR in triplicate and visualise on agarose gel. Purify DNA using the appropriate kit then quantify amount of DNA (Bates et al. 2018).
+		
+		\item \textit{Assembling genome} \\
+		
+		Use a MiSeq instrument to quantify number of reads yielded per sample from the preliminary library. Create a final composite library based on the index representation from the initial MiSeq run, then run a final sequence using the MiSeq with the appropriate paired-end strategy. Analyse and quality-filter the sequences using MOTHUR. Cluster rRNA gene sequences into groups according to taxonomy. Eliminate sequences derived from chloroplasts, mitochondria, archara, eukaryotes, and unknown reads. Analyse OTUs using the Phyloseq package in R (Bates et al. 2018).
+		
+		\item \textit{Creating barcode library} \\
+		
+		Create a library of short DNA sequences which can identify the organism to species. We will test whether the COX1 gene is an appropriate choice for this, or use internal transcribed spacer (ITS) rNA. There are candidate markers identified in Cameron et al. (2016) which we will also use as fungal barcoding may require more than one primer combination.  This can then be used by any other researchers to identify the species of their microsporidian.
+		
+		\item \textit{Comparing population genomics} \\
+		
+		To search for differences between populations we will use RepeatModeler to identify new repeats from the assemblies. This will allow us to characterise any novel species should they arise (Farrer et al. 2017). We will then do sequence alignments using HPC to identify base pair differences.
+		
+		\item \textit{Assessing impacts of land use} \\
+		
+		Analyse infection intensity between different samples and use a GLM to establish if intensity differs with year or geographic location. We can characterise land use of sampled area using GIS mapping within the average foraging distance of a bumblebee - a 1.5km radius of the capture site (Osborne et al. 2008), and include this as a covariate in the model.
+	
+	\subsection*{Computing tools}
+	
+	Python was used for data exploration and analysis. Packages used: csv, matplotlib, 
+	
+	\section{Results}
+	
+	\begin{table*}[h]\centering
+		\ra{1.3}
+		\begin{tabular} {@{}rcrcrc@{}}\toprule
+			\hline
+			\textbf{Item} & \textbf{Cost} & \textbf{Justification} \\
+			\hline\hline
+			MiSeq & \pounds1000 & Needed for assembling the \\
+			& & genome from microsporidian \\
+			\hline
+			Commuting to South Kensington & \pounds210 &	Travelling to Imperial College (South Kensington campus) \\
+			& & 5 days a week for 4 weeks to use facilities \\
+			\hline
+			Travelling to field sites & \pounds300 & Fuel costs for travelling to field sites for data collection\\
+			\hline
+			\bottomrule
+		\end{tabular}
+		\caption{Detailed budget break-down}
+	\end{table*}
+	
+	\newpage
+	\begin{figure}[h!]
+		
+		\includepdf{../results/HabitatCompare.pdf}
+		\caption{	Gantt Chart}
+		\label{MRes Gantt}
+		
+	\end{figure} 
+	
+	\newpage
+	
+	\begin{figure}[h!]
+	
+	\includepdf{../results/PhenOrMec.pdf}
+	\caption{	Gantt Chart}
+	\label{MRes Gantt}
+	
+	\end{figure} 
+
+	\newpage
+	\begin{thebibliography}{1}
+	
+	\end{thebibliography}
+	
+\end{document}

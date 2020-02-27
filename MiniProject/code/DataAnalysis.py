@@ -1,17 +1,18 @@
+#!/usr/bin/env python3
+
+""" Data analysis and figure generation
+"""
+
+__appname__ = 'DataAnalysis.py'
+__author__ = 'Viki Blanchard (vlb19@ic.ac.uk)'
+__version__ = '0.0.1'
+
 # Some imports to explore the datasets
-import csv
 import matplotlib
-import numpy as np
 import pandas as pd
 import seaborn as sns
-import scipy.stats as stats
-import researchpy as rp
-import statsmodels.api as sm
-from statsmodels.formula.api import ols
 import pingouin as pg    
 import matplotlib.pyplot as plt
-import matplotlib.axes as ax
-from matplotlib.patches import Polygon
 
 #########################################################
 ### Load in data sets ###
@@ -58,30 +59,7 @@ plt.ylabel("Minimum AIC Value")
 plt.legend(loc = 'upper right')
 
 # Save the figure to the results folder
-plt.savefig('../results/HabitatCompare')
-
-#########################################################
-### Generate violin plot for habitats ###
-#########################################################
-
-# Set dimensions of figure
-plt.figure(num=None, figsize=(20,10), dpi = 80, facecolor = 'w', edgecolor = 'w')
-
-# Create boxplot of best AIC value per model per habitat
-bp = sns.catplot(y = 'BestAIC', x = 'Habitat', data = graphdata, palette = custompalette, hue = "BestModelAIC", kind = "violin")
-
-# Give the y label a more descriptive value
-plt.ylabel("Minimum AIC Value")
-
-# Save the figure to the results folder
-plt.savefig('../results/HabitatCompareViolin')
-
-#########################################################
-### Visualise habitat data ###
-#########################################################
-
-Habitatcrosstab = pd.crosstab(graphdata['Habitat'], graphdata['MecOrPhen'], margins = False)
-print(Habitatcrosstab)
+plt.savefig('../results/HabitatCompare.pdf')
 
 ################################################################
 ### Generate bar chart for comparing model types per habitat ###
@@ -91,13 +69,13 @@ print(Habitatcrosstab)
 plt.figure(num=None, figsize=(7,6), dpi = 80, facecolor = 'w', edgecolor = 'w')
 
 # Plot bar chart
-MecOrPhen = sns.countplot(x = 'Habitat', hue = 'MecOrPhen', data = graphdata)
+MecOrPhen = sns.countplot(x = 'Habitat', hue = 'MecOrPhen', data = graphdata, palette= custompalette)
 
 # Give the y label a more descriptive value
 plt.ylabel("Frequency of best model selected")
 
 # Save the figure to the results folder
-plt.savefig('../results/PhenOrMec')
+plt.savefig('../results/PhenOrMec.pdf')
 
 #########################################################
 ### Visualise habitat analysis data ###
@@ -130,3 +108,8 @@ Modeltukey
 
 ConDimcrosstab = pd.crosstab(graphdata['BestModelAIC'], graphdata['Con_MovementDimensionality'], margins = False)
 print(ConDimcrosstab) 
+
+#########################################################
+### Print message for user ###
+#########################################################
+print("Models compared, figures saved to results folder")

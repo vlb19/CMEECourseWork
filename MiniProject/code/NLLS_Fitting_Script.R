@@ -4,7 +4,7 @@
 # Script: NLLS_Fitting_Script.R
 # Desc: Fit different NLLS models to functional response data
 # Input: 'FunResData.csv'
-# Output: csv file with best model fits for each ID
+# Output: csv file with best model   fits for each ID
 # Arguments: 0
 # Date: January 2020
 
@@ -15,13 +15,11 @@
 #Clear global environment
 rm(list=ls()) 
 
-#Set working directory
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-
-
 ###############################################
 ### Import Packages ###
 ###############################################
+# Do not show warnings when later packages 
+# contain the same functions as already loaded
 
 # For Levenberg-Marquardt nlls fitting
 require("minpack.lm") 
@@ -29,6 +27,7 @@ require("minpack.lm")
 # For data wrangling
 library("dplyr") 
 library("tidyr")
+
 
 ###############################################
 ### Load in modified data ### 
@@ -236,7 +235,8 @@ OptStartValueTable <- data.frame("ID" = NestedData$ID,
                                  "a_value" = rep(NA), 
                                  "h_value"= rep(NA),
                                  "q_value"= rep(NA))
-suppressWarnings(
+
+suppressWarnings( # supress warnings for very bad fits
 for (i in 1:length(OptStartValueTable$ID)){
   
   # Subset data for a single ID
@@ -270,11 +270,13 @@ for (i in 1:length(OptStartValueTable$ID)){
     # try to fit the general functional response model to every
     # starting value in the list 
     GenFit <- try(nlsLM(N_TraitValue ~ GenMod(data2try$ResDensity, a, h, q), 
-                                         data = data2try, start = list(a = GenStarta, h = GenStarth, q = GenStartq)), silent = T)
+                                        data = data2try, start = list(a = GenStarta, 
+                                        h = GenStarth, q = GenStartq)), silent = T)
     
     
     # add test values to table
-    TestOptimum[k,1:4] <- c(GenStarta, GenStarth, GenStartq, ifelse(class(GenFit) == "try-error", rep(NA,1), AIC(GenFit)))
+    TestOptimum[k,1:4] <- c(GenStarta, GenStarth, GenStartq, 
+                            ifelse(class(GenFit) == "try-error", rep(NA,1), AIC(GenFit)))
   }
 
   # Find the minimum AIC for the table
@@ -351,7 +353,7 @@ OptFitsSummary <- data.frame("ID" = StartValueTable[1],
                         "BestBIC" = rep(NA),
                         stringsAsFactors = TRUE)
 
-
+suppressWarnings( # supress warnings for very bad fits
 for (i in 1:length(OptStartValueTable[, 1])){
   # Optimise the starting values
   
@@ -426,7 +428,7 @@ for (i in 1:length(OptStartValueTable[, 1])){
   # Generate plots for each model for each ID
   #ifelse(is.na(modelvec), print("NA values present for this ID. No plot generated"),Plotting(i, datatry))
 }
-
+)
 
 # Remove the top row of the modelvec2 dataframe
 modelvec2 <- modelvec2[-1,]
@@ -435,7 +437,7 @@ modelvec2 <- modelvec2[-1,]
 ### Summarise different statistics ### 
 ##########################################
 
-DataFrame <- ModelFits %>% group_by(ModelFits$Best_AIC_Model) %>% summarise(count=n())
+ModelFits %>% group_by(ModelFits$Best_AIC_Model) %>% summarise(count=n())
 
 OptFitsSummary %>% group_by(OptFitsSummary$BestModelAIC) %>% summarise(count=n())
 
@@ -450,13 +452,14 @@ MergedOptTable <- merge(OptFitsSummary,Covariates)
 # Add in a column describing if the model is mechanistic or phenomenological
 MergedOptTable$MecOrPhen <- ifelse(grepl("HolFit|GenFit", MergedOptTable$BestModelAIC), "Mechanistic", "Phenomenological")
 
-# Remove NA values from modelvec2
-#modelvec2 <- na.omit(modelvec2)
-
 ###################################################
 ### Export results to csv file ###
 ###################################################
 
 write.csv(MergedOptTable, file = "../data/OptimisedFitSummary.csv")
 write.csv(modelvec2, file = "../data/AnalysisTable.csv")
-  
+
+###################################################
+### Print final message ###
+###################################################  
+print("Models fitted to data. Dataframes saved to data folder for analysis")
