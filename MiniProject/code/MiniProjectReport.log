@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.10.2)  27 FEB 2020 14:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.10.2)  27 FEB 2020 17:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -531,217 +531,87 @@ Package biblatex Info: Reference segment=0 on input line 23.
  (./MiniProjectReport.sum) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no “ in font cmr10!
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 79.
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 79.
-
-
-! LaTeX Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.88 		\item \textit
-                    {Sample collection} \\
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 88
-[][]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 88--89
+Underfull \hbox (badness 10000) in paragraph at lines 74--75
 
  []
 
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no “ in font cmr10!
 [1]
-
-! LaTeX Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.92 		\item \textit
-                    {Assembling genome} \\
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 92
-[][]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 92--93
-
- []
-
-
-! LaTeX Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.96 		\item \textit
-                    {Creating barcode library} \\
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 96
-[][]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 96--97
-
- []
-
-
-! LaTeX Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.100 		\item \textit
-                     {Comparing population genomics} \\
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 100
-[][]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 100--101
-
- []
-
-
-! LaTeX Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.104 		\item \textit
-                     {Assessing impacts of land use} \\
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 104
-[][]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 104--105
-
- []
-
-[2]
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 116.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 116.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 116.
- [3]
-<../results/HabitatCompare.pdf, id=23, 578.16pt x 433.62pt>
+<../results/HabitatCompare.pdf, id=13, 578.16pt x 433.62pt>
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
 <use ../results/HabitatCompare.pdf>
-Package pdftex.def Info: ../results/HabitatCompare.pdf  used on input line 136.
-
+Package pdftex.def Info: ../results/HabitatCompare.pdf  used on input line 91.
 (pdftex.def)             Requested size: 578.15858pt x 433.61894pt.
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
 <use ../results/HabitatCompare.pdf>
-Package pdftex.def Info: ../results/HabitatCompare.pdf  used on input line 136.
-
+Package pdftex.def Info: ../results/HabitatCompare.pdf  used on input line 91.
 (pdftex.def)             Requested size: 578.15858pt x 433.61894pt.
-<../results/HabitatCompare.pdf, id=26, page=1, 578.16pt x 433.62pt>
+<../results/HabitatCompare.pdf, id=16, page=1, 578.16pt x 433.62pt>
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
 <use ../results/HabitatCompare.pdf, page 1>
 Package pdftex.def Info: ../results/HabitatCompare.pdf , page1 used on input li
-ne 136.
+ne 91.
 (pdftex.def)             Requested size: 578.15858pt x 433.61894pt.
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
 <use ../results/HabitatCompare.pdf, page 1>
 Package pdftex.def Info: ../results/HabitatCompare.pdf , page1 used on input li
-ne 136.
+ne 91.
 (pdftex.def)             Requested size: 614.4611pt x 460.84583pt.
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
 <use ../results/HabitatCompare.pdf, page 1>
 Package pdftex.def Info: ../results/HabitatCompare.pdf , page1 used on input li
-ne 136.
+ne 91.
 (pdftex.def)             Requested size: 614.4611pt x 460.84583pt.
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
 <use ../results/HabitatCompare.pdf, page 1>
 Package pdftex.def Info: ../results/HabitatCompare.pdf , page1 used on input li
-ne 136.
+ne 91.
 (pdftex.def)             Requested size: 614.4611pt x 460.84583pt.
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
 <use ../results/HabitatCompare.pdf, page 1>
 Package pdftex.def Info: ../results/HabitatCompare.pdf , page1 used on input li
-ne 142.
+ne 97.
 (pdftex.def)             Requested size: 614.4611pt x 460.84583pt.
- [4 <../results/HabitatCompare.pdf>]
-<../results/PhenOrMec.pdf, id=70, 505.89pt x 433.62pt>
+ [2 <../results/HabitatCompare.pdf>]
+<../results/PhenOrMec.pdf, id=60, 505.89pt x 433.62pt>
 File: ../results/PhenOrMec.pdf Graphic file (type pdf)
 <use ../results/PhenOrMec.pdf>
-Package pdftex.def Info: ../results/PhenOrMec.pdf  used on input line 146.
+Package pdftex.def Info: ../results/PhenOrMec.pdf  used on input line 101.
 (pdftex.def)             Requested size: 505.88875pt x 433.61894pt.
 File: ../results/PhenOrMec.pdf Graphic file (type pdf)
 <use ../results/PhenOrMec.pdf>
-Package pdftex.def Info: ../results/PhenOrMec.pdf  used on input line 146.
+Package pdftex.def Info: ../results/PhenOrMec.pdf  used on input line 101.
 (pdftex.def)             Requested size: 505.88875pt x 433.61894pt.
-<../results/PhenOrMec.pdf, id=73, page=1, 505.89pt x 433.62pt>
+<../results/PhenOrMec.pdf, id=63, page=1, 505.89pt x 433.62pt>
 File: ../results/PhenOrMec.pdf Graphic file (type pdf)
 <use ../results/PhenOrMec.pdf, page 1>
-Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 14
-6.
+Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 10
+1.
 (pdftex.def)             Requested size: 505.88875pt x 433.61894pt.
 File: ../results/PhenOrMec.pdf Graphic file (type pdf)
 <use ../results/PhenOrMec.pdf, page 1>
-Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 14
-6.
+Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 10
+1.
 (pdftex.def)             Requested size: 615.37086pt x 527.46075pt.
 File: ../results/PhenOrMec.pdf Graphic file (type pdf)
 <use ../results/PhenOrMec.pdf, page 1>
-Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 14
-6.
+Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 10
+1.
 (pdftex.def)             Requested size: 615.37086pt x 527.46075pt.
 File: ../results/PhenOrMec.pdf Graphic file (type pdf)
 <use ../results/PhenOrMec.pdf, page 1>
-Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 14
-6.
+Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 10
+1.
 (pdftex.def)             Requested size: 615.37086pt x 527.46075pt.
 File: ../results/PhenOrMec.pdf Graphic file (type pdf)
 <use ../results/PhenOrMec.pdf, page 1>
-Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 15
-2.
+Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 10
+7.
 (pdftex.def)             Requested size: 615.37086pt x 527.46075pt.
- [5 <../results/PhenOrMec.pdf>]
+ [3 <../results/PhenOrMec.pdf>]
 
-LaTeX Warning: Empty `thebibliography' environment on input line 155.
+LaTeX Warning: Empty `thebibliography' environment on input line 110.
 
-[6] (./MiniProjectReport.aux)
+[4] (./MiniProjectReport.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -750,25 +620,21 @@ Package logreq Info: Writing requests to 'MiniProjectReport.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 9915 strings out of 492982
- 168827 string characters out of 6134896
+ 9877 strings out of 492982
+ 168286 string characters out of 6134896
  590201 words of memory out of 5000000
- 13362 multiletter control sequences out of 15000+600000
- 9137 words of font info for 32 fonts, out of 8000000 for 9000
+ 13335 multiletter control sequences out of 15000+600000
+ 6050 words of font info for 22 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 37i,18n,40p,1219b,742s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmu10.pfb>
-Output written on MiniProjectReport.pdf (7 pages, 124473 bytes).
+ 37i,18n,40p,1222b,742s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb>
+Output written on MiniProjectReport.pdf (5 pages, 78805 bytes).
 PDF statistics:
- 150 PDF objects out of 1000 (max. 8388607)
- 54 compressed objects within 1 object stream
+ 126 PDF objects out of 1000 (max. 8388607)
+ 36 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -69,7 +69,7 @@ plt.savefig('../results/HabitatCompare.pdf')
 plt.figure(num=None, figsize=(7,6), dpi = 80, facecolor = 'w', edgecolor = 'w')
 
 # Plot bar chart
-MecOrPhen = sns.countplot(x = 'Habitat', hue = 'MecOrPhen', data = graphdata, palette= custompalette)
+MecOrPhen = sns.countplot(x = 'Habitat', hue = 'MecOrPhen', data = graphdata, palette= custompalette, edgecolor = 'black')
 
 # Give the y label a more descriptive value
 plt.ylabel("Frequency of best model selected")

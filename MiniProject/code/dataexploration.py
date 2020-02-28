@@ -9,9 +9,7 @@ __version__ = '0.0.1'
 
 # Some imports to explore the datasets
 import pandas as pd
-import scipy as sc
 import numpy as np
-
 
 #########################################################
 ### Load in data ###
