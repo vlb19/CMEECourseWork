@@ -28,6 +28,8 @@ require("minpack.lm")
 library("dplyr") 
 library("tidyr")
 
+#Print user message 
+print("Fitting models, please wait.")
 
 ###############################################
 ### Load in modified data ### 
@@ -263,7 +265,7 @@ for (i in 1:length(OptStartValueTable$ID)){
   
   # Sample initial start parameters to find best starting values
   for (k in 1:(iters*5)){
-    GenStarta <- avalues[k]
+    GenStarta <- sample(avalues,1)
     GenStarth <- sample(hvalues,1)
     GenStartq <- sample(qvalues,1)
     
@@ -432,15 +434,6 @@ for (i in 1:length(OptStartValueTable[, 1])){
 
 # Remove the top row of the modelvec2 dataframe
 modelvec2 <- modelvec2[-1,]
-
-##########################################
-### Summarise different statistics ### 
-##########################################
-
-ModelFits %>% group_by(ModelFits$Best_AIC_Model) %>% summarise(count=n())
-
-OptFitsSummary %>% group_by(OptFitsSummary$BestModelAIC) %>% summarise(count=n())
-
 
 ###################################################
 ### Prepare tables for exporting ### 

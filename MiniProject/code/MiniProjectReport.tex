@@ -71,26 +71,36 @@
 	
 	\section*{Introduction}
 	
-	An understanding of feeding interactions is essential to the field of ecology. Variation in functional traits such as feeding strategy, feeding preference, and mate choice can generate variation in the rate of increase and persistence of populations. The feeding rate of a consumer describes the transfer of biomass between trophic levels and can describe coupled predator-prey abundances in the simplest models (e.g. Lotka 1925). Feeding rate can influence the length of food chains and the distribution of predators through space. Functional responses attempt to describe the relationship between consumption rate and the abundance of the target resource. They arise from biological and physical restraints on consumer-resource interactions and determine the rate of biomass flow between species in ecosystems of all sizes. There have been many phenomenological models for functional responses e.g. (Holling 1965, Lundberg 1988, Ivlev 1961,  Michaelis-Menton 1970). These have revealed patterns within the data that have led to the development of mechanistic models (e.g. Boltzmn-Arrhenius model, Spalinger-Hobbs model 1991) which attempt to validate possible explanations for these patterns. \\
+	An understanding of feeding interactions is essential to the field of ecology. Variation in feeding strategy and preference determines rate of increase and persistence of populations. Feeding allows the transfer of biomass between trophic levels, and the rate at which this occurs can influence the length and complexity of food chains and the distribution of resources and consumers through space. In the simplest models, coupled predator and prey abundances can be described by feeding rate (e.g. Lotka 1925). The relationship between resource abundance and feeding rate is defined as the consumer functional response. They arise from biological and physical restraints on consumer-resource interactions and determine the rate of biomass flow between species in ecosystems of all sizes.There have been many phenomenological models for functional responses e.g. (Holling 1965, Lundberg 1988, Ivlev 1961,  Michaelis-Menton 1970). These have revealed patterns within the data that have led to the development of mechanistic models (e.g. Boltzmn-Arrhenius model, Spalinger-Hobbs model 1991) which attempt to validate possible explanations for these patterns. Mechanistic modelling of functional responses within key species has been used extensively in conservation as it can allow us to parametrise models of ecosystem collapse with environmental changes (e.g. habitat destruction, climate change).\\
 	
+	C.S. Holling classified functional responses into three types: Holling's type I, II, and III. Type I (Fig. 1a) assumes that consumption rate increases linearly with resource density. Holling's type II (Fig. 1b) limits this relationship by including a time delay where the consumer to  search and process the food, so the consumption rate plateaus at a certain resource density. Finally, type III assumes that at low prey densities there is a limiting factor to the consumption rate such as learning time, before saturating in the same way as Holling's type II (Fig. 1c). Our aim was to assess how well different mathematical models, either phenomenological or based on foraging theory (mechanistic) fit to functional response data across a range of species. In order to achieve this we fitted four models to data compiled by Pawaar et al. (2012) which spans over 70 taxa. The quadratic phenomenological model c=R\textsuperscript{2}
+	assumes the form of the Holling II response curve so should be a worse or equally good fit as the mechanistic Holling Type II model: 
+	
+	$$c=\frac{ax\textsubscript{R}}{1+ha\textsubscript{R}}$$
+	
+	Which includes variables for search rate (a) and handling time (h). Alternatively, Holling's type III responses should be caught by the cubic polynomial phenomenological model c=R\textsuperscript{3}, or by the Generalised functional response model:
+
+	$$c=\frac{ax\textsubscript{R}\textsuperscript{q+1}}{1 + hax\textsubscript{R}\textsuperscript{q+1}}$$
+	
+	Which includes a phenomenological parameter (q) which allows the model to vary from Type I to Type III functional response curves. We compare the goodness of fits for each of these models against the functional response data to attempt to ascertain which mathematical models best fit the functional response data across species. 
 	
 	\section*{Methods}
 	
-	
+	We used Levenberg-Marquardt non-linear least squares (NLLS) to fit four models to the extensive dataset. We restricted the data to individuals with more than five feeding interactions recorded, and removed IDs with an incomplete data set. We then fitted quadratic and cubic phenomenological models, as well as the Holling II and Generalised Holling II Model mechanistic models. To achieve starting values for search rate (a) and handling time (h), we temporarily cut the data at the mean or maximum consumption rate and fitted a linear regression to the remaining data points. Which value we cut the data at was determined by the highest R\textsuperscript{2}. We used the gradient of this line as a and the highest consumption value as h. We then improved the model fits by optimising the starting values. To do this, we created lists of randomly generated numbers within a normal distribution around our estimated start values, as well as a uniform distribution of values within our predicted limits. We then re-ran the Generalised Holling II model using combinations of these starting values and returned the combination with the minimum Akaike information criterion (AIC) value, and therefore best fit. We stored the value of the minimum AIC and its corresponding model for comparison.\\
 	
 	\subsection*{Computing tools}
 	
-	Python was used for data exploration and analysis. In the initial data exploration, pandas were used for all data frame manipulations and numpy was used for generating nan values. The NLLS fitting script was written in R and used tidyr for data nesting, dplyr used for binding rows between temporary and finalised data frames, and minpack.lm used for all model fitting. Data analysis was completed in python using pandas for reading in csv files and generating crosstab tables for data visualisation. The actual data analysis and subsequent post hoc tests were performed using the pingouin package, and figures were generated using matplotlib.pyplot and seaborn. Finally, the scripts were all compiled using an overarching bash script. 
+	Python was used for data exploration and analysis. In the initial data exploration, pandas were used for all data frame manipulations and numpy was used for generating nan values. The NLLS fitting script was written in R and used tidyr for data nesting, dplyr used for binding rows between temporary and finalised data frames, and minpack.lm used for all model fitting. Data analysis was completed in python using pandas for reading in csv files and generating crosstab tables for data visualisation. The actual data analysis and subsequent post hoc tests were performed using the pingouin package which requires numpy to run, and figures were generated using matplotlib.pyplot and seaborn. Finally, the scripts were all compiled using an overarching bash script. 
 	
 	
 	\section*{Results}
-	
+	We detected variation in best model fits between different habitats (two-way ANOVA: F\textsubscript{2,29}, P < 0.01; Fig. 1), although the AIC value did not vary significantly between models within each habitat (two-way ANOVA:F\textsubscript{3,0.2}, P = 0.906). 
 	\newpage
+	
 	\begin{figure}[h!]
 		
 		\includepdf{../results/HabitatCompare.pdf}
-		\caption{	Gantt Chart}
-		\label{MRes Gantt}
+		\caption{Differences in model fits between habitats}
 		
 	\end{figure} 
 	
@@ -104,6 +114,9 @@
 	
 	\end{figure} 
 
+	\newpage
+	\section*{Discussion}
+	
 	\newpage
 	\begin{thebibliography}{1}
 	

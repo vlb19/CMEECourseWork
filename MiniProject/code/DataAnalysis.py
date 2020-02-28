@@ -8,11 +8,14 @@ __author__ = 'Viki Blanchard (vlb19@ic.ac.uk)'
 __version__ = '0.0.1'
 
 # Some imports to explore the datasets
-import matplotlib
 import pandas as pd
 import seaborn as sns
+import numpy as np
 import pingouin as pg    
 import matplotlib.pyplot as plt
+
+# Print information for user
+print("Analysing model fits, please wait.")
 
 #########################################################
 ### Load in data sets ###
@@ -25,17 +28,29 @@ analysisdata = pd.read_csv('../data/AnalysisTable.csv')
 graphdata = pd.read_csv("../data/OptimisedFitSummary.csv")
 
 #########################################################
-### Initial data visualisation ###
+### Analyse effects of habitat on model choice ###
 #########################################################
 
-# Print number of columns loaded
-print("Loaded {} columns.".format(len(graphdata.columns.values)))
+# Visualise the data 
+Habitatcrosstab = pd.crosstab(graphdata['BestModelAIC'], graphdata['Habitat'], margins = False)
+print(Habitatcrosstab)
 
-# Print column headings
-print(graphdata.columns.values)
+# Test the normality of the data 
+pg.normality(analysisdata['AIC'])
 
-HabitatCrosstab = pd.crosstab(graphdata['BestModelAIC'], graphdata['Habitat'], margins = False)
-print(HabitatCrosstab)
+# Run a two-way ANOVA on model AICs with Habitat and Model as factors
+HabitatANOVA = pg.anova(dv='AIC', between=['Habitat','Model'], data = analysisdata, detailed = True)
+HabitatANOVA
+
+# Run a pairwise Tukey HSD to compare differences between each habitat
+Habitattukey = pg.pairwise_tukey(data = analysisdata, dv = 'AIC', between=['Habitat'])
+Habitattukey
+
+#########################################################
+### Visualise consumer dimension analysis data ###
+#########################################################
+
+ConDimcrosstab = pd.crosstab(graphdata['BestModelAIC'], graphdata['Con_MovementDimensionality'], margins = False)
 
 #########################################################
 ### Generate box and whisker plot for habitats ###
@@ -76,38 +91,6 @@ plt.ylabel("Frequency of best model selected")
 
 # Save the figure to the results folder
 plt.savefig('../results/PhenOrMec.pdf')
-
-#########################################################
-### Visualise habitat analysis data ###
-#########################################################
-
-# Print number of columns loaded
-print("Loaded {} columns.".format(len(analysisdata.columns.values)))
-
-# Print column headings
-print(analysisdata.columns.values)
-
-# Print top ten rows of dataframe
-analysisdata.head()
-
-# Run a two-way ANOVA on model AICs with Habitat and Model as factors
-HabitatANOVA = pg.anova(dv='AIC', between=['Habitat','Model'], data = analysisdata, detailed = True)
-HabitatANOVA
-
-# Run a pairwise Tukey HSD to compare differences between each habitat
-Habitattukey = pg.pairwise_tukey(data = analysisdata, dv = 'AIC', between=['Habitat'])
-Habitattukey
-
-# Run a pairwise Tukey HSD to compare differences between each model
-Modeltukey = pg.pairwise_tukey(data = analysisdata, dv = 'AIC', between=['Model'])
-Modeltukey
-
-#########################################################
-### Visualise consumer dimension analysis data ###
-#########################################################
-
-ConDimcrosstab = pd.crosstab(graphdata['BestModelAIC'], graphdata['Con_MovementDimensionality'], margins = False)
-print(ConDimcrosstab) 
 
 #########################################################
 ### Print message for user ###

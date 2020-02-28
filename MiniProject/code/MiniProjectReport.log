@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.10.2)  27 FEB 2020 17:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.10.2)  28 FEB 2020 15:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -419,11 +419,7 @@ File: english.lbx 2017/12/19 v3.10 biblatex localization (PK/JW/AB)
 \@quotelevel=\count293
 \@quotereset=\count294
 
-(./MiniProjectReport.aux
-
-LaTeX Warning: Label `MRes Gantt' multiply defined.
-
-)
+(./MiniProjectReport.aux)
 \openout1 = `MiniProjectReport.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
@@ -535,106 +531,119 @@ Underfull \hbox (badness 10000) in paragraph at lines 74--75
 
  []
 
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 76.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 76.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 76.
 [1]
-<../results/HabitatCompare.pdf, id=13, 578.16pt x 433.62pt>
+Underfull \hbox (badness 10000) in paragraph at lines 89--90
+
+ []
+
+[2] [3]
+<../results/HabitatCompare.pdf, id=21, 578.16pt x 433.62pt>
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
 <use ../results/HabitatCompare.pdf>
-Package pdftex.def Info: ../results/HabitatCompare.pdf  used on input line 91.
+Package pdftex.def Info: ../results/HabitatCompare.pdf  used on input line 102.
+
 (pdftex.def)             Requested size: 578.15858pt x 433.61894pt.
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
 <use ../results/HabitatCompare.pdf>
-Package pdftex.def Info: ../results/HabitatCompare.pdf  used on input line 91.
+Package pdftex.def Info: ../results/HabitatCompare.pdf  used on input line 102.
+
 (pdftex.def)             Requested size: 578.15858pt x 433.61894pt.
-<../results/HabitatCompare.pdf, id=16, page=1, 578.16pt x 433.62pt>
+<../results/HabitatCompare.pdf, id=24, page=1, 578.16pt x 433.62pt>
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
 <use ../results/HabitatCompare.pdf, page 1>
 Package pdftex.def Info: ../results/HabitatCompare.pdf , page1 used on input li
-ne 91.
+ne 102.
 (pdftex.def)             Requested size: 578.15858pt x 433.61894pt.
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
 <use ../results/HabitatCompare.pdf, page 1>
 Package pdftex.def Info: ../results/HabitatCompare.pdf , page1 used on input li
-ne 91.
+ne 102.
 (pdftex.def)             Requested size: 614.4611pt x 460.84583pt.
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
 <use ../results/HabitatCompare.pdf, page 1>
 Package pdftex.def Info: ../results/HabitatCompare.pdf , page1 used on input li
-ne 91.
+ne 102.
 (pdftex.def)             Requested size: 614.4611pt x 460.84583pt.
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
 <use ../results/HabitatCompare.pdf, page 1>
 Package pdftex.def Info: ../results/HabitatCompare.pdf , page1 used on input li
-ne 91.
+ne 102.
 (pdftex.def)             Requested size: 614.4611pt x 460.84583pt.
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
 <use ../results/HabitatCompare.pdf, page 1>
 Package pdftex.def Info: ../results/HabitatCompare.pdf , page1 used on input li
-ne 97.
+ne 107.
 (pdftex.def)             Requested size: 614.4611pt x 460.84583pt.
- [2 <../results/HabitatCompare.pdf>]
-<../results/PhenOrMec.pdf, id=60, 505.89pt x 433.62pt>
+ [4 <../results/HabitatCompare.pdf>]
+<../results/PhenOrMec.pdf, id=67, 505.89pt x 433.62pt>
 File: ../results/PhenOrMec.pdf Graphic file (type pdf)
 <use ../results/PhenOrMec.pdf>
-Package pdftex.def Info: ../results/PhenOrMec.pdf  used on input line 101.
+Package pdftex.def Info: ../results/PhenOrMec.pdf  used on input line 111.
 (pdftex.def)             Requested size: 505.88875pt x 433.61894pt.
 File: ../results/PhenOrMec.pdf Graphic file (type pdf)
 <use ../results/PhenOrMec.pdf>
-Package pdftex.def Info: ../results/PhenOrMec.pdf  used on input line 101.
+Package pdftex.def Info: ../results/PhenOrMec.pdf  used on input line 111.
 (pdftex.def)             Requested size: 505.88875pt x 433.61894pt.
-<../results/PhenOrMec.pdf, id=63, page=1, 505.89pt x 433.62pt>
+<../results/PhenOrMec.pdf, id=70, page=1, 505.89pt x 433.62pt>
 File: ../results/PhenOrMec.pdf Graphic file (type pdf)
 <use ../results/PhenOrMec.pdf, page 1>
-Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 10
+Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 11
 1.
 (pdftex.def)             Requested size: 505.88875pt x 433.61894pt.
 File: ../results/PhenOrMec.pdf Graphic file (type pdf)
 <use ../results/PhenOrMec.pdf, page 1>
-Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 10
+Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 11
 1.
 (pdftex.def)             Requested size: 615.37086pt x 527.46075pt.
 File: ../results/PhenOrMec.pdf Graphic file (type pdf)
 <use ../results/PhenOrMec.pdf, page 1>
-Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 10
+Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 11
 1.
 (pdftex.def)             Requested size: 615.37086pt x 527.46075pt.
 File: ../results/PhenOrMec.pdf Graphic file (type pdf)
 <use ../results/PhenOrMec.pdf, page 1>
-Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 10
+Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 11
 1.
 (pdftex.def)             Requested size: 615.37086pt x 527.46075pt.
 File: ../results/PhenOrMec.pdf Graphic file (type pdf)
 <use ../results/PhenOrMec.pdf, page 1>
-Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 10
+Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 11
 7.
 (pdftex.def)             Requested size: 615.37086pt x 527.46075pt.
- [3 <../results/PhenOrMec.pdf>]
+ [5 <../results/PhenOrMec.pdf>]
+[6]
 
-LaTeX Warning: Empty `thebibliography' environment on input line 110.
+LaTeX Warning: Empty `thebibliography' environment on input line 123.
 
-[4] (./MiniProjectReport.aux)
-
-LaTeX Warning: There were multiply-defined labels.
-
+[7] (./MiniProjectReport.aux)
 Package logreq Info: Writing requests to 'MiniProjectReport.run.xml'.
 \openout1 = `MiniProjectReport.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 9877 strings out of 492982
- 168286 string characters out of 6134896
- 590201 words of memory out of 5000000
- 13335 multiletter control sequences out of 15000+600000
- 6050 words of font info for 22 fonts, out of 8000000 for 9000
+ 9892 strings out of 492982
+ 168461 string characters out of 6134896
+ 591162 words of memory out of 5000000
+ 13345 multiletter control sequences out of 15000+600000
+ 8188 words of font info for 29 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 37i,18n,40p,1222b,742s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 37i,18n,40p,1424b,742s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb>
-Output written on MiniProjectReport.pdf (5 pages, 78805 bytes).
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmss8.pfb>
+Output written on MiniProjectReport.pdf (8 pages, 101446 bytes).
 PDF statistics:
- 126 PDF objects out of 1000 (max. 8388607)
- 36 compressed objects within 1 object stream
+ 144 PDF objects out of 1000 (max. 8388607)
+ 50 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
