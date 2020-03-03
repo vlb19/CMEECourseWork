@@ -11,7 +11,8 @@ __version__ = '0.0.1'
 import pandas as pd
 import seaborn as sns
 import numpy as np
-import pingouin as pg    
+import pingouin as pg 
+import scipy as sc   
 import matplotlib.pyplot as plt
 
 # Print information for user
@@ -28,7 +29,21 @@ analysisdata = pd.read_csv('../data/AnalysisTable.csv')
 graphdata = pd.read_csv("../data/OptimisedFitSummary.csv")
 
 #########################################################
-### Analyse effects of habitat on model choice ###
+### Do any models fit better than the rest generally? ###
+#########################################################
+
+ModelANOVA = pg.anova(data = analysisdata, dv = 'AIC', between = 'Model', detailed = True)
+ModelANOVA
+
+#########################################################
+### Do Phen or Mec models fit better? ###
+#########################################################
+
+counts = graphdata['MecOrPhen'].value_counts()
+sc.stats.chisquare([counts[0], counts[1]])
+
+#########################################################
+### Does habitat influence model choice? ###
 #########################################################
 
 # Visualise the data 
@@ -47,18 +62,43 @@ Habitattukey = pg.pairwise_tukey(data = analysisdata, dv = 'AIC', between=['Habi
 Habitattukey
 
 #########################################################
-### Visualise consumer dimension analysis data ###
+### Does consumer dimension influence model choice? ###
 #########################################################
 
 ConDimcrosstab = pd.crosstab(graphdata['BestModelAIC'], graphdata['Con_MovementDimensionality'], margins = False)
 
-#########################################################
-### Generate box and whisker plot for habitats ###
-#########################################################
+# Run a two-way ANOVA on model AICs with Habitat and Model as factors
+ConDimANOVA = pg.anova(dv='AIC', between=['ConDimension','Model'], data = analysisdata, detailed = True)
+ConDimANOVA
+
+# Run a pairwise Tukey HSD to compare differences between each habitat
+ConDimtukey = pg.pairwise_tukey(data = analysisdata, dv = 'AIC', between=['ConDimension'])
+ConDimtukey
+
+################################################################
+### Generate bar chart for comparing model types per habitat ###
+################################################################
 
 # Crerate custom palettes
 sns.palplot(sns.diverging_palette(128, 240, n=4))
 custompalette = sns.diverging_palette(128, 240, n=4)
+
+# Set dimensions of figure
+plt.figure(num=None, figsize=(6,4), dpi = 80, facecolor = 'w', edgecolor = 'w')
+
+# Plot bar chart
+MecOrPhen = sns.countplot(x = 'Habitat', hue = 'MecOrPhen', data = graphdata, palette= custompalette, edgecolor = 'black')
+
+# Give the y label a more descriptive value
+plt.ylabel("Frequency of best model selected")
+
+# Save the figure to the results folder
+plt.savefig('../results/PhenOrMec.pdf')
+
+
+#########################################################
+### Generate box and whisker plot for habitats ###
+#########################################################
 
 # Set dimensions of figure
 plt.figure(num=None, figsize=(8,6), dpi = 80, facecolor = 'w', edgecolor = 'w')
@@ -76,21 +116,29 @@ plt.legend(loc = 'upper right')
 # Save the figure to the results folder
 plt.savefig('../results/HabitatCompare.pdf')
 
-################################################################
-### Generate bar chart for comparing model types per habitat ###
-################################################################
+
+#########################################################
+### Generate box and whisker plot for habitats ###
+#########################################################
 
 # Set dimensions of figure
-plt.figure(num=None, figsize=(7,6), dpi = 80, facecolor = 'w', edgecolor = 'w')
+plt.figure(num=None, figsize=(8,6), dpi = 80, facecolor = 'w', edgecolor = 'w')
 
-# Plot bar chart
-MecOrPhen = sns.countplot(x = 'Habitat', hue = 'MecOrPhen', data = graphdata, palette= custompalette, edgecolor = 'black')
+# Create boxplot of best AIC value per model per habitat
+bp = sns.boxplot(y = 'BestAIC', x = 'Con_MovementDimensionality', data = graphdata, palette = custompalette, hue = "BestModelAIC")
+handles, labels = bp.get_legend_handles_labels()
 
 # Give the y label a more descriptive value
-plt.ylabel("Frequency of best model selected")
+plt.ylabel("Minimum AIC Value")
+
+# Give the x label a more descriptive value 
+plt.xlabel("Consumer movement dimensionality")
+
+# Create a legend for the different models 
+plt.legend(loc = 'upper right')
 
 # Save the figure to the results folder
-plt.savefig('../results/PhenOrMec.pdf')
+plt.savefig('../results/ConDimension.pdf')
 
 #########################################################
 ### Print message for user ###

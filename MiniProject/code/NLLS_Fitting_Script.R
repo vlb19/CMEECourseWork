@@ -299,7 +299,7 @@ for (i in 1:length(OptStartValueTable$ID)){
 
 Plotting <- function(i, datatry) {
   
-  png(paste('Models_for_ID#', OptStartValueTable[i,1], sep = ""))
+  pdf(paste('Models_for_ID#', OptStartValueTable[i,1], sep = ""))
   
   # Save x values into a variable
   Lengths <- seq(min(datatry$ResDensity),max(datatry$ResDensity))

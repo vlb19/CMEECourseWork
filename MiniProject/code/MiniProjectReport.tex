@@ -6,6 +6,7 @@
 \usepackage{graphicx}
 \usepackage{pdfpages}
 \usepackage{setspace}
+\usepackage{amsmath}
 \usepackage[]{lineno}
 \usepackage{booktabs}
 \usepackage[backend=biber,style=authoryear,bibencoding=utf8]{biblatex}
@@ -17,7 +18,7 @@
 
 % bibliography secion %
 
-\addbibresource{MResReferences.bib}
+\addbibresource{References.bib}
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
 
 \begin{document}
@@ -70,7 +71,6 @@
 	\doublespacing
 	
 	\section*{Introduction}
-	
 	An understanding of feeding interactions is essential to the field of ecology. Variation in feeding strategy and preference determines rate of increase and persistence of populations. Feeding allows the transfer of biomass between trophic levels, and the rate at which this occurs can influence the length and complexity of food chains and the distribution of resources and consumers through space. In the simplest models, coupled predator and prey abundances can be described by feeding rate (e.g. Lotka 1925). The relationship between resource abundance and feeding rate is defined as the consumer functional response. They arise from biological and physical restraints on consumer-resource interactions and determine the rate of biomass flow between species in ecosystems of all sizes.There have been many phenomenological models for functional responses e.g. (Holling 1965, Lundberg 1988, Ivlev 1961,  Michaelis-Menton 1970). These have revealed patterns within the data that have led to the development of mechanistic models (e.g. Boltzmn-Arrhenius model, Spalinger-Hobbs model 1991) which attempt to validate possible explanations for these patterns. Mechanistic modelling of functional responses within key species has been used extensively in conservation as it can allow us to parametrise models of ecosystem collapse with environmental changes (e.g. habitat destruction, climate change).\\
 	
 	C.S. Holling classified functional responses into three types: Holling's type I, II, and III. Type I (Fig. 1a) assumes that consumption rate increases linearly with resource density. Holling's type II (Fig. 1b) limits this relationship by including a time delay where the consumer to  search and process the food, so the consumption rate plateaus at a certain resource density. Finally, type III assumes that at low prey densities there is a limiting factor to the consumption rate such as learning time, before saturating in the same way as Holling's type II (Fig. 1c). Our aim was to assess how well different mathematical models, either phenomenological or based on foraging theory (mechanistic) fit to functional response data across a range of species. In order to achieve this we fitted four models to data compiled by Pawaar et al. (2012) which spans over 70 taxa. The quadratic phenomenological model c=R\textsuperscript{2}
@@ -94,7 +94,23 @@
 	
 	
 	\section*{Results}
-	We detected variation in best model fits between different habitats (two-way ANOVA: F\textsubscript{2,29}, P < 0.01; Fig. 1), although the AIC value did not vary significantly between models within each habitat (two-way ANOVA:F\textsubscript{3,0.2}, P = 0.906). 
+	No single model fit the data better than all of the others across all of the data points (one-way ANOVA: F\textsubscript{3,0.166}, P = 0.919). However, 126 out of the total 214 models fit were phenomenological (Fig.2), indicating that phenomenological models fit the data better generally ($\chi$\textsuperscript{2}(DF = 2, N=214) = 6.75, P $<$0.01).\\
+	
+	\mbox{}
+	\vfill
+	
+	\begin{figure}[h!]
+		
+	\includepdf{../results/PhenOrMec.pdf}
+	\caption{	Gantt Chart}
+		
+	\end{figure} 
+	\newpage
+	
+	We detected variation in best model fits between different habitats (two-way ANOVA: F\textsubscript{2,29}, P $<$ 0.01; Fig. 3), although the AIC value did not vary significantly between models within each habitat (two-way ANOVA:F\textsubscript{3,0.2}, P = 0.906). Post-hoc analyses revealed minimum AIC was different between every habitat (Freshwater: $\overline{x}$ = -101, Marine: $\overline{x}$ = -175, Terrestrial: $\overline{x}$ = -286, all comparisons P $<$0.05). \\
+	
+	Similarly, consumer dimensionality (Fig. 4) significantly impacted the model selection (two-way ANOVA:F\textsubscript{2,69}, P $<$0.01). There were only two sessile species out of the 216 sampled so we can ignore them from the analysis. The mean AIC for 2D models was significantly lower than that of 3D models (Tukey HSD: 2D: $\overline{x}$ = -316, 3D: $\overline{x}$ = -80.7, P $<$0.001). We found no differences between the model fits within a movement dimensionality (two-way ANOVA:F\textsubscript{3,0.195}, P = 0.900).
+		
 	\newpage
 	
 	\begin{figure}[h!]
@@ -108,18 +124,18 @@
 	
 	\begin{figure}[h!]
 	
-	\includepdf{../results/PhenOrMec.pdf}
+	\includepdf{../results/ConDimension.pdf}
 	\caption{	Gantt Chart}
-	\label{MRes Gantt}
-	
+
 	\end{figure} 
 
 	\newpage
+	
 	\section*{Discussion}
 	
 	\newpage
-	\begin{thebibliography}{1}
-	
-	\end{thebibliography}
+
+	\printbibliography
+
 	
 \end{document}
