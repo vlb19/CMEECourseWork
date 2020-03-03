@@ -24,8 +24,6 @@ data = pd.read_csv("../data/CRat.csv")
 
 ### Create new data frame with only columns of interest for initial plots
 newdata = data[['ID','ResDensity','N_TraitValue','Habitat','Res_MovementDimensionality', 'Con_MovementDimensionality', 'ConTaxa','ResTaxa']].copy()
-#newdata = pd.DataFrame([data.ID,data.ResDensity,data.N_TraitValue,data.Habitat,data.Res_MovementDimensionality, data.Con_MovementDimensionality, data.ConTaxa,data.ResTaxa]).transpose()
-
 
 ### Modify the taxa to include only genus 
 newdata['ConTaxa'] = newdata['ConTaxa'].str.split().str[0]

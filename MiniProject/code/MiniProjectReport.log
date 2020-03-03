@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.10.2)  28 FEB 2020 15:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.10.2)  3 MAR 2020 10:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -482,35 +482,12 @@ LaTeX Font Info:    ... okay on input line 23.
 \MPnumerator=\count299
 \makeMPintoPDFobject=\count300
 \everyMPtoPDFconversion=\toks20
-) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
-Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
-
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
-Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
-
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
-Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
-))
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
-38.
-Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 456.
-
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
-))
-\AtBeginShipoutBox=\box30
-
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/pdflscape.sty
-Package: pdflscape 2016/05/14 v0.11 Display of landscape pages in PDF (HO)
+) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.ages in PDF (HO)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/lscape.sty
 Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
 )
-Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
+Package pdflscape Info: Auto-detected driver: dvips (dvips) on input line 125.
 )
 Package biblatex Info: No input encoding detected.
 (biblatex)             Assuming 'ascii'.
@@ -526,7 +503,7 @@ Package biblatex Info: Reference section=0 on input line 23.
 Package biblatex Info: Reference segment=0 on input line 23.
  (./MiniProjectReport.sum) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+]
 Underfull \hbox (badness 10000) in paragraph at lines 74--75
 
  []
@@ -543,31 +520,70 @@ Underfull \hbox (badness 10000) in paragraph at lines 89--90
  []
 
 [2] [3]
-<../results/HabitatCompare.pdf, id=21, 578.16pt x 433.62pt>
-File: ../results/HabitatCompare.pdf Graphic file (type pdf)
-<use ../results/HabitatCompare.pdf>
-Package pdftex.def Info: ../results/HabitatCompare.pdf  used on input line 102.
 
-(pdftex.def)             Requested size: 578.15858pt x 433.61894pt.
-File: ../results/HabitatCompare.pdf Graphic file (type pdf)
-<use ../results/HabitatCompare.pdf>
-Package pdftex.def Info: ../results/HabitatCompare.pdf  used on input line 102.
+Package pdfpages Warning: I cannot determine the number of pages of the
+(pdfpages)                included document, because we are running in
+(pdfpages)                DVI mode. 
+(pdfpages)                You can use the option `lastpage' to give me a hint.
 
-(pdftex.def)             Requested size: 578.15858pt x 433.61894pt.
-<../results/HabitatCompare.pdf, id=24, page=1, 578.16pt x 433.62pt>
-File: ../results/HabitatCompare.pdf Graphic file (type pdf)
-<use ../results/HabitatCompare.pdf, page 1>
-Package pdftex.def Info: ../results/HabitatCompare.pdf , page1 used on input li
-ne 102.
-(pdftex.def)             Requested size: 578.15858pt x 433.61894pt.
-File: ../results/HabitatCompare.pdf Graphic file (type pdf)
-<use ../results/HabitatCompare.pdf, page 1>
-Package pdftex.def Info: ../results/HabitatCompare.pdf , page1 used on input li
-ne 102.
-(pdftex.def)             Requested size: 614.4611pt x 460.84583pt.
-File: ../results/HabitatCompare.pdf Graphic file (type pdf)
-<use ../results/HabitatCompare.pdf, page 1>
-Package pdftex.def Info: ../results/HabitatCompare.pdf , page1 used on input li
+
+! LaTeX Error: File `' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.107 	\newpage
+               
+? texcount -1 -sum MiniProjectReport.tex > MiniProjectReport.sum
+Type <return> to proceed, S to scroll future error messages,
+R to run without stopping, Q to run quietly,
+I to insert something, E to edit your file,
+1 or ... or 9 to ignore the next 1 to 9 tokens of input,
+H for help, X to quit.
+? quit()
+OK, entering \batchmode...
+ [4]
+
+Package pdfpages Warning: I cannot determine the number of pages of the
+(pdfpages)                included document, because we are running in
+(pdfpages)                DVI mode. 
+(pdfpages)                You can use the option `lastpage' to give me a hint.
+
+
+! LaTeX Error: File `' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.117 	\newpage
+               
+I could not locate the file with any of these extensions:
+.eps,.ps,.eps.gz,.ps.gz,.eps.Z,.mps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+ [5] [6]
+
+LaTeX Warning: Empty `thebibliography' environment on input line 123.
+
+ [7] (./MiniProjectReport.aux)
+Package logreq Info: Writing requests to 'MiniProjectReport.run.xml'.
+\openout1 = `MiniProjectReport.run.xml'.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 9414 strings out of 492983
+ 161014 string characters out of 6134922
+ 582624 words of memory out of 5000000
+ 12883 multiletter control sequences out of 15000+600000
+ 8188 words of font info for 29 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 37i,15n,41p,1424b,742s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on MiniProjectReport.dvi (8 pages, 13788 bytes).
+ults/HabitatCompare.pdf , page1 used on input li
 ne 102.
 (pdftex.def)             Requested size: 614.4611pt x 460.84583pt.
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
@@ -581,7 +597,7 @@ Package pdftex.def Info: ../results/HabitatCompare.pdf , page1 used on input li
 ne 107.
 (pdftex.def)             Requested size: 614.4611pt x 460.84583pt.
  [4 <../results/HabitatCompare.pdf>]
-<../results/PhenOrMec.pdf, id=67, 505.89pt x 433.62pt>
+<../results/PhenOrMec.pdf, id=69, 505.89pt x 433.62pt>
 File: ../results/PhenOrMec.pdf Graphic file (type pdf)
 <use ../results/PhenOrMec.pdf>
 Package pdftex.def Info: ../results/PhenOrMec.pdf  used on input line 111.
@@ -590,7 +606,7 @@ File: ../results/PhenOrMec.pdf Graphic file (type pdf)
 <use ../results/PhenOrMec.pdf>
 Package pdftex.def Info: ../results/PhenOrMec.pdf  used on input line 111.
 (pdftex.def)             Requested size: 505.88875pt x 433.61894pt.
-<../results/PhenOrMec.pdf, id=70, page=1, 505.89pt x 433.62pt>
+<../results/PhenOrMec.pdf, id=72, page=1, 505.89pt x 433.62pt>
 File: ../results/PhenOrMec.pdf Graphic file (type pdf)
 <use ../results/PhenOrMec.pdf, page 1>
 Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 11
@@ -640,9 +656,9 @@ e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmss8.pfb>
-Output written on MiniProjectReport.pdf (8 pages, 101446 bytes).
+Output written on MiniProjectReport.pdf (8 pages, 100677 bytes).
 PDF statistics:
- 144 PDF objects out of 1000 (max. 8388607)
+ 142 PDF objects out of 1000 (max. 8388607)
  50 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)

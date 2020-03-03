@@ -6,16 +6,16 @@
 # DataAnalysis.py, MiniProjectReport.tex
 #Date: 26th February 2020
 
-# Run data exploration script
+### Run data exploration script
 python3 "dataexploration.py"
 
-# Run NLLS fitting script 
+### Run NLLS fitting script 
 Rscript "NLLS_Fitting_Script.R"
 
-# Run model analysis script 
+### Run model analysis script 
 python3 "DataAnalysis.py"
 
-# Run LaTeX compiling script
+### Run LaTeX compiling script
 latex "MiniProjectReport.tex"
 # Run word count for LaTex
 texcount -1 -sum MiniProjectReport.tex > MiniProjectReport.sum
