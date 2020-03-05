@@ -9,7 +9,8 @@
 \usepackage{amsmath}
 \usepackage[]{lineno}
 \usepackage{booktabs}
-\usepackage[backend=biber,style=authoryear,bibencoding=utf8]{biblatex}
+\usepackage{wrapfig}
+
 \setlength{\parindent}{0em}
 
 % Word Count %
@@ -17,9 +18,8 @@
 
 
 % bibliography secion %
-
-\addbibresource{References.bib}
-\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+\usepackage[backend=biber, bibencoding=utf8, style=authoryear, citestyle=authoryear]{biblatex}
+\addbibresource{MiniProjectReferences.bib}
 
 \begin{document}
 	
@@ -70,10 +70,16 @@
 	\linenumbers
 	\doublespacing
 	
-	\section*{Introduction}
-	An understanding of feeding interactions is essential to the field of ecology. Variation in feeding strategy and preference determines rate of increase and persistence of populations. Feeding allows the transfer of biomass between trophic levels, and the rate at which this occurs can influence the length and complexity of food chains and the distribution of resources and consumers through space. In the simplest models, coupled predator and prey abundances can be described by feeding rate (e.g. Lotka 1925). The relationship between resource abundance and feeding rate is defined as the consumer functional response. They arise from biological and physical restraints on consumer-resource interactions and determine the rate of biomass flow between species in ecosystems of all sizes.There have been many phenomenological models for functional responses e.g. (Holling 1965, Lundberg 1988, Ivlev 1961,  Michaelis-Menton 1970). These have revealed patterns within the data that have led to the development of mechanistic models (e.g. Boltzmn-Arrhenius model, Spalinger-Hobbs model 1991) which attempt to validate possible explanations for these patterns. Mechanistic modelling of functional responses within key species has been used extensively in conservation as it can allow us to parametrise models of ecosystem collapse with environmental changes (e.g. habitat destruction, climate change).\\
+	\section*{Abstract}
 	
-	C.S. Holling classified functional responses into three types: Holling's type I, II, and III. Type I (Fig. 1a) assumes that consumption rate increases linearly with resource density. Holling's type II (Fig. 1b) limits this relationship by including a time delay where the consumer to  search and process the food, so the consumption rate plateaus at a certain resource density. Finally, type III assumes that at low prey densities there is a limiting factor to the consumption rate such as learning time, before saturating in the same way as Holling's type II (Fig. 1c). Our aim was to assess how well different mathematical models, either phenomenological or based on foraging theory (mechanistic) fit to functional response data across a range of species. In order to achieve this we fitted four models to data compiled by Pawaar et al. (2012) which spans over 70 taxa. The quadratic phenomenological model c=R\textsuperscript{2}
+	A knowledge of consumer functional responses is fundamental to the study of ecological communities. Mechanistic modelling methods are being increasingly used to parameterise models for species decline with coming climate, deforestation, and other extinction events. Here we evaluate established mechanistic and phenomenological models to fit to a large data set on predator prey relationships in order to identify patterns within the data. We found that there was no overall best model that fit all of the data better than the others. We also found that phenomenological models tend to fit the data better overall and that there was variation in minimum AIC between habitats and between consumer dimensionality. Comparing model fits across habitats and feeding interaction dimensionailty can provide insights into how feeding informs community compostition and structure. 
+	
+	\section*{Introduction}
+	Variation in feeding strategy and preference determines rate of increase and persistence of populations and communities. Through feeding biomass transfers between trophic levels, and the rate at which this occurs determines the length and complexity of food webs and has been shown to influence the distribution of resources and consumers through space. An understanding of functional responses - the relationship between resource abundance and feeding rate is therefore essential for understanding food web dynamics, which allows us to make models of animal responses to environmental change, and therefore design appropriate conservation measures (\cite{Deville2013}). \\
+	
+	In the simplest models, coupled predator and prey abundances can be described by feeding rate (e.g. \cite{Kopf1925a}. They arise from biological and physical restraints on consumer-resource interactions and determine the rate of biomass flow between species in ecosystems of all sizes.There have been many phenomenological models for functional responses e.g. (Holling 1965, Lundberg 1988, Ivlev 1961,  Michaelis-Menton 1970). These have revealed patterns within the data that have led to the development of mechanistic models (e.g. Boltzmn-Arrhenius model, Spalinger-Hobbs model 1991) which attempt to validate possible explanations for these patterns. Mechanistic modelling of functional responses within key species has been used extensively in conservation as it can allow us to parametrise models of ecosystem collapse with environmental changes (e.g. habitat destruction, climate change).\\
+	
+	C.S. Holling classified functional responses into three types: Holling's type I, II, and III. Type I (Fig. 1I) assumes that consumption rate increases linearly with resource density. Holling's type II (Fig. 1II) limits this relationship by including a time delay where the consumer to  search and process the food, so the consumption rate plateaus at a certain resource density. Finally, type III assumes that at low prey densities there is a limiting factor to the consumption rate such as learning time, before saturating in the same way as Holling's type II (Fig. 1III). Generally speaking these mechanistic models try to explain functional responses by adding potentially influential parameters to optimise the model fits. Our aim was to assess how well different mathematical models, either phenomenological or based on foraging theory (mechanistic) fit to functional response data across a range of species. In order to achieve this we fitted four models to data compiled by Pawaar et al. (2012) which spans over 70 taxa. The quadratic phenomenological model c=R\textsuperscript{2}
 	assumes the form of the Holling II response curve so should be a worse or equally good fit as the mechanistic Holling Type II model: 
 	
 	$$c=\frac{ax\textsubscript{R}}{1+ha\textsubscript{R}}$$
@@ -84,48 +90,55 @@
 	
 	Which includes a phenomenological parameter (q) which allows the model to vary from Type I to Type III functional response curves. We compare the goodness of fits for each of these models against the functional response data to attempt to ascertain which mathematical models best fit the functional response data across species. 
 	
+	\begin{figure}[h!]
+		\centering	
+		\includegraphics[width=10cm,height=10cm,keepaspectratio]{"../FunctionalResponsesGraph"}
+		\caption{Holling's functional response curves: Type I, II, and III. }
+	\end{figure}	
+
+	\newpage
+	
 	\section*{Methods}
 	
-	We used Levenberg-Marquardt non-linear least squares (NLLS) to fit four models to the extensive dataset. We restricted the data to individuals with more than five feeding interactions recorded, and removed IDs with an incomplete data set. We then fitted quadratic and cubic phenomenological models, as well as the Holling II and Generalised Holling II Model mechanistic models. To achieve starting values for search rate (a) and handling time (h), we temporarily cut the data at the mean or maximum consumption rate and fitted a linear regression to the remaining data points. Which value we cut the data at was determined by the highest R\textsuperscript{2}. We used the gradient of this line as a and the highest consumption value as h. We then improved the model fits by optimising the starting values. To do this, we created lists of randomly generated numbers within a normal distribution around our estimated start values, as well as a uniform distribution of values within our predicted limits. We then re-ran the Generalised Holling II model using combinations of these starting values and returned the combination with the minimum Akaike information criterion (AIC) value, and therefore best fit. We stored the value of the minimum AIC and its corresponding model for comparison.\\
+	We used Levenberg-Marquardt non-linear least squares (NLLS) to fit four models to the extensive dataset. We restricted the data to individuals with more than five feeding interactions recorded, and removed IDs with an incomplete data set. We then fitted quadratic and cubic phenomenological models, as well as the Holling II and Generalised Holling II Model mechanistic models. To achieve starting values for search rate (a) and handling time (h), we temporarily cut the data at the mean or maximum consumption rate and fitted a linear regression to the remaining data points. Which value we cut the data at was determined by the highest R\textsuperscript{2}. We used the gradient of this line as a and the highest consumption value as h. We then improved the model fits by optimising the starting values. To do this, we created lists of randomly generated numbers within a normal distribution around our estimated start values, as well as a uniform distribution of values within our predicted limits. We then re-ran the Generalised Holling II model using combinations of these starting values and returned the combination with the minimum Akaike information criterion (AIC) as we are looking for the model that maximises the predictive accuracy rather than the correct model (\cite{Aho2014}). We stored the value of the minimum AIC and its corresponding model for comparison.
 	
 	\subsection*{Computing tools}
 	
-	Python was used for data exploration and analysis. In the initial data exploration, pandas were used for all data frame manipulations and numpy was used for generating nan values. The NLLS fitting script was written in R and used tidyr for data nesting, dplyr used for binding rows between temporary and finalised data frames, and minpack.lm used for all model fitting. Data analysis was completed in python using pandas for reading in csv files and generating crosstab tables for data visualisation. The actual data analysis and subsequent post hoc tests were performed using the pingouin package which requires numpy to run, and figures were generated using matplotlib.pyplot and seaborn. Finally, the scripts were all compiled using an overarching bash script. 
+	Python was used for data exploration and analysis. In the initial data exploration, pandas were used for all data frame manipulations and numpy was used for generating nan values. The NLLS fitting script was written in R and used tidyr for data nesting, dplyr used for binding rows between temporary and finalised data frames, and minpack.lm used for all model fitting. Data analysis was completed in python using pandas for reading in csv files and generating crosstab tables for data visualisation. The actual data analysis and subsequent post hoc tests were performed using the pingouin package which requires numpy to run, and figures were generated using matplotlib.pyplot and seaborn. The report was compiled in bash using the graphicx package to add figures, the pdfpages package to import vector figures into the document. We also used setspace to set the line spacing to 1.5, amsmath to generate special characters for the statistics reporting, booktabs for referencing, and wrapfig for formatting. Finally, the scripts were all compiled using an overarching bash script. 
 	
+	\newpage
 	
 	\section*{Results}
 	No single model fit the data better than all of the others across all of the data points (one-way ANOVA: F\textsubscript{3,0.166}, P = 0.919). However, 126 out of the total 214 models fit were phenomenological (Fig.2), indicating that phenomenological models fit the data better generally ($\chi$\textsuperscript{2}(DF = 2, N=214) = 6.75, P $<$0.01).\\
 	
-	\mbox{}
-	\vfill
+	We detected variation in best model fits between different habitats (two-way ANOVA: F\textsubscript{2,29}, P $<$ 0.01; Fig. 3). No clear patterns emerged within habitats regarding frequency of functional response type (two-way ANOVA:F\textsubscript{3,0.2}, P = 0.906). Post-hoc analyses revealed minimum AIC was different between every habitat (Freshwater: $\overline{x}$ = -101, Marine: $\overline{x}$ = -175, Terrestrial: $\overline{x}$ = -286, all comparisons P $<$0.05). Generalised Holling models were chosen in only 13 out of 133 fits which is two to three times less than the frequency of the other model fits (Cubic: 46, Quadratic: 39, Holling II:35). The sample sizes for marine and terrestrial environments was much lower (Marine: n = 36, Terrestrial n = 45). While the Generalised Holling model was still selected the least overall in both of these environments, there is a much more even distribution of model selection within habitats (see Fig. 3). \\
 	
-	\begin{figure}[h!]
-		
-	\includepdf{../results/PhenOrMec.pdf}
-	\caption{	Gantt Chart}
-		
-	\end{figure} 
-	\newpage
+	Similarly, consumer dimensionality (Fig. 4) significantly impacted the model selection (two-way ANOVA:F\textsubscript{2,69}, P $<$0.01). There were only two sessile species out of the 216 sampled so we can ignore them from the analysis. The mean AIC for 2D models was significantly lower than that of 3D models (Tukey HSD: 2D: $\overline{x}$ = -316, 3D: $\overline{x}$ = -80.7, P $<$0.001). We found no differences between the model fits within a movement dimensionality (two-way ANOVA:F\textsubscript{3,0.195}, P = 0.900), although only 11\% of 3D feeding interactionswere captured best by the Generalised Holling model. 
 	
-	We detected variation in best model fits between different habitats (two-way ANOVA: F\textsubscript{2,29}, P $<$ 0.01; Fig. 3), although the AIC value did not vary significantly between models within each habitat (two-way ANOVA:F\textsubscript{3,0.2}, P = 0.906). Post-hoc analyses revealed minimum AIC was different between every habitat (Freshwater: $\overline{x}$ = -101, Marine: $\overline{x}$ = -175, Terrestrial: $\overline{x}$ = -286, all comparisons P $<$0.05). \\
-	
-	Similarly, consumer dimensionality (Fig. 4) significantly impacted the model selection (two-way ANOVA:F\textsubscript{2,69}, P $<$0.01). There were only two sessile species out of the 216 sampled so we can ignore them from the analysis. The mean AIC for 2D models was significantly lower than that of 3D models (Tukey HSD: 2D: $\overline{x}$ = -316, 3D: $\overline{x}$ = -80.7, P $<$0.001). We found no differences between the model fits within a movement dimensionality (two-way ANOVA:F\textsubscript{3,0.195}, P = 0.900).
-		
 	\newpage
 	
 	\begin{figure}[h!]
 		
-		\includepdf{../results/HabitatCompare.pdf}
-		\caption{Differences in model fits between habitats}
+		\includepdf{../results/PhenOrMec.pdf}
+		\caption{Frequency of mechanistic versus phenomenolgoical model choice with minimum AIC}	
 		
 	\end{figure} 
+
+	\newpage
+
+	\begin{figure}[h!]
 	
+	\includepdf{../results/HabitatCompare.pdf}
+	\caption{Differences in model fits between habitats.}
+	
+	\end{figure} 
+
 	\newpage
 	
 	\begin{figure}[h!]
 	
 	\includepdf{../results/ConDimension.pdf}
-	\caption{	Gantt Chart}
+	\caption{Differences in model fits between consumer dimensionalities.}
 
 	\end{figure} 
 
@@ -133,6 +146,22 @@
 	
 	\section*{Discussion}
 	
+	
+	We found that no one model fits the data generally better than the others, although phenomenological models tend to fit better overall. We found differences in average AIC value between habitats and between consumer dimensionalities. \\
+
+	It was not surprising that one model was not significantly better than the others as it can be very difficult to distinguish between type II and type III responses when there are low prey densities \cite{Dunn2020}. The reason that the phenomenological models are chosen more often than the mechanistic ones is probably due to bias rather than a truly better fit. Since the quadratic and cubic polynomials have less parameters than the Holling II and the Generalised Holling model their calculated AICs are more likely to be lower because they have greater parsimony, although they have little to no explaining power \cite{Posada2004a}. \\
+
+	We could optimised our starting values better. We generated 100 combinations of a, h, and q in order to keep the running time of the code reasonable but the more combinations we tested the closer we would get to optimal values for a and h. 
+	There are many mechanistic models that have been generated for functional responses in more specific conditions. Within the same small ecosystem two different predators can have different functional responses e.g. generalist crustaceans have a higher proportion of type II responses than fishes in nearshore marine ecosystems (\cite{Dunn2020}).  It is also sometimes difficult to distinguish between type II and type III responses due to low prey densities or in the presence of multiple predator or prey types (\cite{Dunn2020}). \\
+
+	We did not account for predator density which has been an influential factor on which functional response consumers show in previous studies (\cite{Yasuda1999}, \cite{Sarnelle2008}).  We also did not account for predator size. Larger predatory fish have been shown before to be more sucessful foragers (\cite{Dunn2020}). It would be good for future research to investigate the relationship between consumer – prey ratio and how that influences search rate and handling time, and thus functional responses. \\
+
+	Habitat did not inform which model fit best in our study, but the AIC value across habitats varied. It is probable that our habitat classifications were not specific enough. Previous studies have shown that functional response curves can vary within a single ecosystem (\cite{Dunn2020}), and that factors such as ground material can influence search rate and handling time (\cite{Lipcius1986a}). This is because communities regularly contain multiple predators from a diverse range of taxa, with highly variable feeding strategies. It might have been better to look at patterns across taxa. We felt there were not enough data points to draw conclusions within this data set, but as more functional response investigations are published, it would be worthwhile to continue to run studies such as this to see if any patterns do emerge with a larger data se . We have shown here that it is not possible to find overarching trends within general habitats, but this may have been the wrong idea to address. \\
+
+	Pawar et al. found that dimensionality was a necessary factor in the analysis of the data. Indeed, we were finding a difference between AIC values of 2D and 3D consumer dimensionality, although we did not have enough sessile data points to draw broad conclusions in dimensionality generally. Consumers that fed in two dimensions seemed to favour the quadratic and Holling II models whereas there were no clear patterns in the 3D environments (Fig. 4). This is possibly explained in part by a difference in likelihood of food interaction between different spatial environments. Pawar et al. found that in organisms larger than insects, 3D consumption rates are higher than in 2D space. This effect carried even in high resource density where the search rate is expected to be less constraining on the consumption rate. This difference in 2D/3D predator-prey interactions could be informing the difference in model fits we are observing across habitats. Terrestrial organisms are more likely than marine, for example, to be experiencing a 2D food interaction. It would be interesting to investigate this further and look at combination effects between multiple factors and see whether any abiotic condtitions are driving these trends. \\
+
+	Overall, we have found that the simple mechanistic models do not always describe the data very well. They possibly require more parameters as described above, although this may increase the variability of the model fits and obviously reduces their parsimony. Our groupings have potentially been too broad to spot interesting trends across factors, although we did find that habitat and consumer dimensionality impact the average model fits, and have identified several areas for futher research. 
+
 	\newpage
 
 	\printbibliography

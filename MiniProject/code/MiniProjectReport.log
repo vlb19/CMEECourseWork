@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.10.2)  3 MAR 2020 15:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.10.2)  5 MAR 2020 18:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -232,6 +232,14 @@ Package: booktabs 2016/04/27 v1.618033 publication quality tables
 \@lastruleclass=\count116
 \@thisrulewidth=\dimen143
 )
+(/usr/share/texlive/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+\wrapoverhang=\dimen144
+\WF@size=\dimen145
+\c@WF@wrappedlines=\count117
+\WF@box=\box31
+\WF@everypar=\toks24
+Package: wrapfig 2003/01/31  v 3.6
+)
 (/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.sty
 Package: biblatex 2017/12/19 v3.10 programmable bibliographies (PK/JW/AB)
 
@@ -250,7 +258,7 @@ Package pdftexcmds Info: \pdfdraftmode found.
 )
 (/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2018/02/11 v2.5e e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count117
+\etb@tempcnta=\count118
 )
 (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
@@ -267,7 +275,7 @@ Package etexcmds Info: Could not find \expanded.
 )))
 (/usr/share/texlive/texmf-dist/tex/latex/logreq/logreq.sty
 Package: logreq 2010/08/04 v1.0 xml request logger
-\lrq@indent=\count118
+\lrq@indent=\count119
 
 (/usr/share/texlive/texmf-dist/tex/latex/logreq/logreq.def
 File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
@@ -279,49 +287,49 @@ Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 (/usr/share/texlive/texmf-dist/tex/generic/xstring/xstring.sty
 (/usr/share/texlive/texmf-dist/tex/generic/xstring/xstring.tex
 \@xs@message=\write3
-\integerpart=\count119
-\decimalpart=\count120
+\integerpart=\count120
+\decimalpart=\count121
 )
 Package: xstring 2013/10/13  v1.7c  String manipulations (C Tellechea)
 )
-\c@tabx@nest=\count121
-\c@listtotal=\count122
-\c@listcount=\count123
-\c@liststart=\count124
-\c@liststop=\count125
-\c@citecount=\count126
-\c@citetotal=\count127
-\c@multicitecount=\count128
-\c@multicitetotal=\count129
-\c@instcount=\count130
-\c@maxnames=\count131
-\c@minnames=\count132
-\c@maxitems=\count133
-\c@minitems=\count134
-\c@citecounter=\count135
-\c@savedcitecounter=\count136
-\c@uniquelist=\count137
-\c@uniquename=\count138
-\c@refsection=\count139
-\c@refsegment=\count140
-\c@maxextratitle=\count141
-\c@maxextratitleyear=\count142
-\c@maxextradate=\count143
-\c@maxextraalpha=\count144
-\c@abbrvpenalty=\count145
-\c@highnamepenalty=\count146
-\c@lownamepenalty=\count147
-\c@maxparens=\count148
-\c@parenlevel=\count149
-\blx@tempcnta=\count150
-\blx@tempcntb=\count151
-\blx@tempcntc=\count152
-\blx@maxsection=\count153
-\blx@maxsegment@0=\count154
-\blx@notetype=\count155
-\blx@parenlevel@text=\count156
-\blx@parenlevel@foot=\count157
-\blx@sectionciteorder@0=\count158
+\c@tabx@nest=\count122
+\c@listtotal=\count123
+\c@listcount=\count124
+\c@liststart=\count125
+\c@liststop=\count126
+\c@citecount=\count127
+\c@citetotal=\count128
+\c@multicitecount=\count129
+\c@multicitetotal=\count130
+\c@instcount=\count131
+\c@maxnames=\count132
+\c@minnames=\count133
+\c@maxitems=\count134
+\c@minitems=\count135
+\c@citecounter=\count136
+\c@savedcitecounter=\count137
+\c@uniquelist=\count138
+\c@uniquename=\count139
+\c@refsection=\count140
+\c@refsegment=\count141
+\c@maxextratitle=\count142
+\c@maxextratitleyear=\count143
+\c@maxextradate=\count144
+\c@maxextraalpha=\count145
+\c@abbrvpenalty=\count146
+\c@highnamepenalty=\count147
+\c@lownamepenalty=\count148
+\c@maxparens=\count149
+\c@parenlevel=\count150
+\blx@tempcnta=\count151
+\blx@tempcntb=\count152
+\blx@tempcntc=\count153
+\blx@maxsection=\count154
+\blx@maxsegment@0=\count155
+\blx@notetype=\count156
+\blx@parenlevel@text=\count157
+\blx@parenlevel@foot=\count158
+\blx@sectionciteorder@0=\count159
 \labelnumberwidth=\skip49
 \labelalphawidth=\skip50
 \biblabelsep=\skip51
@@ -332,9 +340,9 @@ Package: xstring 2013/10/13  v1.7c  String manipulations (C Tellechea)
 \bibhang=\skip56
 \blx@bcfin=\read1
 \blx@bcfout=\write4
-\c@mincomprange=\count159
-\c@maxcomprange=\count160
-\c@mincompwidth=\count161
+\c@mincomprange=\count160
+\c@maxcomprange=\count161
+\c@mincompwidth=\count162
 Package biblatex Info: Trying to load biblatex default data model...
 Package biblatex Info: ... file 'blx-dm.def' found.
 
@@ -343,74 +351,74 @@ Package biblatex Info: Trying to load biblatex style data model...
 Package biblatex Info: ... file 'authoryear.dbx' not found.
 Package biblatex Info: Trying to load biblatex custom data model...
 Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
-\c@afterword=\count162
-\c@savedafterword=\count163
-\c@annotator=\count164
-\c@savedannotator=\count165
-\c@author=\count166
-\c@savedauthor=\count167
-\c@bookauthor=\count168
-\c@savedbookauthor=\count169
-\c@commentator=\count170
-\c@savedcommentator=\count171
-\c@editor=\count172
-\c@savededitor=\count173
-\c@editora=\count174
-\c@savededitora=\count175
-\c@editorb=\count176
-\c@savededitorb=\count177
-\c@editorc=\count178
-\c@savededitorc=\count179
-\c@foreword=\count180
-\c@savedforeword=\count181
-\c@holder=\count182
-\c@savedholder=\count183
-\c@introduction=\count184
-\c@savedintroduction=\count185
-\c@namea=\count186
-\c@savednamea=\count187
-\c@nameb=\count188
-\c@savednameb=\count189
-\c@namec=\count190
-\c@savednamec=\count191
-\c@translator=\count192
-\c@savedtranslator=\count193
-\c@shortauthor=\count194
-\c@savedshortauthor=\count195
-\c@shorteditor=\count196
-\c@savedshorteditor=\count197
-\c@labelname=\count198
-\c@savedlabelname=\count199
-\c@institution=\count266
-\c@savedinstitution=\count267
-\c@lista=\count268
-\c@savedlista=\count269
-\c@listb=\count270
-\c@savedlistb=\count271
-\c@listc=\count272
-\c@savedlistc=\count273
-\c@listd=\count274
-\c@savedlistd=\count275
-\c@liste=\count276
-\c@savedliste=\count277
-\c@listf=\count278
-\c@savedlistf=\count279
-\c@location=\count280
-\c@savedlocation=\count281
-\c@organization=\count282
-\c@savedorganization=\count283
-\c@origlocation=\count284
-\c@savedoriglocation=\count285
-\c@origpublisher=\count286
-\c@savedorigpublisher=\count287
-\c@publisher=\count288
-\c@savedpublisher=\count289
-\c@language=\count290
-\c@savedlanguage=\count291
-\c@origlanguage=\count292
-\c@savedoriglanguage=\count293
-\c@pageref=\count294
-\c@savedpageref=\count295
+\c@afterword=\count163
+\c@savedafterword=\count164
+\c@annotator=\count165
+\c@savedannotator=\count166
+\c@author=\count167
+\c@savedauthor=\count168
+\c@bookauthor=\count169
+\c@savedbookauthor=\count170
+\c@commentator=\count171
+\c@savedcommentator=\count172
+\c@editor=\count173
+\c@savededitor=\count174
+\c@editora=\count175
+\c@savededitora=\count176
+\c@editorb=\count177
+\c@savededitorb=\count178
+\c@editorc=\count179
+\c@savededitorc=\count180
+\c@foreword=\count181
+\c@savedforeword=\count182
+\c@holder=\count183
+\c@savedholder=\count184
+\c@introduction=\count185
+\c@savedintroduction=\count186
+\c@namea=\count187
+\c@savednamea=\count188
+\c@nameb=\count189
+\c@savednameb=\count190
+\c@namec=\count191
+\c@savednamec=\count192
+\c@translator=\count193
+\c@savedtranslator=\count194
+\c@shortauthor=\count195
+\c@savedshortauthor=\count196
+\c@shorteditor=\count197
+\c@savedshorteditor=\count198
+\c@labelname=\count199
+\c@savedlabelname=\count266
+\c@institution=\count267
+\c@savedinstitution=\count268
+\c@lista=\count269
+\c@savedlista=\count270
+\c@listb=\count271
+\c@savedlistb=\count272
+\c@listc=\count273
+\c@savedlistc=\count274
+\c@listd=\count275
+\c@savedlistd=\count276
+\c@liste=\count277
+\c@savedliste=\count278
+\c@listf=\count279
+\c@savedlistf=\count280
+\c@location=\count281
+\c@savedlocation=\count282
+\c@organization=\count283
+\c@savedorganization=\count284
+\c@origlocation=\count285
+\c@savedoriglocation=\count286
+\c@origpublisher=\count287
+\c@savedorigpublisher=\count288
+\c@publisher=\count289
+\c@savedpublisher=\count290
+\c@language=\count291
+\c@savedlanguage=\count292
+\c@origlanguage=\count293
+\c@savedoriglanguage=\count294
+\c@pageref=\count295
+\c@savedpageref=\count296
 \shorthandwidth=\skip57
 \shortjournalwidth=\skip58
 \shortserieswidth=\skip59
@@ -428,13 +436,13 @@ Package biblatex Info: ... file 'biblatex.def' found.
 
 (/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.def
 File: biblatex.def 2017/12/19 v3.10 biblatex compatibility (PK/JW/AB)
-\c@textcitecount=\count296
-\c@textcitetotal=\count297
-\c@textcitemaxnames=\count298
-\c@biburlnumpenalty=\count299
-\c@biburlucpenalty=\count300
-\c@biburllcpenalty=\count301
-\c@smartand=\count302
+\c@textcitecount=\count297
+\c@textcitetotal=\count298
+\c@textcitemaxnames=\count299
+\c@biburlnumpenalty=\count300
+\c@biburlucpenalty=\count301
+\c@biburllcpenalty=\count302
+\c@smartand=\count303
 )
 Package biblatex Info: Trying to load bibliography style 'authoryear'...
 Package biblatex Info: ... file 'authoryear.bbx' found.
@@ -446,8 +454,8 @@ Package biblatex Info: ... file 'standard.bbx' found.
 
 (/usr/share/texlive/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
 File: standard.bbx 2017/12/19 v3.10 biblatex bibliography style (PK/JW/AB)
-\c@bbx:relatedcount=\count303
-\c@bbx:relatedtotal=\count304
+\c@bbx:relatedcount=\count304
+\c@bbx:relatedtotal=\count305
 ))
 Package biblatex Info: Trying to load citation style 'authoryear'...
 Package biblatex Info: ... file 'authoryear.cbx' found.
@@ -474,8 +482,8 @@ Package biblatex Info: ... file 'english.lbx' found.
 (/usr/share/texlive/texmf-dist/tex/latex/biblatex/lbx/english.lbx
 File: english.lbx 2017/12/19 v3.10 biblatex localization (PK/JW/AB)
 )
-\@quotelevel=\count305
-\@quotereset=\count306
+\@quotelevel=\count306
+\@quotereset=\count307
 
 (./MiniProjectReport.aux)
 \openout1 = `MiniProjectReport.aux'.
@@ -529,17 +537,17 @@ LaTeX Font Info:    ... okay on input line 24.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count307
-\scratchdimen=\dimen144
-\scratchbox=\box31
-\nofMPsegments=\count308
-\nofMParguments=\count309
-\everyMPshowfont=\toks24
-\MPscratchCnt=\count310
-\MPscratchDim=\dimen145
-\MPnumerator=\count311
-\makeMPintoPDFobject=\count312
-\everyMPtoPDFconversion=\toks25
+\scratchcounter=\count308
+\scratchdimen=\dimen146
+\scratchbox=\box32
+\nofMPsegments=\count309
+\nofMParguments=\count310
+\everyMPshowfont=\toks25
+\MPscratchCnt=\count311
+\MPscratchDim=\dimen147
+\MPnumerator=\count312
+\makeMPintoPDFobject=\count313
+\everyMPtoPDFconversion=\toks26
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -560,7 +568,7 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\AtBeginShipoutBox=\box32
+\AtBeginShipoutBox=\box33
 
 (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/pdflscape.sty
 Package: pdflscape 2016/05/14 v0.11 Display of landscape pages in PDF (HO)
@@ -585,168 +593,213 @@ Package biblatex Info: Reference segment=0 on input line 24.
  (./MiniProjectReport.sum) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 74--75
+Underfull \hbox (badness 10000) in paragraph at lines 78--79
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 80--81
 
  []
 
 [1]
-Underfull \hbox (badness 10000) in paragraph at lines 89--90
+<"../FunctionalResponsesGraph".png, id=13, 1284.8pt x 980.66376pt>
+File: "../FunctionalResponsesGraph".png Graphic file (type png)
+<use "../FunctionalResponsesGraph".png>
+Package pdftex.def Info: "../FunctionalResponsesGraph".png  used on input line 
+95.
+(pdftex.def)             Requested size: 284.5193pt x 217.16824pt.
 
- []
 
-[2]
-Underfull \hbox (badness 10000) in paragraph at lines 97--98
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
- []
-
-<../results/PhenOrMec.pdf, id=18, 433.62pt x 289.08pt>
-File: ../results/PhenOrMec.pdf Graphic file (type pdf)
-<use ../results/PhenOrMec.pdf>
-Package pdftex.def Info: ../results/PhenOrMec.pdf  used on input line 104.
-(pdftex.def)             Requested size: 433.61894pt x 289.07928pt.
-File: ../results/PhenOrMec.pdf Graphic file (type pdf)
-<use ../results/PhenOrMec.pdf>
-Package pdftex.def Info: ../results/PhenOrMec.pdf  used on input line 104.
-(pdftex.def)             Requested size: 433.61894pt x 289.07928pt.
-<../results/PhenOrMec.pdf, id=21, page=1, 433.62pt x 289.08pt>
-File: ../results/PhenOrMec.pdf Graphic file (type pdf)
-<use ../results/PhenOrMec.pdf, page 1>
-Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 10
-4.
-(pdftex.def)             Requested size: 433.61894pt x 289.07928pt.
-File: ../results/PhenOrMec.pdf Graphic file (type pdf)
-<use ../results/PhenOrMec.pdf, page 1>
-Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 10
-4.
-(pdftex.def)             Requested size: 615.16908pt x 410.1127pt.
-File: ../results/PhenOrMec.pdf Graphic file (type pdf)
-<use ../results/PhenOrMec.pdf, page 1>
-Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 10
-4.
-(pdftex.def)             Requested size: 615.16908pt x 410.1127pt.
-File: ../results/PhenOrMec.pdf Graphic file (type pdf)
-<use ../results/PhenOrMec.pdf, page 1>
-Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 10
-4.
-(pdftex.def)             Requested size: 615.16908pt x 410.1127pt.
-File: ../results/PhenOrMec.pdf Graphic file (type pdf)
-<use ../results/PhenOrMec.pdf, page 1>
-Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 10
-8.
-(pdftex.def)             Requested size: 615.16908pt x 410.1127pt.
-[3 <../results/PhenOrMec.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 110--111
+[2] [3 <../FunctionalResponsesGraph.png>] [4]
+Underfull \hbox (badness 10000) in paragraph at lines 112--113
 
  []
 
 
-Overfull \hbox (18.9699pt too wide) in paragraph at lines 112--113
+Underfull \hbox (badness 10000) in paragraph at lines 114--115
+
+ []
+
+
+Overfull \hbox (18.9699pt too wide) in paragraph at lines 116--117
 []\OT1/cmr/m/n/10.95 Similarly, con-sumer di-men-sion-al-ity (Fig. 4) sig-nif-i
 -cantly im-pacted the model se-lec-tion (two-way ANOVA:F$[]$,
  []
 
-[4]
-<../results/HabitatCompare.pdf, id=70, 578.16pt x 433.62pt>
+[5]
+<../results/PhenOrMec.pdf, id=30, 578.16pt x 361.35pt>
+File: ../results/PhenOrMec.pdf Graphic file (type pdf)
+<use ../results/PhenOrMec.pdf>
+Package pdftex.def Info: ../results/PhenOrMec.pdf  used on input line 122.
+(pdftex.def)             Requested size: 578.15858pt x 361.34912pt.
+File: ../results/PhenOrMec.pdf Graphic file (type pdf)
+<use ../results/PhenOrMec.pdf>
+Package pdftex.def Info: ../results/PhenOrMec.pdf  used on input line 122.
+(pdftex.def)             Requested size: 578.15858pt x 361.34912pt.
+<../results/PhenOrMec.pdf, id=33, page=1, 578.16pt x 361.35pt>
+File: ../results/PhenOrMec.pdf Graphic file (type pdf)
+<use ../results/PhenOrMec.pdf, page 1>
+Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 12
+2.
+(pdftex.def)             Requested size: 578.15858pt x 361.34912pt.
+File: ../results/PhenOrMec.pdf Graphic file (type pdf)
+<use ../results/PhenOrMec.pdf, page 1>
+Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 12
+2.
+(pdftex.def)             Requested size: 614.4611pt x 384.0382pt.
+File: ../results/PhenOrMec.pdf Graphic file (type pdf)
+<use ../results/PhenOrMec.pdf, page 1>
+Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 12
+2.
+(pdftex.def)             Requested size: 614.4611pt x 384.0382pt.
+File: ../results/PhenOrMec.pdf Graphic file (type pdf)
+<use ../results/PhenOrMec.pdf, page 1>
+Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 12
+2.
+(pdftex.def)             Requested size: 614.4611pt x 384.0382pt.
+File: ../results/PhenOrMec.pdf Graphic file (type pdf)
+<use ../results/PhenOrMec.pdf, page 1>
+Package pdftex.def Info: ../results/PhenOrMec.pdf , page1 used on input line 12
+7.
+(pdftex.def)             Requested size: 614.4611pt x 384.0382pt.
+ [6 <../results/PhenOrMec.pdf>]
+<../results/HabitatCompare.pdf, id=71, 722.7pt x 361.35pt>
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
 <use ../results/HabitatCompare.pdf>
-Package pdftex.def Info: ../results/HabitatCompare.pdf  used on input line 118.
+Package pdftex.def Info: ../results/HabitatCompare.pdf  used on input line 131.
 
-(pdftex.def)             Requested size: 578.15858pt x 433.61894pt.
+(pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
 <use ../results/HabitatCompare.pdf>
-Package pdftex.def Info: ../results/HabitatCompare.pdf  used on input line 118.
+Package pdftex.def Info: ../results/HabitatCompare.pdf  used on input line 131.
 
-(pdftex.def)             Requested size: 578.15858pt x 433.61894pt.
-<../results/HabitatCompare.pdf, id=73, page=1, 578.16pt x 433.62pt>
+(pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
+<../results/HabitatCompare.pdf, id=74, page=1, 722.7pt x 361.35pt>
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
 <use ../results/HabitatCompare.pdf, page 1>
 Package pdftex.def Info: ../results/HabitatCompare.pdf , page1 used on input li
-ne 118.
-(pdftex.def)             Requested size: 578.15858pt x 433.61894pt.
+ne 131.
+(pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
 <use ../results/HabitatCompare.pdf, page 1>
 Package pdftex.def Info: ../results/HabitatCompare.pdf , page1 used on input li
-ne 118.
-(pdftex.def)             Requested size: 614.4611pt x 460.84583pt.
+ne 131.
+(pdftex.def)             Requested size: 614.88235pt x 307.44118pt.
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
 <use ../results/HabitatCompare.pdf, page 1>
 Package pdftex.def Info: ../results/HabitatCompare.pdf , page1 used on input li
-ne 118.
-(pdftex.def)             Requested size: 614.4611pt x 460.84583pt.
+ne 131.
+(pdftex.def)             Requested size: 614.88235pt x 307.44118pt.
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
 <use ../results/HabitatCompare.pdf, page 1>
 Package pdftex.def Info: ../results/HabitatCompare.pdf , page1 used on input li
-ne 118.
-(pdftex.def)             Requested size: 614.4611pt x 460.84583pt.
+ne 131.
+(pdftex.def)             Requested size: 614.88235pt x 307.44118pt.
 File: ../results/HabitatCompare.pdf Graphic file (type pdf)
 <use ../results/HabitatCompare.pdf, page 1>
 Package pdftex.def Info: ../results/HabitatCompare.pdf , page1 used on input li
-ne 123.
-(pdftex.def)             Requested size: 614.4611pt x 460.84583pt.
- [5 <../results/HabitatCompare.pdf>]
-<../results/ConDimension.pdf, id=117, 578.16pt x 433.62pt>
+ne 136.
+(pdftex.def)             Requested size: 614.88235pt x 307.44118pt.
+ [7 <../results/HabitatCompare.pdf>]
+<../results/ConDimension.pdf, id=118, 722.7pt x 361.35pt>
 File: ../results/ConDimension.pdf Graphic file (type pdf)
 <use ../results/ConDimension.pdf>
-Package pdftex.def Info: ../results/ConDimension.pdf  used on input line 127.
-(pdftex.def)             Requested size: 578.15858pt x 433.61894pt.
+Package pdftex.def Info: ../results/ConDimension.pdf  used on input line 140.
+(pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
 File: ../results/ConDimension.pdf Graphic file (type pdf)
 <use ../results/ConDimension.pdf>
-Package pdftex.def Info: ../results/ConDimension.pdf  used on input line 127.
-(pdftex.def)             Requested size: 578.15858pt x 433.61894pt.
-<../results/ConDimension.pdf, id=120, page=1, 578.16pt x 433.62pt>
+Package pdftex.def Info: ../results/ConDimension.pdf  used on input line 140.
+(pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
+<../results/ConDimension.pdf, id=121, page=1, 722.7pt x 361.35pt>
 File: ../results/ConDimension.pdf Graphic file (type pdf)
 <use ../results/ConDimension.pdf, page 1>
 Package pdftex.def Info: ../results/ConDimension.pdf , page1 used on input line
- 127.
-(pdftex.def)             Requested size: 578.15858pt x 433.61894pt.
+ 140.
+(pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
 File: ../results/ConDimension.pdf Graphic file (type pdf)
 <use ../results/ConDimension.pdf, page 1>
 Package pdftex.def Info: ../results/ConDimension.pdf , page1 used on input line
- 127.
-(pdftex.def)             Requested size: 614.4611pt x 460.84583pt.
+ 140.
+(pdftex.def)             Requested size: 614.88235pt x 307.44118pt.
 File: ../results/ConDimension.pdf Graphic file (type pdf)
 <use ../results/ConDimension.pdf, page 1>
 Package pdftex.def Info: ../results/ConDimension.pdf , page1 used on input line
- 127.
-(pdftex.def)             Requested size: 614.4611pt x 460.84583pt.
+ 140.
+(pdftex.def)             Requested size: 614.88235pt x 307.44118pt.
 File: ../results/ConDimension.pdf Graphic file (type pdf)
 <use ../results/ConDimension.pdf, page 1>
 Package pdftex.def Info: ../results/ConDimension.pdf , page1 used on input line
- 127.
-(pdftex.def)             Requested size: 614.4611pt x 460.84583pt.
+ 140.
+(pdftex.def)             Requested size: 614.88235pt x 307.44118pt.
 File: ../results/ConDimension.pdf Graphic file (type pdf)
 <use ../results/ConDimension.pdf, page 1>
 Package pdftex.def Info: ../results/ConDimension.pdf , page1 used on input line
- 132.
-(pdftex.def)             Requested size: 614.4611pt x 460.84583pt.
- [6 <../results/ConDimension.pdf>]
-[7]
+ 145.
+(pdftex.def)             Requested size: 614.88235pt x 307.44118pt.
+ [8 <../results/ConDimension.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 150--151
 
-LaTeX Warning: Empty bibliography on input line 138.
+ []
 
-(./MiniProjectReport.aux)
+
+Underfull \hbox (badness 10000) in paragraph at lines 152--153
+
+ []
+
+Missing character: There is no Â in font cmr10!
+Missing character: There is no   in font cmr10!
+
+Underfull \hbox (badness 10000) in paragraph at lines 154--156
+
+ []
+
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no “ in font cmr10!
+
+Underfull \hbox (badness 10000) in paragraph at lines 157--158
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 159--160
+
+ []
+
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 161--162
+
+ []
+
+[10] [11] (./MiniProjectReport.aux)
 Package logreq Info: Writing requests to 'MiniProjectReport.run.xml'.
 \openout1 = `MiniProjectReport.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 10505 strings out of 492982
- 175627 string characters out of 6134896
- 601567 words of memory out of 5000000
- 13938 multiletter control sequences out of 15000+600000
- 8862 words of font info for 32 fonts, out of 8000000 for 9000
+ 10840 strings out of 492982
+ 182172 string characters out of 6134896
+ 604365 words of memory out of 5000000
+ 14263 multiletter control sequences out of 15000+600000
+ 9677 words of font info for 35 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 37i,18n,40p,1424b,742s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,18n,47p,2285b,1160s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmss8.pfb>
-Output written on MiniProjectReport.pdf (8 pages, 115937 bytes).
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmss8.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmtt10.pfb>
+Output written on MiniProjectReport.pdf (12 pages, 214139 bytes).
 PDF statistics:
- 192 PDF objects out of 1000 (max. 8388607)
- 56 compressed objects within 1 object stream
+ 210 PDF objects out of 1000 (max. 8388607)
+ 74 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 66 words of extra memory for PDF output out of 10000 (max. 10000000)
 

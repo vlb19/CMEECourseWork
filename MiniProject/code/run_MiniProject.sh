@@ -16,9 +16,12 @@ Rscript "NLLS_Fitting_Script.R"
 python3 "DataAnalysis.py"
 
 ### Run LaTeX compiling script
-latex "MiniProjectReport.tex"
+pdflatex "MiniProjectReport.tex"
 # Run word count for LaTex
 texcount -1 -sum MiniProjectReport.tex > MiniProjectReport.sum
+# Run references
+biber MiniProjectReport
+
 # Re-run LaTeX compiling script with included word count
-latex "MiniProjectReport.tex"
-echo "Report compiled"
+pdflatex "MiniProjectReport.tex"
+echo "Report compiled, please check the code directory for the .pdf"

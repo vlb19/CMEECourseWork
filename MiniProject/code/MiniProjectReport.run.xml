@@ -79,7 +79,7 @@
       <file>MiniProjectReport.bcf</file>
     </requires>
     <requires type="editable">
-      <file>References.bib</file>
+      <file>MiniProjectReferences.bib</file>
     </requires>
   </external>
 </requests>

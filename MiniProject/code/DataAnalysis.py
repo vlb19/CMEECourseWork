@@ -50,6 +50,7 @@ sc.stats.chisquare([counts[0], counts[1]])
 Habitatcrosstab = pd.crosstab(graphdata['BestModelAIC'], graphdata['Habitat'], margins = False)
 print(Habitatcrosstab)
 
+
 # Test the normality of the data 
 pg.normality(analysisdata['AIC'])
 
@@ -84,13 +85,21 @@ sns.palplot(sns.diverging_palette(128, 240, n=4))
 custompalette = sns.diverging_palette(128, 240, n=4)
 
 # Set dimensions of figure
-plt.figure(num=None, figsize=(6,4), dpi = 80, facecolor = 'w', edgecolor = 'w')
+plt.figure(num=None, figsize=(8,5), dpi = 80, facecolor = 'w', edgecolor = 'w')
+
+# Create data frame to store percentages
+Percentages = (graphdata['MecOrPhen'].value_counts()/len(graphdata['MecOrPhen'])*100)
+PlotData = pd.DataFrame(['Phenomenological', 'Mechanistic'])
+PlotData['ModelPercent'] = [Percentages[0],Percentages[1]]
 
 # Plot bar chart
-MecOrPhen = sns.countplot(x = 'Habitat', hue = 'MecOrPhen', data = graphdata, palette= custompalette, edgecolor = 'black')
+MecOrPhen = sns.barplot(x = 0, y= 'ModelPercent', data=PlotData, palette= custompalette, edgecolor = 'black')
 
 # Give the y label a more descriptive value
-plt.ylabel("Frequency of best model selected")
+plt.ylabel("Percentages of models fit")
+
+# Give the y label a more descriptive value
+plt.xlabel("Type of model")
 
 # Save the figure to the results folder
 plt.savefig('../results/PhenOrMec.pdf')
@@ -101,7 +110,7 @@ plt.savefig('../results/PhenOrMec.pdf')
 #########################################################
 
 # Set dimensions of figure
-plt.figure(num=None, figsize=(8,6), dpi = 80, facecolor = 'w', edgecolor = 'w')
+plt.figure(num=None, figsize=(10,5), dpi = 80, facecolor = 'w', edgecolor = 'w')
 
 # Create boxplot of best AIC value per model per habitat
 bp = sns.boxplot(y = 'BestAIC', x = 'Habitat', data = graphdata, palette = custompalette, hue = "BestModelAIC")
@@ -122,7 +131,7 @@ plt.savefig('../results/HabitatCompare.pdf')
 #########################################################
 
 # Set dimensions of figure
-plt.figure(num=None, figsize=(8,6), dpi = 80, facecolor = 'w', edgecolor = 'w')
+plt.figure(num=None, figsize=(10,5), dpi = 80, facecolor = 'w', edgecolor = 'w')
 
 # Create boxplot of best AIC value per model per habitat
 bp = sns.boxplot(y = 'BestAIC', x = 'Con_MovementDimensionality', data = graphdata, palette = custompalette, hue = "BestModelAIC")
