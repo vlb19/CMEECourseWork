@@ -9,13 +9,13 @@ Note that:
 
 ======================================================================
 ======================================================================
-Your Git repo size this week is about 5.47 MiB on disk 
+Your Git repo size this week is about 20.55 MiB on disk 
 
 PART 1: Checking project workflow...
 
-Found the following directories in parent directory: Week1, Assessment, .git
+Found the following directories in parent directory: Week6, Week1, Week7, Assessment, Week5, Week2, Week9, Week4, .git, SeminarDiary, Week3, Project, MiniProject
 
-Found the following files in parent directory: README.txt, Week2, .gitignore
+Found the following files in parent directory: README.txt, .gitignore
 
 Checking for key files in parent directory...
 
@@ -27,21 +27,49 @@ Printing contents of .gitignore:
 *.tmp
 *.bbl
 *.blg
-*.pdf**********************************************************************
+*.pdf
+*.gz
+*.rda
+results
+Week6/genomics_and_bioinformatics
+Project/ProjectProposal
+Project/Practice_Genetics
+.png
+__pycache__
+. -size +50M
+**********************************************************************
 
 Found README in parent directory, named: README.txt
 
 Printing contents of README.txt:
 **********************************************************************
 My CMEE Coursework Repository
-Do I like this better?
+
+Week 1 - Unix and Bash tutorials
+
+Week 2 - Introduction to Python
+
+Week 3 - Introduction to R
+
+Week 4 - Learning statistics
+
+Week 5 - Putting statistics into practice
+
+Week 6 - Genetics practicals
+
+Week 7 - Advanced Python
+
+Week 9 - HPC Week 
+
+MiniProject - Ongoing miniproject on Functional Responses
+
 **********************************************************************
 
 ======================================================================
 Looking for the weekly directories...
 
-Found 1 weekly directories: Week1
-
+Found 8 weekly directories: Week1, Week2, Week3, Week4, Week5, Week6, Week7, Week9
+12 code files: ConcatenateTwoFiles.sh, CountLines.sh, variables.sh, tiff2png.sh, csvtospace.sh, MyExampleScript.sh, UnixPrac1.txt, tabtocsv.sh, boilerplate.sh, CompileLaTeX.sh, FirstExample.tex, FirstBiblio.bib
 The Week1 directory will be assessed 
 
 ======================================================================
@@ -51,9 +79,9 @@ PART 2: Checking weekly code and workflow...
 ======================================================================
 Assessing WEEK1...
 
-Found the following directories: code, Results
+Found the following directories: code, Sandbox, data, results, Results
 
-Found the following files: ShellScripts, readme.md, VersionControl, readme.txt, commands
+Found the following files: readme.md
 
 Checking for readme file in weekly directory...
 
@@ -63,14 +91,11 @@ Printing contents of readme.md:
 **********************************************************************
 # Week 1 readme file 
 
-## Week 1 covered:
-* UNIX directory structures
-* Installing and removing software 
-* Basic UNIX commands 
-* Building the coursework directory
-* Command arguments, pipes, and wildcards
-* Using grep
-* Finding files
+## Directories 
+* code
+* data
+* results
+* sandbox
 
 ### Code Folder 
 
@@ -117,11 +142,15 @@ Printing contents of readme.md:
 
 **********************************************************************
 
-Data directory missing!
+Found following files in results directory: 1801.csv.txt, 1802.csv.txt, 1803.csv.txt, 1800.csv.txt, .gitignore...
+ideally, Results directory should be empty other than, perhaps, a readme. 
 
-Found following files in results directory: ...
+Found 12 code files: ConcatenateTwoFiles.sh, CountLines.sh, variables.sh, CompileLaTeX.sh, tiff2png.sh, wgit.txt, csvtospace.sh, FirstExample.tex, MyExampleScript.sh, UnixPrac1.txt, tabtocsv.sh, boilerplate.sh
 
-Found 11 code files: ConcatenateTwoFiles.sh, CountLines.sh, variables.sh, CompileLaTeX.sh, tiff2png.sh, csvtospace.sh, FirstExample.tex, MyExampleScript.sh, UnixPrac1.txt, tabtocsv.sh, boilerplate.sh
+Found the following extra files: tmpfile, LaTeX
+0.5 pt deducted per extra file
+
+Current Points = 99.0
 
 ======================================================================
 Testing script/code files...
@@ -293,29 +322,29 @@ rm: cannot remove '*.out': No such file or directory
 rm: cannot remove '*.snm': No such file or directory
 rm: cannot remove '*.toc': No such file or directory
 
-** (evince:8017): WARNING **: Error when getting information for file '/home/mhasoba/Documents/Teaching/IC_CMEE/2019-20/Coursework/StudentRepos/VictoriaBlanchard_VLB19/Week1/code/.pdf': No such file or directory
+** (evince:11683): WARNING **: Error when getting information for file '/home/mhasoba/Documents/Teaching/IC_CMEE/2019-20/Coursework/StudentRepos/VictoriaBlanchard_VLB19/Week1/code/.pdf': No such file or directory
 
-** (evince:8017): WARNING **: Error setting file metadata: No such file or directory
+** (evince:11683): WARNING **: Error setting file metadata: No such file or directory
 
-** (evince:8017): WARNING **: Error setting file metadata: No such file or directory
+** (evince:11683): WARNING **: Error setting file metadata: No such file or directory
 
-** (evince:8017): WARNING **: Error setting file metadata: No such file or directory
+** (evince:11683): WARNING **: Error setting file metadata: No such file or directory
 
-** (evince:8017): WARNING **: Error setting file metadata: No such file or directory
+** (evince:11683): WARNING **: Error setting file metadata: No such file or directory
 
-** (evince:8017): WARNING **: Error setting file metadata: No such file or directory
+** (evince:11683): WARNING **: Error setting file metadata: No such file or directory
 
-** (evince:8017): WARNING **: Error setting file metadata: No such file or directory
+** (evince:11683): WARNING **: Error setting file metadata: No such file or directory
 
-** (evince:8017): WARNING **: Error setting file metadata: No such file or directory
+** (evince:11683): WARNING **: Error setting file metadata: No such file or directory
 
-** (evince:8017): WARNING **: Error setting file metadata: No such file or directory
+** (evince:11683): WARNING **: Error setting file metadata: No such file or directory
 
-** (evince:8017): WARNING **: Error setting file metadata: No such file or directory
+** (evince:11683): WARNING **: Error setting file metadata: No such file or directory
 
-** (evince:8017): WARNING **: Error setting file metadata: No such file or directory
+** (evince:11683): WARNING **: Error setting file metadata: No such file or directory
 
-** (evince:8017): WARNING **: Error setting file metadata: No such file or directory
+** (evince:11683): WARNING **: Error setting file metadata: No such file or directory
 
 ======================================================================
 Inspecting script file tiff2png.sh...
@@ -349,6 +378,15 @@ convert: unable to open image `*.tif': No such file or directory @ error/blob.c/
 convert: no images defined `*.tif.jpg' @ error/convert.c/ConvertImageCommand/3210.
 
 ======================================================================
+Inspecting script file wgit.txt...
+
+File contents are:
+**********************************************************************
+**********************************************************************
+
+Testing wgit.txt...
+
+======================================================================
 Inspecting script file csvtospace.sh...
 
 File contents are:
@@ -374,11 +412,20 @@ Testing csvtospace.sh...
 Output (only first 500 characters): 
 
 **********************************************************************
+Creating a space delimited version of 1800.csv
+Done!
+Creating a space delimited version of 1801.csv
+Done!
+Creating a space delimited version of 1802.csv
+Done!
+Creating a space delimited version of 1803.csv
+Done!
 
 **********************************************************************
 
-Encountered error (or warning):
-ls: cannot access '../data/Temperatures/*.csv': No such file or directory
+Code ran without errors
+
+Time consumed = 0.02323s
 
 ======================================================================
 Inspecting script file FirstExample.tex...
@@ -454,7 +501,7 @@ Hello mhasoba
 
 Code ran without errors
 
-Time consumed = 0.00979s
+Time consumed = 0.00525s
 
 ======================================================================
 Inspecting script file UnixPrac1.txt...
@@ -484,7 +531,7 @@ Inspecting script file tabtocsv.sh...
 
 File contents are:
 **********************************************************************
-!/bin/bash
+#!/bin/bash
 # Author: Victoria Blanchard vlb19@imperial.ac.uk
 # Script: tabtocsv.sh
 # Desc: substitute the tabs in the files with commas 
@@ -493,7 +540,7 @@ File contents are:
 # Date: 1 October 2019 
 
 echo "Creating a comma delimited version of $1 ..."
-cat $1 | tr -s "\t" "," >> $1.csv
+cat $1 | tr -s "\t" "," >> $1.csv 
 echo "Done!"
 exit **********************************************************************
 
@@ -507,8 +554,9 @@ Done!
 
 **********************************************************************
 
-Encountered error (or warning):
-tabtocsv.sh: line 1: !/bin/bash: No such file or directory
+Code ran without errors
+
+Time consumed = 0.01192s
 
 ======================================================================
 Inspecting script file boilerplate.sh...
@@ -544,19 +592,19 @@ This is a shell script
 
 Code ran without errors
 
-Time consumed = 0.00243s
+Time consumed = 0.00734s
 
 ======================================================================
 ======================================================================
 Finished running scripts
 
-Ran into 7 errors
+Ran into 5 errors
 
 ======================================================================
 ======================================================================
 
 FINISHED WEEKLY ASSESSMENT
 
-Current Points for the Week = 100
+Current Points for the Week = 99.0
 
 NOTE THAT THESE ARE POINTS, NOT MARKS FOR THE WEEK!

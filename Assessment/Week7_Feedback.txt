@@ -9,11 +9,11 @@ Note that:
 
 ======================================================================
 ======================================================================
-Your Git repo size this week is about 18.90 MiB on disk 
+Your Git repo size this week is about 20.55 MiB on disk 
 
 PART 1: Checking project workflow...
 
-Found the following directories in parent directory: Week6, Week1, Week7, Assessment, Week5, Week2, Week4, .git, SeminarDiary, Week3, MiniProject
+Found the following directories in parent directory: Week6, Week1, Week7, Assessment, Week5, Week2, Week9, Week4, .git, SeminarDiary, Week3, Project, MiniProject
 
 Found the following files in parent directory: README.txt, .gitignore
 
@@ -28,20 +28,47 @@ Printing contents of .gitignore:
 *.bbl
 *.blg
 *.pdf
-__pycache__**********************************************************************
+*.gz
+*.rda
+results
+Week6/genomics_and_bioinformatics
+Project/ProjectProposal
+Project/Practice_Genetics
+.png
+__pycache__
+. -size +50M
+**********************************************************************
 
 Found README in parent directory, named: README.txt
 
 Printing contents of README.txt:
 **********************************************************************
 My CMEE Coursework Repository
-Do I like this better?
+
+Week 1 - Unix and Bash tutorials
+
+Week 2 - Introduction to Python
+
+Week 3 - Introduction to R
+
+Week 4 - Learning statistics
+
+Week 5 - Putting statistics into practice
+
+Week 6 - Genetics practicals
+
+Week 7 - Advanced Python
+
+Week 9 - HPC Week 
+
+MiniProject - Ongoing miniproject on Functional Responses
+
 **********************************************************************
 
 ======================================================================
 Looking for the weekly directories...
 
-Found 7 weekly directories: Week1, Week2, Week3, Week4, Week5, Week6, Week7
+Found 8 weekly directories: Week1, Week2, Week3, Week4, Week5, Week6, Week7, Week9
 
 The Week7 directory will be assessed 
 
@@ -54,18 +81,38 @@ Assessing WEEK7...
 
 Found the following directories: code, sandbox, data, results
 
-Found the following files: 
+Found the following files: readme.txt
 
 Checking for readme file in weekly directory...
 
-README file missing, 1 pt deducted
+Found README in parent directory, named: readme.txt
 
-Current Points = 99
+Printing contents of readme.txt:
+**********************************************************************
+Files:
 
-Found following files in results directory: TestR.Rout, fmr_plot.pdf, LV_model2.pdf, LV_model.pdf, DrawFW.pdf, TestR_errFile.Rout...
+blackbirds.py  
+fmr.R   
+LV2.py  
+MyFirstJupyterNb.ipynb  
+Nets.R         
+profileme.py  
+run_fmr_R.py  
+TestR.py  
+using_os.py
+DrawFW.py      
+LV1.py  
+LV3.py  
+Nets.py                 
+profileme2.py  
+runLVs.py     
+TestR.R   
+timeitme.py**********************************************************************
+
+Found following files in results directory: TestR.Rout, fmr_plot.pdf, Nets.svg, LV_model2.pdf, LV_model.pdf, LV2_model.pdf, DrawFW.pdf, TestR_errFile.Rout, QMEENet.svg...
 ideally, Results directory should be empty other than, perhaps, a readme. 
 
-Found 15 code files: TestR.py, runLVs.py, profileme2.py, timeitme.py, blackbirds.py, TestR.R, profileme.py, fmr.R, MyFirstJupyterNb.ipynb, using_os.py, LV1.py, DrawFW.py, run_fmr_R.py, LV2.py, MyFirstJupyterNb-checkpoint.ipynb
+Found 18 code files: TestR.py, runLVs.py, LV3.py, profileme2.py, timeitme.py, blackbirds.py, Nets.py, TestR.R, profileme.py, fmr.R, MyFirstJupyterNb.ipynb, using_os.py, LV1.py, DrawFW.py, Nets.R, run_fmr_R.py, LV2.py, MyFirstJupyterNb-checkpoint.ipynb
 
 ======================================================================
 Testing script/code files...
@@ -76,6 +123,11 @@ Inspecting script file TestR.py...
 File contents are:
 **********************************************************************
 #!/usr/bin/env python
+
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: TestR.py
+# Date: 25 November 2019
+""" Open a Rscript in an R shell within R"""
 
 ## Imports
 import subprocess
@@ -91,10 +143,9 @@ TestR.py is a Python script file;
 
 checking for docstrings...
 
-No functions, but no script-level docstring either
-2 pts deducted
+Found no functions, but one docstring for the script, good
 
-Current Points = 97
+Current Points = 100
 
 Output (only first 500 characters): 
 
@@ -104,7 +155,7 @@ Output (only first 500 characters):
 
 Code ran without errors
 
-Time consumed = 0.21088s
+Time consumed = 0.27944s
 
 ======================================================================
 Inspecting script file runLVs.py...
@@ -112,6 +163,13 @@ Inspecting script file runLVs.py...
 File contents are:
 **********************************************************************
 #!/usr/bin/env python3
+
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: runLVs.py
+# Date: 25 November 2019
+
+""" A python script that runs the LV python scripts
+using inputs from system arguments"""
 
 import timeit
 import scipy as sc
@@ -122,6 +180,7 @@ import cProfile
 # Import the functions 
 from LV1 import dCR_dt as LV1Script 
 from LV2 import dCR_dt as LV2Script
+from LV3 import LV3_script
 
 # Set parameters
 r = float(sys.argv[1]) 
@@ -152,10 +211,9 @@ runLVs.py is a Python script file;
 
 checking for docstrings...
 
-No functions, but no script-level docstring either
-2 pts deducted
+Found no functions, but one docstring for the script, good
 
-Current Points = 95
+Current Points = 100
 
 Output (only first 500 characters): 
 
@@ -165,17 +223,157 @@ Output (only first 500 characters):
 
 Encountered error (or warning):
 Traceback (most recent call last):
-  File "runLVs.py", line 11, in <module>
-    from LV2 import dCR_dt as LV2Script
-  File "/home/mhasoba/Documents/Teaching/IC_CMEE/2019-20/Coursework/StudentRepos/VictoriaBlanchard_VLB19/Week7/code/LV2.py", line 32, in <module>
+  File "runLVs.py", line 19, in <module>
+    from LV3 import LV3_script
+  File "/home/mhasoba/Documents/Teaching/IC_CMEE/2019-20/Coursework/StudentRepos/VictoriaBlanchard_VLB19/Week7/code/LV3.py", line 45
+    RC0 = sc.array([R0, C0])RC = np.zeros([rows,2])
+                             ^
+SyntaxError: invalid syntax
+
+======================================================================
+Inspecting script file LV3.py...
+
+File contents are:
+**********************************************************************
+#!/usr/bin/env python3
+
+### Plotting in Python
+### Numerical integration using scipy
+## The Lotka-Volterra model
+
+import scipy as sc
+import scipy.linalg
+import scipy.integrate as integrate
+import sys
+import matplotlib.pylab as p
+import numpy as np
+
+# Define function 
+def DiscreteTime(RC, t=0): 
+    R = RC[0]
+    C = RC[1]
+    RNew = R * ((1 + r * (1 - R/K)- a * C))
+    CNew = C * (1 - z + e * a * R)
+    return sc.array([RNew, CNew])
+
+# assign parameter values
+if len(sys.argv) == 5:
+
     r = float(sys.argv[1]) #intrinsic growth rate of the resource population
-IndexError: list index out of range
+    a = float(sys.argv[2]) #per captita search rate fore the resource (area x time^-1)
+    z = float(sys.argv[3]) #mortality rate
+    e = float(sys.argv[4]) #consumer efficiency
+    K = float(sys.argv[5])
+else: 
+    r = 1. #intrinsic growth rate of the resource population
+    a = 0.1 #per captita search rate fore the resource (area x time^-1)
+    z = 1.5 #mortality rate
+    e = 0.75 #consumer efficiency
+    K = 35
+
+#define time vector integrating from time point 0 to 30 using 1000 sub-divisions of time
+timeseries = list(range(1,10))
+timeseries = list(sc.linspace(1,15,100))
+rows = len(timeseries)+1
+
+#define time vector integrating from time point 0 to 30 using 1000 sub-divisions of time
+timeseries = list(range(1,10))# Setting the initial conditions for the two populations (10 resources and 5 consumers per unit area), and convert the two into an array (because our function takes an array as input)R0 = 10
+C0 = 5
+RC0 = sc.array([R0, C0])RC = np.zeros([rows,2])
+RC[:1] = RC0
+RC
+RC[0,0]
+# Run discrete-time version of the LV modelfor t in timeseries:
+    print(t)for t in timeseries:
+    RC[t,0] = RC[t-1,0] * ((1 + r * (1 - RC[t-1,0]/K)- a * RC[t-1,1]))
+    RC[t,1] = RC[t-1,1] * (1 - z + e*a* RC[t-1,1])
+    
+# Setting the initial conditions for the two populations (10 resources and 5 consumers 
+# per unit area), and convert the two into an array (because our function takes an array as input)
+R0 = 10
+C0 = 5
+RC0 = sc.array([R0, C0])
+RC = np.zeros([rows,2])
+RC[:1] = RC0
+
+# Run discrete-time version of the LV modelfor t in timeseries:
+
+for row in RC0:
+    for t in timeseries:
+        indexvalue = timeseries.index(t)
+        RC0 = np.append(RC0,DiscreteTime(RC0[indexvalue],t))
+
+# Add start time point 
+timeseries.insert(0,0)
+
+#### Plotting Figures
+
+fig, (ax1, ax2) = p.subplots(1,2) # creating two graph plotting areas 
+
+## Plot graph 1
+ax1.plot(timeseries, RC[:,0], 'g-', label='Resource density') 
+ax1.plot(timeseries, RC[:,1], 'b-', label='Consumer density')
+ax1.grid()
+ax1.legend(loc='best')
+ax1.set(xlabel = 'Time', ylabel = 'Population density')
+
+## Plot graph 2
+ax2.plot(RC[:,0], RC[:,1], 'r-', label="Resource density")
+ax2.grid()
+ax2.set(xlabel = 'Resource Density', ylabel = 'Consumer Density')
+
+## Add parameter values to graph
+labelr = ' '.join(("r = ", str(r)))
+labela = ' '.join(("a = ", str(a)))
+labelz = ' '.join(("z = ", str(z)))
+labele = ' '.join(("e = ", str(e)))
+parameterlabels = '\n'.join((labelr,labela,labelz,labele))
+boxproperties = dict(boxstyle='round', facecolor='white', alpha=0.5)
+ax2.text(0.1, 0.95, parameterlabels, transform=ax2.transAxes, fontsize=9, verticalalignment='top', bbox=boxproperties)
+
+## Put super title over the two graphs
+fig.suptitle('Consumer-Resource population dynamics')
+
+## Save figure to results folder
+fig.savefig('../results/LV3_model.pdf')
+**********************************************************************
+
+Testing LV3.py...
+
+LV3.py is a Python script file;
+
+checking for docstrings...
+
+Found one or more functions, but completely missing docstrings
+2 pts deducted for missing docstring for script, and .5 pt deducted per missing docstring for function
+
+Current Points = 97.5
+
+Output (only first 500 characters): 
+
+**********************************************************************
+
+**********************************************************************
+
+Encountered error (or warning):
+  File "LV3.py", line 45
+    RC0 = sc.array([R0, C0])RC = np.zeros([rows,2])
+                             ^
+SyntaxError: invalid syntax
 
 ======================================================================
 Inspecting script file profileme2.py...
 
 File contents are:
 **********************************************************************
+#!/usr/bin/env python3
+
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: profileme2.py
+# Date: 25 November 2019
+
+""" another script to demonstrate profiling in python"""
+
 def my_squares(iters):
     out = [i ** 2 for i in range(iters)]
     return out
@@ -200,10 +398,11 @@ profileme2.py is a Python script file;
 
 checking for docstrings...
 
-Found one or more functions, but completely missing docstrings
-2 pts deducted for missing docstring for script, and .5 pt deducted per missing docstring for function
+Found one or more docstrings and functions
 
-Current Points = 91.5
+Missing docstring, either in one or functions and/or at the script level
+
+Current Points = 96.0
 
 Output (only first 500 characters): 
 
@@ -214,15 +413,21 @@ Output (only first 500 characters):
 
 Code ran without errors
 
-Time consumed = 3.66608s
+Time consumed = 3.63609s
 
 ======================================================================
 Inspecting script file timeitme.py...
 
 File contents are:
 **********************************************************************
+#!/usr/bin/env python3
+
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: timeitme.py
+# Date: 25 November 2019
+
 ##############################################################################
-# loops vs. list comprehensions: which is faster?
+""" loops vs. list comprehensions: which is faster? """
 ##############################################################################
 
 iters = 1000000
@@ -249,10 +454,9 @@ timeitme.py is a Python script file;
 
 checking for docstrings...
 
-No functions, but no script-level docstring either
-2 pts deducted
+Found no functions, but one docstring for the script, good
 
-Current Points = 89.5
+Current Points = 96.0
 
 Output (only first 500 characters): 
 
@@ -262,7 +466,7 @@ Output (only first 500 characters):
 
 Code ran without errors
 
-Time consumed = 10.01246s
+Time consumed = 10.00466s
 
 ======================================================================
 Inspecting script file blackbirds.py...
@@ -270,6 +474,12 @@ Inspecting script file blackbirds.py...
 File contents are:
 **********************************************************************
 #!/usr/bin/env python3
+
+""" Print Kingdom, Phylum, and Species from a CSV"""
+
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: blackbirds.py
+# Date: 25 November 2019
 
 ### Imports
 import re
@@ -306,10 +516,9 @@ blackbirds.py is a Python script file;
 
 checking for docstrings...
 
-No functions, but no script-level docstring either
-2 pts deducted
+Found no functions, but one docstring for the script, good
 
-Current Points = 87.5
+Current Points = 96.0
 
 Output (only first 500 characters): 
 
@@ -335,13 +544,124 @@ Species Agelaius
 
 Code ran without errors
 
-Time consumed = 0.02987s
+Time consumed = 0.03305s
+
+======================================================================
+Inspecting script file Nets.py...
+
+File contents are:
+**********************************************************************
+#!/usr/bin/env python3
+
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: Nets.py
+# Date: 25 October 2019
+
+""" This program creates a network model of interactions between 
+university-affiliated institutions """
+
+# ARGUMENTS
+# degrees:   The angle of elevation of tree
+# distance:  The distance from base of tree (e.g., meters)
+
+# OUTPUT
+# Network model figure in results folder
+
+
+### Imports
+import networkx as nx
+import scipy as sc
+import matplotlib.pylab as p
+import csv
+import pandas
+import numpy as np
+
+
+### Import csv files 
+links = pandas.read_csv('../data/QMEE_Net_Mat_edges.csv', header =0)
+nodes = pandas.read_csv('../data/QMEE_Net_Mat_nodes.csv', header =0)
+
+### Generate an adjacency list representing a food web
+
+#create indicies for each row in the links data frame
+links.index = ["ICL", "UoR", "CEH", "ZSL", "CEFAS", "NonAc"]
+#stack the data frame into three columns
+links = links.stack().reset_index()
+links = links[(links != 0).all(1)]
+AdjL = sc.array(links)
+AdjL = np.delete(AdjL,2,1)
+
+AdjL
+
+### Save university ID (node) data
+#Sps = nodes.iloc[:,0]# get University ids
+Sps = sc.unique(AdjL)
+Sps
+### Use a circular configuration
+
+pos = nx.circular_layout(Sps) # calculate the coordinates using networkx
+
+# Generate a networkx graph object
+G = nx.Graph()
+
+# Add nodes and links to it
+G.add_nodes_from(Sps)
+G.add_edges_from(AdjL)
+
+colours = ['lime', 'lime', 'blue', 'red', 'blue', 'lime']
+# Generate node sizes that are proportional to (log) body sizes
+#NodSizs= 1000 * (Sizs-min(Sizs))/(max(Sizs)-min(Sizs)) 
+#Need to make arrow size
+
+# Render the graph 
+f3 = p.figure()
+nx.draw_networkx(G, pos, node_size = 4500, node_color = colours, arrowsize=20, arrowstyle='fancy')
+nx.coloring.greedy_color(G, strategy = 'independent_set')
+
+# Save file
+f3.savefig('../results/Nets.svg')
+
+
+
+**********************************************************************
+
+Testing Nets.py...
+
+Nets.py is a Python script file;
+
+checking for docstrings...
+
+Found no functions, but one docstring for the script, good
+
+Current Points = 96.0
+
+Output (only first 500 characters): 
+
+**********************************************************************
+
+**********************************************************************
+
+Encountered error (or warning):
+/usr/lib/python3/dist-packages/networkx/drawing/nx_pylab.py:522: MatplotlibDeprecationWarning: The is_string_like function was deprecated in version 2.1.
+  if not cb.is_string_like(edge_color) \
+/usr/lib/python3/dist-packages/networkx/drawing/nx_pylab.py:543: MatplotlibDeprecationWarning: The is_string_like function was deprecated in version 2.1.
+  if cb.is_string_like(edge_color) or len(edge_color) == 1:
+/usr/lib/python3/dist-packages/networkx/drawing/nx_pylab.py:724: MatplotlibDeprecationWarning: The is_string_like function was deprecated in version 2.1.
+  if not cb.is_string_like(label):
+Traceback (most recent call last):
+  File "Nets.py", line 66, in <module>
+    nx.coloring.greedy_color(G, strategy = 'independent_set')
+  File "/usr/lib/python3/dist-packages/networkx/algorithms/coloring/greedy_coloring.py", line 272, in greedy_color
+    nodes = strategy(G, colors)
+TypeError: 'str' object is not callable
 
 ======================================================================
 Inspecting script file TestR.R...
 
 File contents are:
 **********************************************************************
+#!/usr/bin/env Rscript
+
 print("Hello, this is R!")**********************************************************************
 
 Testing TestR.R...
@@ -355,14 +675,21 @@ Output (only first 500 characters):
 
 Code ran without errors
 
-Time consumed = 0.09718s
+Time consumed = 0.09979s
 
 ======================================================================
 Inspecting script file profileme.py...
 
 File contents are:
 **********************************************************************
-#
+#!/usr/bin/env python3
+
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: profileme.py
+# Date: 25 November 2019
+
+""" Create a script to use in profiling. 
+Tutorial on profiling in python """
 
 def my_squares(iters):
     out = []
@@ -390,10 +717,11 @@ profileme.py is a Python script file;
 
 checking for docstrings...
 
-Found one or more functions, but completely missing docstrings
-2 pts deducted for missing docstring for script, and .5 pt deducted per missing docstring for function
+Found one or more docstrings and functions
 
-Current Points = 84.0
+Missing docstring, either in one or functions and/or at the script level
+
+Current Points = 94.5
 
 Output (only first 500 characters): 
 
@@ -404,7 +732,7 @@ Output (only first 500 characters):
 
 Code ran without errors
 
-Time consumed = 6.53760s
+Time consumed = 7.30035s
 
 ======================================================================
 Inspecting script file fmr.R...
@@ -452,7 +780,7 @@ Finished in R!
 
 Code ran without errors
 
-Time consumed = 0.22750s
+Time consumed = 0.18255s
 
 ======================================================================
 Inspecting script file MyFirstJupyterNb.ipynb...
@@ -1416,7 +1744,16 @@ File contents are:
 **********************************************************************
 #!/usr/bin/env python3
 
-# Imports
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: using_os.py
+# Date: 25 November 2019
+
+""" Tutorial on using the os module in python
+goes through your own directories and returns
+file names starting with "C"
+"""
+
+### Imports
 import os
 import subprocess
 
@@ -1456,21 +1793,20 @@ using_os.py is a Python script file;
 
 checking for docstrings...
 
-No functions, but no script-level docstring either
-2 pts deducted
+Found no functions, but one docstring for the script, good
 
-Current Points = 82.0
+Current Points = 94.5
 
 Output (only first 500 characters): 
 
 **********************************************************************
 /home/mhasoba
-['ExpanDrive', '.dbus', '.remmina', '.gitconfig', '.zoom', 'Music', '.VirtualBox', '.ssh', '.mume', '.jupyter', '.vscode', '.nano', '.bash_logout', '.mozilla', 'logpath', '.profile', '.python_history', '.sqlite_history', '.ipynb_checkpoints', '.fontconfig', '.bashrc', '.dropbox', '.gtk-bookmarks', '.unison', '.Skype', '.gnome', '.ICEauthority', '.pylint.d', '.desktop_items.txt', '.QtWebEngineProcess', '.julia', '.aspnet', '.sage', '.gphoto', '.sudo_as_admin_successful', 'Desktop', '
+['.dbus', '.remmina', '.gitconfig', '.zoom', 'Music', '.VirtualBox', '.ssh', '.mume', '.jupyter', '.vscode', '.nano', '.bash_logout', '.mozilla', 'logpath', '.profile', '.python_history', '.sqlite_history', '.ipynb_checkpoints', '.fontconfig', '.bashrc', '.dropbox', '.gtk-bookmarks', '.unison', '.Skype', '.gnome', '.ICEauthority', '.pylint.d', '.desktop_items.txt', '.QtWebEngineProcess', '.julia', '.aspnet', '.sage', '.gphoto', '.sudo_as_admin_successful', 'Desktop', '.cache', 'Pict
 **********************************************************************
 
 Encountered error (or warning):
 Traceback (most recent call last):
-  File "using_os.py", line 17, in <module>
+  File "using_os.py", line 26, in <module>
     FilesDirsStartingWithC = [filename for filename in os.listdir('/home/vlb19') if filename.startswith("C")]
 FileNotFoundError: [Errno 2] No such file or directory: '/home/vlb19'
 
@@ -1479,9 +1815,22 @@ Inspecting script file LV1.py...
 
 File contents are:
 **********************************************************************
-### Plotting in Python
-### Numerical integration using scipy
-## The Lotka-Volterra model
+#!/usr/bin/env python3
+
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: LV1.py
+# Date: 3 December 2019
+
+""" Plotting in Python 
+Numerical integration using scipy
+The Lotka-Volterra model
+"""
+
+# OUTPUT
+# Saves one figure with side-by-side plots of 
+# Consumer-Resource population dynamics
+
+### Imports
 
 import scipy as sc
 import scipy.linalg
@@ -1552,10 +1901,11 @@ LV1.py is a Python script file;
 
 checking for docstrings...
 
-Found one or more functions, but completely missing docstrings
-2 pts deducted for missing docstring for script, and .5 pt deducted per missing docstring for function
+Found one or more docstrings and functions
 
-Current Points = 79.5
+Missing docstring, either in one or functions and/or at the script level
+
+Current Points = 94.0
 
 Output (only first 500 characters): 
 
@@ -1565,18 +1915,32 @@ Output (only first 500 characters):
 
 Code ran without errors
 
-Time consumed = 0.82529s
+Time consumed = 1.01397s
 
 ======================================================================
 Inspecting script file DrawFW.py...
 
 File contents are:
 **********************************************************************
+#!/usr/bin/env python3
+
+""" Create a network plot using data from imported CSV """
+
+__appname__ = '[DrawFW.py]'
+__author__ = 'Victoria Blanchard (vlb19@ic.ac.uk)'
+__version__ = '0.0.1'
+__license__ = "License for this code/program"
 
 ### Imports
 import networkx as nx
 import scipy as sc
 import matplotlib.pylab as p
+import csv
+import pandas
+
+### Import csv files 
+edges = pandas.read_csv('../data/QMEE_Net_Mat_edges.csv', header =0)
+nodes = pandas.read_csv('../data/QMEE_Net_Mat_nodes.csv', header =0)
 
 ### Generate a synthetic food web
 def GenRdmAdjList(N = 2, C = 0.5):
@@ -1586,7 +1950,7 @@ def GenRdmAdjList(N = 2, C = 0.5):
     ALst = []
     for i in Ids:
         if sc.random.uniform(0,1,1) < C:
-            Lnk = sc.random.choice(Ids,2).tolist()
+             sLnk =c.random.choice(Ids,2).tolist()
             if Lnk[0] != Lnk[1]: #avoid self (e.g., cannibalistic) loops
                 ALst.append(Lnk)
     return ALst
@@ -1624,6 +1988,7 @@ G = nx.Graph()
 G.add_nodes_from(Sps)
 G.add_edges_from(tuple(AdjL))
 
+tuple(AdjL)
 # Generate node sizes that are proportional to (log) body sizes
 NodSizs= 1000 * (Sizs-min(Sizs))/(max(Sizs)-min(Sizs)) 
 
@@ -1646,9 +2011,7 @@ checking for docstrings...
 
 Found one or more docstrings and functions
 
-Missing docstring, either in one or functions and/or at the script level
-
-Current Points = 79.0
+Current Points = 94.0
 
 Output (only first 500 characters): 
 
@@ -1657,12 +2020,96 @@ Output (only first 500 characters):
 **********************************************************************
 
 Encountered error (or warning):
-/usr/lib/python3/dist-packages/networkx/drawing/nx_pylab.py:522: MatplotlibDeprecationWarning: The is_string_like function was deprecated in version 2.1.
-  if not cb.is_string_like(edge_color) \
-/usr/lib/python3/dist-packages/networkx/drawing/nx_pylab.py:543: MatplotlibDeprecationWarning: The is_string_like function was deprecated in version 2.1.
-  if cb.is_string_like(edge_color) or len(edge_color) == 1:
-/usr/lib/python3/dist-packages/networkx/drawing/nx_pylab.py:724: MatplotlibDeprecationWarning: The is_string_like function was deprecated in version 2.1.
-  if not cb.is_string_like(label):
+  File "DrawFW.py", line 30
+    if Lnk[0] != Lnk[1]: #avoid self (e.g., cannibalistic) loops
+                                                               ^
+IndentationError: unindent does not match any outer indentation level
+
+======================================================================
+Inspecting script file Nets.R...
+
+File contents are:
+**********************************************************************
+#!/usr/bin/env Rscript
+## Packages
+library(igraph) # Load the igraph package
+
+rm(list = ls())
+
+# 	ICL	UoR	CEH	ZSL	CEFAS	Nonacademic/CASE
+# ICL	0	0	10	9	5	70
+# UoR		0	12	0	2	76
+# CEH			0	0	0	6
+# ZSL			       0 	0	28
+# CEFAS			       0	0
+# Nonacademic/CASE                        0
+
+links <- read.csv("../data/QMEE_Net_Mat_edges.csv", header=T, as.is=T)
+nodes <- read.csv("../data/QMEE_Net_Mat_nodes.csv", header=T, row.names = 1)
+
+#Create graph object
+net <- graph.adjacency(as.matrix(links), mode = "directed", weighted=TRUE, diag=F)
+        
+#Test plot
+# plot(net, edge.arrow.size=1, edge.curved=.1,
+#      vertex.color="orange", vertex.frame.color="#555555",
+#      vertex.label=V(net)$Type, vertex.label.color="black",
+#      vertex.label.cex=.7) 
+
+# Generate colors based on partner type:
+colrs <- c("green", "red", "blue")
+V(net)$color <- colrs[nodes$Type]
+
+# Set node size based on Number of PIs:
+# V(net)$size <- V(net)$Pis*0.9
+
+V(net)$size <- 50
+
+# Set edge width based on weight (PhD Students):
+E(net)$width <- E(net)$weight
+
+#change arrow size and edge color:
+E(net)$arrow.size <- 1
+E(net)$edge.color <- "gray80"
+
+E(net)$width <- 1+E(net)$weight/10
+
+graphics.off()
+
+svg("../results/QMEENet.svg",width=7,height=7)
+
+plot(net, edge.curved=0, vertex.label.color="black") 
+
+legend(x=-1.5, y=-0.1, c("Hosting Partner", "Non-hosting Partner", "University"), pch=21,
+       col="#777777", pt.bg=colrs, pt.cex=2, cex=.8, bty="n", ncol=1)
+
+dev.off()
+
+**********************************************************************
+
+Testing Nets.R...
+
+Output (only first 500 characters): 
+
+**********************************************************************
+null device 
+          1 
+
+**********************************************************************
+
+Encountered error (or warning):
+Loading required package: methods
+
+Attaching package: ‘igraph’
+
+The following objects are masked from ‘package:stats’:
+
+    decompose, spectrum
+
+The following object is masked from ‘package:base’:
+
+    union
+
 
 ======================================================================
 Inspecting script file run_fmr_R.py...
@@ -1671,8 +2118,17 @@ File contents are:
 **********************************************************************
 #!/usr/bin/env python3
 
+# Author: Victoria Blanchard vlb19@imperial.ac.uk
+# Script: run_fmr_R.py
+# Date: 25 November 2019
+
+""" Execute an R script from a file within the 
+R shell in python terminal"""
+
+### Imports
 import subprocess
 
+### Script
 subprocess.call("/usr/bin/Rscript fmr.R", shell = True) #execute an R script found in fmr.R within the R shell**********************************************************************
 
 Testing run_fmr_R.py...
@@ -1681,10 +2137,9 @@ run_fmr_R.py is a Python script file;
 
 checking for docstrings...
 
-No functions, but no script-level docstring either
-2 pts deducted
+Found no functions, but one docstring for the script, good
 
-Current Points = 77.0
+Current Points = 94.0
 
 Output (only first 500 characters): 
 
@@ -1700,7 +2155,7 @@ Finished in R!
 
 Code ran without errors
 
-Time consumed = 0.20138s
+Time consumed = 0.21168s
 
 ======================================================================
 Inspecting script file LV2.py...
@@ -1709,9 +2164,14 @@ File contents are:
 **********************************************************************
 #!/usr/bin/env python3
 
-### Plotting in Python
-### Numerical integration using scipy
-## The Lotka-Volterra model
+""" Plotting in Python
+Numerical integration using scipy
+The Lotka-Volterra model """
+
+__appname__ = '[LV2.py]'
+__author__ = 'Victoria Blanchard (vlb19@ic.ac.uk)'
+__version__ = '0.0.1'
+__license__ = "License for this code/program"
 
 import scipy as sc
 import scipy.linalg
@@ -1732,17 +2192,20 @@ def dCR_dt(pops, t=0):
 type(dCR_dt)
 
 # assign parameter values
-r = 1. #intrinsic growth rate of the resource population
-a = 0.1 #per captita search rate fore the resource (area x time^-1)
-z = 1.5 #mortality rate
-e = 0.75 #consumer efficiency
+if len(sys.argv) == 5:
 
+    r = float(sys.argv[1]) #intrinsic growth rate of the resource population
+    a = float(sys.argv[2]) #per captita search rate fore the resource (area x time^-1)
+    z = float(sys.argv[3]) #mortality rate
+    e = float(sys.argv[4]) #consumer efficiency
+    K = float(sys.argv[5])
+else: 
+    r = 1. #intrinsic growth rate of the resource population
+    a = 0.1 #per captita search rate fore the resource (area x time^-1)
+    z = 1.5 #mortality rate
+    e = 0.75 #consumer efficiency
+    K = 35
 
-r = float(sys.argv[1]) #intrinsic growth rate of the resource population
-a = float(sys.argv[2]) #per captita search rate fore the resource (area x time^-1)
-z = float(sys.argv[3]) #mortality rate
-e = float(sys.argv[4]) #consumer efficiency
-K = 35
 
 #define time vector integrating from time point 0 to 15 using 1000 sub-divisions of time
 t = sc.linspace(0, 30, 1000)
@@ -1801,10 +2264,11 @@ LV2.py is a Python script file;
 
 checking for docstrings...
 
-Found one or more functions, but completely missing docstrings
-2 pts deducted for missing docstring for script, and .5 pt deducted per missing docstring for function
+Found one or more docstrings and functions
 
-Current Points = 74.5
+Missing docstring, either in one or functions and/or at the script level
+
+Current Points = 93.5
 
 Output (only first 500 characters): 
 
@@ -1812,11 +2276,9 @@ Output (only first 500 characters):
 
 **********************************************************************
 
-Encountered error (or warning):
-Traceback (most recent call last):
-  File "LV2.py", line 32, in <module>
-    r = float(sys.argv[1]) #intrinsic growth rate of the resource population
-IndexError: list index out of range
+Code ran without errors
+
+Time consumed = 0.75204s
 
 ======================================================================
 Inspecting script file MyFirstJupyterNb-checkpoint.ipynb...
@@ -2013,13 +2475,13 @@ Testing MyFirstJupyterNb-checkpoint.ipynb...
 ======================================================================
 Finished running scripts
 
-Ran into 4 errors
+Ran into 6 errors
 
 ======================================================================
 ======================================================================
 
 FINISHED WEEKLY ASSESSMENT
 
-Current Points for the Week = 74.5
+Current Points for the Week = 93.5
 
 NOTE THAT THESE ARE POINTS, NOT MARKS FOR THE WEEK!

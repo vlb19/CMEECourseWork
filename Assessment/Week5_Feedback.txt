@@ -1,0 +1,102 @@
+Starting weekly assessment for Victoria, Week5
+
+Current Points = 100
+
+Note that: 
+(1) Major sections begin with a double "====" line 
+(2) Subsections begin with a single "====" line 
+(3) Code output or text file content are printed within single "*****" lines 
+
+======================================================================
+======================================================================
+Your Git repo size this week is about 20.55 MiB on disk 
+
+PART 1: Checking project workflow...
+
+Found the following directories in parent directory: Week6, Week1, Week7, Assessment, Week5, Week2, Week9, Week4, .git, SeminarDiary, Week3, Project, MiniProject
+
+Found the following files in parent directory: README.txt, .gitignore
+
+Checking for key files in parent directory...
+
+Found .gitignore in parent directory, great! 
+
+Printing contents of .gitignore:
+**********************************************************************
+*~ 
+*.tmp
+*.bbl
+*.blg
+*.pdf
+*.gz
+*.rda
+results
+Week6/genomics_and_bioinformatics
+Project/ProjectProposal
+Project/Practice_Genetics
+.png
+__pycache__
+. -size +50M
+**********************************************************************
+
+Found README in parent directory, named: README.txt
+
+Printing contents of README.txt:
+**********************************************************************
+My CMEE Coursework Repository
+
+Week 1 - Unix and Bash tutorials
+
+Week 2 - Introduction to Python
+
+Week 3 - Introduction to R
+
+Week 4 - Learning statistics
+
+Week 5 - Putting statistics into practice
+
+Week 6 - Genetics practicals
+
+Week 7 - Advanced Python
+
+Week 9 - HPC Week 
+
+MiniProject - Ongoing miniproject on Functional Responses
+
+**********************************************************************
+
+======================================================================
+Looking for the weekly directories...
+
+Found 8 weekly directories: Week1, Week2, Week3, Week4, Week5, Week6, Week7, Week9
+
+The Week5 directory will be assessed 
+
+======================================================================
+======================================================================
+PART 2: Checking weekly code and workflow...
+
+======================================================================
+Assessing WEEK5...
+
+Found the following directories: 
+
+Found the following files: The Chihuahuan Desert Ecosystem.docx, rodents.R, GISSandbox.R, .~lock.rodents.pptx#, p=1, key.length = 1, key.pos = 1), rodents.csv, .Rhistory, .RData, rodents.pptx
+
+Checking for readme file in weekly directory...
+
+README file missing, 1 pt deducted
+
+Current Points = 99
+
+Code directory missing!
+Aborting this weeks assessment!
+
+======================================================================
+======================================================================
+
+FINISHED WEEKLY ASSESSMENT
+
+Current Points for the Week = 99
+
+NOTE THAT THESE ARE POINTS, NOT MARKS FOR THE WEEK!
