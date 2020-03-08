@@ -14,7 +14,7 @@
 
 #Clear global environment
 rm(list=ls()) 
-
+    
 ###############################################
 ### Import Packages ###
 ###############################################
@@ -294,41 +294,6 @@ for (i in 1:length(OptStartValueTable$ID)){
 )
 
 #######################################################
-### Write function to plot models on raw data ###
-#######################################################
-
-Plotting <- function(i, datatry) {
-  
-  pdf(paste('Models_for_ID#', OptStartValueTable[i,1], sep = ""))
-  
-  # Save x values into a variable
-  Lengths <- seq(min(datatry$ResDensity),max(datatry$ResDensity))
-
-  # Predict curves from data 
-  Predic2PlotQua <- predict.lm(QuaFit, data.frame(ResDensity = Lengths))
-  Predic2PlotCub <- predict.lm(CubFit, data.frame(ResDensity = Lengths))
-  Predic2PlotHol <- HollingII(Lengths,coef(HolFit)["a"],coef(HolFit)["h"])
-  Predic2PlotGen <- GenMod(Lengths,coef(GenFit)["a"],coef(GenFit)["h"], coef(GenFit)["q"])
-
-  # Plot raw data points
-  plot(datatry$ResDensity, datatry$N_TraitValue,
-  xlab = "Resource Density", ylab = "Consumption rate")
-  title(main = c("Model curves for ID number: ", OptStartValueTable[i,1]))
-  legend("bottomright", "models", c("Quadratic \n", "Cubic \n", "Holling II \n", "Generalised \nHolling Model"), border = "o",
-         col = colours, cex = 0.8)
-  
-  # Create vector of colour options
-  colours = c('red', 'orange', 'green', 'blue')
-  lines(Lengths, Predic2PlotQua, col = colours[1], lwd = 1.5)
-  lines(Lengths, Predic2PlotCub, col = colours[2], lwd = 1.5)
-  lines(Lengths, Predic2PlotGen, col = colours[3], lwd = 1.5)
-  lines(Lengths, Predic2PlotHol, col = colours[4], lwd = 1.5)
-  
-  dev.off()
-  
-}
-
-#######################################################
 ### Re-run NLLS Fitting with optimised start values ###
 #######################################################
 
@@ -427,8 +392,6 @@ for (i in 1:length(OptStartValueTable[, 1])){
   # Store the model with the best AIC and the model with the best BIC in the final table
   OptFitsSummary[i, 5:8] <- BestAICandBIC(QuaFit, CubFit, HolFit, GenFit)
   
-  # Generate plots for each model for each ID
-  #ifelse(is.na(modelvec), print("NA values present for this ID. No plot generated"),Plotting(i, datatry))
 }
 )
 
@@ -444,6 +407,7 @@ MergedOptTable <- merge(OptFitsSummary,Covariates)
 
 # Add in a column describing if the model is mechanistic or phenomenological
 MergedOptTable$MecOrPhen <- ifelse(grepl("HolFit|GenFit", MergedOptTable$BestModelAIC), "Mechanistic", "Phenomenological")
+
 
 ###################################################
 ### Export results to csv file ###
