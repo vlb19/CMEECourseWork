@@ -9,6 +9,16 @@ results
 Week6/genomics_and_bioinformatics
 Project/ProjectProposal
 Project/Practice_Genetics
-.png
+*.png
 __pycache__
 . -size +50M
+Project/data
+Project/SummerWorkshop
+Week9/lectures*
+*.xlsx
+*.ods
+*.gz
+*.sam
+*.fasta
+*.fastq
+Project/Sschmeier_Genomics/analysis
